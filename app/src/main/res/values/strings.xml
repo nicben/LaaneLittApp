@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LåneLitt</string>
+    <string name="mine_eiendeler">Mine Eiendeler</string>
+    <string name="sok">Søk</string>
+    <string name="eiendel">Eiendel</string>
+    <string name="sokeresultat">Søkeresultat</string>
+</resources>
