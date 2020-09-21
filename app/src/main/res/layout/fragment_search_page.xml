@@ -1,38 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SearchPageFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sok"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        tools:context=".SearchPageFragment" >
 
-        <Button
-            android:id="@+id/sokKnapp"
-            android:layout_width="wrap_content"
+        <SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="384dp"
-            android:text="@string/sok"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_margin="20dp"
+            android:background="@drawable/search_border" />
 
-        <Button
-            android:id="@+id/mineEiendelerKnapp"
-            android:layout_width="wrap_content"
+        <TableLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="280dp"
-            android:text="@string/mine_eiendeler"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_margin="15dp"
+            android:orientation="vertical" >
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/verktoyKnapp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/verktoy"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/elKnapp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/el"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/instrumentKnapp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/instrument"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/klerKnapp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/kler"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/skoKnapp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/sko"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/bokerKnapp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/boker"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/sportKnapp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/sport"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/multiKnapp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/multi"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/divKnapp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/div"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
 </layout>
