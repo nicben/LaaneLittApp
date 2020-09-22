@@ -4,9 +4,61 @@
     <string name="sok">Søk</string>
     <string name="eiendel">Eiendel</string>
     <string name="sokeresultat">Søkeresultat</string>
+
     <string name="send_loan_request_pop">Send forespørsel</string>
     <string name="loan_request_popup_window">Velg ønsket tidspunkt for lån:</string>
     <string name="from_date">Fra dato</string>
     <string name="to_date">Til dato</string>
     <string name="send_request_item">SEND</string>
+
+    <string name="sko">Sko</string>
+    <string name="kler">Klær</string>
+    <string name="verktoy">Verktøy</string>
+    <string name="el">Elektronikk</string>
+    <string name="instrument">Instrument</string>
+    <string name="boker">Bøker</string>
+    <string name="sport">Sport</string>
+    <string name="multi">Multimedia</string>
+    <string name="div">Diverse</string>
+
+    <!--<string-array name="norske_fylker">
+        <item>Agder</item>
+        <item>Innlandet</item>
+        <item>Møre og Romsdal</item>
+        <item>Nordland</item>
+        <item>Oslo</item>
+        <item>Rogaland</item>
+        <item>Troms og Finnmark</item>
+        <item>Trøndelag</item>
+        <item>Vestfold og Telemark</item>
+        <item>Vestland</item>
+        <item>Viken</item>
+    </string-array>
+
+    <array name="kommune_vaapen">
+        <item>@drawable/riksvaapen</item>
+        <item>@drawable/aremark</item>
+        <item>@drawable/askim</item>
+        <item>@drawable/eidsberg</item>
+        <item>@drawable/fredrikstad</item>
+        <item>@drawable/halden</item>
+        <item>@drawable/hobol</item>
+        <item>@drawable/hvaler</item>
+        <item>@drawable/marker</item>
+        <item>@drawable/moss</item>
+        <item>@drawable/raade</item>
+        <item>@drawable/rakkestad</item>
+        <item>@drawable/romskog</item>
+        <item>@drawable/rygge</item>
+        <item>@drawable/sarpsborg</item>
+        <item>@drawable/skiptvet</item>
+        <item>@drawable/spydeberg</item>
+        <item>@drawable/trogstad</item>
+        <item>@drawable/vaaler_ostfold</item>
+    </array>
+
+     TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
 </resources>
