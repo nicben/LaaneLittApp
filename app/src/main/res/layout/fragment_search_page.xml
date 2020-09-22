@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
-        tools:context=".SearchPageFragment" >
+        tools:context=".seachpage.SearchPageFragment" >
 
         <SearchView
             android:id="@+id/search"
