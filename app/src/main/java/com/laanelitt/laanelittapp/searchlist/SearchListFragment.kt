@@ -1,10 +1,12 @@
-package com.laanelitt.laanelittapp
+package com.laanelitt.laanelittapp.searchlist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.laanelitt.laanelittapp.R
+
 //liste etter søk
 
 // TODO: Rename parameter arguments, choose names that match
