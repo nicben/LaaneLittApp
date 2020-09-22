@@ -8,12 +8,12 @@
     <fragment
         android:id="@+id/itemFragment"
         android:name="com.laanelitt.laanelittapp.ItemFragment"
-        android:label="fragment_item"
+        android:label="@string/eiendel"
         tools:layout="@layout/fragment_item" />
     <fragment
         android:id="@+id/searchPageFragment"
-        android:name="com.laanelitt.laanelittapp.SearchPageFragment"
-        android:label="fragment_search_page"
+        android:name="com.laanelitt.laanelittapp.seachpage.SearchPageFragment"
+        android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_search_page" >
         <action
             android:id="@+id/action_searchPageFragment_to_searchListFragment"
@@ -21,19 +21,25 @@
         <action
             android:id="@+id/action_searchPageFragment_to_myItemListFragment"
             app:destination="@id/myItemListFragment" />
+        <argument
+            android:name="catId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/searchListFragment"
         android:name="com.laanelitt.laanelittapp.SearchListFragment"
-        android:label="fragment_search_list"
+
         tools:layout="@layout/fragment_search_list" >
         <action
             android:id="@+id/action_searchListFragment_to_itemFragment"
             app:destination="@id/itemFragment" />
+        <argument
+            android:name="itemId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/myItemListFragment"
         android:name="com.laanelitt.laanelittapp.MyItemListFragment"
-        android:label="fragment_my_item_list"
+        android:label="@string/mine_eiendeler"
         tools:layout="@layout/fragment_my_item_list" />
 </navigation>

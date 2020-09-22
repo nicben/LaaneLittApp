@@ -1,10 +1,5 @@
 package com.laanelitt.laanelittapp
 
-
-
-//hovedside
-
-
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,20 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.laanelitt.laanelittapp.R
+import com.laanelitt.laanelittapp.database.ItemDatabase
 import com.laanelitt.laanelittapp.databinding.FragmentSearchPageBinding
 
 class SearchPageFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
 
         val binding = DataBindingUtil.inflate<FragmentSearchPageBinding>(
-            inflater,
-            R.layout.fragment_search_page, container, false
-        )
+            inflater, R.layout.fragment_search_page, container, false)
+
 
         //The complete onClickListener with Navigation
         binding.verktoyKnapp.setOnClickListener { view: View ->
