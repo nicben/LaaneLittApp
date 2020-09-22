@@ -14,6 +14,12 @@
     <string name="multi">Multimedia</string>
     <string name="div">Diverse</string>
 
+    <string name="send_loan_request_pop">Send forespørsel</string>
+    <string name="loan_request_popup_window">Velg ønsket tidspunkt for lån:</string>
+    <string name="from_date">Fra dato</string>
+    <string name="to_date">Til dato</string>
+    <string name="send_request_item">SEND</string>
+
     <string-array name="kategori">
         <item>VERKTØY</item>
         <item>ELEKTRONIKK</item>
