@@ -8,8 +8,12 @@
     <fragment
         android:id="@+id/itemFragment"
         android:name="com.laanelitt.laanelittapp.ItemFragment"
-        android:label="@string/eiendel"
-        tools:layout="@layout/fragment_item" />
+        android:label="fragment_item"
+        tools:layout="@layout/fragment_item" >
+        <action
+            android:id="@+id/action_itemFragment_to_loanRequestPopupFragment"
+            app:destination="@id/loanRequestPopupFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchPageFragment"
         android:name="com.laanelitt.laanelittapp.searchpage.SearchPageFragment"
@@ -42,4 +46,11 @@
         android:name="com.laanelitt.laanelittapp.MyItemListFragment"
         android:label="@string/mine_eiendeler"
         tools:layout="@layout/fragment_my_item_list" />
+    <fragment
+        android:id="@+id/loanRequestPopupFragment"
+        android:name="com.laanelitt.laanelittapp.LoanRequestPopupFragment"
+        android:label="fragment_loan_request_popup"
+        tools:layout="@layout/fragment_layout_popup"/>
+
+
 </navigation>
