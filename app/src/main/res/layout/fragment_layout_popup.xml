@@ -6,9 +6,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical"
         android:weightSum="2"
+        android:layout_gravity="center_vertical"
         tools:context=".LoanRequestPopupFragment">
 
 
@@ -86,6 +86,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginBottom="30dp"
             android:background="#BF1A7565"
+            android:layout_gravity="center_vertical"
             android:text="@string/send_request_item"
             android:visibility="visible"
             tools:layout_editor_absoluteX="161dp"
