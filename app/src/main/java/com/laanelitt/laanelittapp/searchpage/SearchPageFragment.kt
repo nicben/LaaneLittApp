@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp
+package com.laanelitt.laanelittapp.searchpage
 
 import android.content.Intent
 import android.os.Bundle
@@ -54,7 +54,6 @@ class SearchPageFragment : Fragment() {
                 .navigate(R.id.action_searchPageFragment_to_searchListFragment)
         }
 
-
         binding.sportKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(R.id.action_searchPageFragment_to_searchListFragment)
@@ -70,11 +69,7 @@ class SearchPageFragment : Fragment() {
                 .navigate(R.id.action_searchPageFragment_to_searchListFragment)
         }
 
-
         return binding.root
     }
-
-
-
 
 }

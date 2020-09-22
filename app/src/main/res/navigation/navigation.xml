@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_item" />
     <fragment
         android:id="@+id/searchPageFragment"
-        android:name="com.laanelitt.laanelittapp.seachpage.SearchPageFragment"
+        android:name="com.laanelitt.laanelittapp.searchpage.SearchPageFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_search_page" >
         <action
