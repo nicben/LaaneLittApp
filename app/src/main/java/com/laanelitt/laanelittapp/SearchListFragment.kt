@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,12 +24,33 @@ class SearchListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var assetList: ArrayList<Asset>
+    private lateinit var linLayoutMgr: RecyclerView.LayoutManager
+    private lateinit var assetAdapter: RecyclerView.Adapter<*>
+    private lateinit var assetRecyclerView: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
+        assetList=Asset.makeAssetListe(resources)
+        if(assetList.size==0){
+
+        }
+        else{
+            linLayoutMgr=LinearLayoutManager(this)
+            //assetAdapter=SearchListAdapter(this, assetList)
+            assetRecyclerView=findViewById<RecyclerView>(R.id.recyclerSearchList).apply{
+                setHasFixedSize(true)
+                layoutManager=linLayoutMgr
+                adapter=assetAdapter
+            }
+        }
+
     }
 
     override fun onCreateView(
