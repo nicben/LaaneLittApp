@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ItemFragment"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:weightSum="2"
+        tools:context=".LoanRequestPopupFragment">
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="50dp"
+            android:text="@string/loan_request_popup_window"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="50dp"
+            tools:layout_editor_absoluteY="156dp" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="170dp"
+                android:text="@string/from_date" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="100dp"
+                android:text="@string/to_date" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android_layout_marginTop="5dp"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="160dp"
+                android:layout_weight="1"
+                android:inputType="textPersonName"
+                android:text="24.09.2020"
+                android:textColor="#5C000000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName2"
+                android_layout_marginTop="5dp"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_weight="1"
+                android:inputType="textPersonName"
+                android:text="25.09.2020"
+                android:textColor="#5C000000"
+                android:textSize="18sp" />
+
+        </TableRow>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="30dp"
+            android:background="#BF1A7565"
+            android:text="@string/send_request_item"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="341dp" />
+
+
+    </LinearLayout>
+</layout>
