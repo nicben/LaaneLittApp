@@ -50,7 +50,7 @@
         android:id="@+id/loanRequestPopupFragment"
         android:name="com.laanelitt.laanelittapp.LoanRequestPopupFragment"
         android:label="fragment_loan_request_popup"
-        tools:layout="@layout/fragment_layout_popup"/>
+        tools:layout="@layout/fragment_loan_request_popup"/>
 
 
 </navigation>

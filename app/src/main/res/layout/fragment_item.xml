@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ItemFragment">
 
 
@@ -25,7 +26,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="50dp"
                 android:contentDescription="ItemPic"
-                tools:src="@drawable/maleri"/>
+                app:srcCompat="@drawable/maleri"/>
 
             <TextView
                 android:id="@+id/textView3"
@@ -44,12 +45,13 @@
 
             <Button
                 android:id="@+id/btn"
-                android:layout_width="wrap_content"
+                android:layout_width="144dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="20dp"
                 android:background="#BF1A7565"
-                android:text="@string/send_loan_request_pop" />
+                android:text="@string/send_loan_request_pop"
+                android:textColor="@color/White" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -58,7 +60,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
-                tools:src="@drawable/images"
+                app:srcCompat="@drawable/images"
                 android:contentDescription="PersonBorrowing" />
 
             <TextView
