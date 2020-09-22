@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import android.widget.PopupWindow
+import kotlinx.android.synthetic.main.fragment_item.*
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.laanelitt.laanelittapp.databinding.FragmentItemBinding
-
 
 
 //profil til item - info

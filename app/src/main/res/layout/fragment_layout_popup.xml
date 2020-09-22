@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ItemFragment"
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout
@@ -86,7 +87,6 @@
             android:layout_marginTop="100dp"
             android:layout_marginBottom="30dp"
             android:background="#BF1A7565"
-            android:layout_gravity="center_vertical"
             android:text="@string/send_request_item"
             android:visibility="visible"
             tools:layout_editor_absoluteX="161dp"
