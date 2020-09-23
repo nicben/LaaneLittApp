@@ -15,11 +15,13 @@ files are turned into (or "inflated" into) Kotlin view objects in memory. Once t
 activity can draw these objects to the screen and also dynamically modify them. */
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.snackbar.Snackbar
 import com.laanelitt.laanelittapp.databinding.ActivityMainBinding
 
 private lateinit var drawerLayout: DrawerLayout
@@ -44,5 +46,13 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
         return NavigationUI.navigateUp(navController, drawerLayout)
+    }
+    companion object {
+        @JvmStatic
+        fun visSnackbar(view: View?, melding: String?) {
+            Snackbar.make(view!!, melding!!, Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show()
+        }
     }
 }
