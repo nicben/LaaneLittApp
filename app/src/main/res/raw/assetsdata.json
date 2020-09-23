@@ -1,9 +1,92 @@
-{
-  "assets": [
-    {"name":"Joggesko","img":"28_bqjKi.jpg"},
-    {"name":"Joggesko4","img":"28_bqjKi.jpg"},
-    {"name":"Joggesko5","img":"28_bqjKi.jpg"}
-
-
-  ]
-}
+[
+  {
+    "id": 28,
+    "users": {
+      "id": 27,
+      "firstName": "Lise",
+      "lastName": "Lotte",
+      "zipCode": {
+        "id": 5583,
+        "city": "VIKEDAL"
+      },
+      "nickname": "LetteLotte",
+      "profileImage": "27_7Tajz.jpg"
+    },
+    "assetName": "Joggesko",
+    "description": "Størrelse 34",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 7,
+      "assetType": "Sko"
+    },
+    "assetImages": [
+      {
+        "id": 27,
+        "imageUrl": "28_bqjKi.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 26,
+    "users": {
+      "id": 27,
+      "firstName": "Lise",
+      "lastName": "Lotte",
+      "zipCode": {
+        "id": 5583,
+        "city": "VIKEDAL"
+      },
+      "nickname": "LetteLotte",
+      "profileImage": "27_7Tajz.jpg"
+    },
+    "assetName": "Telt",
+    "description": "Lett 2 manns sommertelt",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 9,
+      "assetType": "Sport og Villmark"
+    },
+    "assetImages": [
+      {
+        "id": 25,
+        "imageUrl": "26_8v5l6.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 27,
+    "users": {
+      "id": 27,
+      "firstName": "Lise",
+      "lastName": "Lotte",
+      "zipCode": {
+        "id": 5583,
+        "city": "VIKEDAL"
+      },
+      "nickname": "LetteLotte",
+      "profileImage": "27_7Tajz.jpg"
+    },
+    "assetName": "Ransel",
+    "description": "22 liter",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 9,
+      "assetType": "Sport og Villmark"
+    },
+    "assetImages": [
+      {
+        "id": 26,
+        "imageUrl": "27_M8NHA.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  }
+]

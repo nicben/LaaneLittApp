@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -24,6 +23,11 @@ class SearchListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
+    /*private val viewModel: SearchViewModel by lazy {
+        ViewModelProviders.of(this).get(SearchViewModel::class.java)
+    }*/
+
     private lateinit var assetList: ArrayList<Asset>
     private lateinit var linLayoutMgr: RecyclerView.LayoutManager
     private lateinit var assetAdapter: RecyclerView.Adapter<*>
@@ -35,31 +39,26 @@ class SearchListFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         assetList=Asset.makeAssetListe(resources)
-        if(assetList.size==0){
 
-        }
-        else{
-            linLayoutMgr=LinearLayoutManager(this)
-            //assetAdapter=SearchListAdapter(this, assetList)
-            assetRecyclerView=findViewById<RecyclerView>(R.id.recyclerSearchList).apply{
-                setHasFixedSize(true)
-                layoutManager=linLayoutMgr
-                adapter=assetAdapter
-            }
-        }
+        val layout= inflater.inflate(R.layout.fragment_search_list, container, false)
 
-    }
+        linLayoutMgr=LinearLayoutManager(context)
+        assetAdapter=AssetListAdapter(context, assetList)
+        assetRecyclerView=layout.findViewById<RecyclerView>(R.id.recyclerSearchList).apply{
+            setHasFixedSize(true)
+            layoutManager=linLayoutMgr
+            adapter=assetAdapter
+        }/**/
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        return layout
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_list, container, false)
     }
+
 
     companion object {
         /**
