@@ -22,9 +22,6 @@
         <action
             android:id="@+id/action_searchPageFragment_to_searchListFragment"
             app:destination="@id/searchListFragment" />
-        <action
-            android:id="@+id/action_searchPageFragment_to_myItemListFragment"
-            app:destination="@id/myItemListFragment" />
         <argument
             android:name="catId"
             app:argType="string" />
