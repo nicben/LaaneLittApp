@@ -11,6 +11,8 @@ import com.laanelitt.laanelittapp.R
 //liste etter søk
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.laanelitt.laanelittapp.Asset
+import com.laanelitt.laanelittapp.AssetListAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,7 +54,7 @@ class SearchListFragment : Fragment() {
         val layout= inflater.inflate(R.layout.fragment_search_list, container, false)
 
         linLayoutMgr=LinearLayoutManager(context)
-        assetAdapter=AssetListAdapter(context, assetList)
+        assetAdapter= AssetListAdapter(context, assetList)
         assetRecyclerView=layout.findViewById<RecyclerView>(R.id.recyclerSearchList).apply{
             setHasFixedSize(true)
             layoutManager=linLayoutMgr

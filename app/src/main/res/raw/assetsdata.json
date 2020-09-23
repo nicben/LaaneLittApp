@@ -1,5 +1,92 @@
 [
   {
+    "id": 31,
+    "users": {
+      "id": 25,
+      "firstName": "Test",
+      "lastName": "Lanelitt",
+      "zipCode": {
+        "id": 3802,
+        "city": "BØ I TELEMARK"
+      },
+      "nickname": "Tessa",
+      "profileImage": "25_Hccyo.jpg"
+    },
+    "assetName": "Plenklipper",
+    "description": "Helt økologisk, trenger ikke drivstoff. Veldig miljøvennlig.",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 1,
+      "assetType": "Verktøy",
+      "imgUrl": ""
+    },
+    "assetImages": [
+      {
+        "id": 30,
+        "imageUrl": "31_oAy4P.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 35,
+    "users": {
+      "id": 19,
+      "firstName": "Fredrik",
+      "lastName": "Lammestad",
+      "nickname": "Mr. F",
+      "profileImage": "19_GY7tm.gif"
+    },
+    "assetName": "didgeridoo",
+    "description": "Kjøpte den når jeg var nedenom, helt autentisk og bra lyd",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 3,
+      "assetType": "Instrument"
+    },
+    "assetImages": [
+      {
+        "id": 34,
+        "imageUrl": "35_mUkmZ.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 30,
+    "users": {
+      "id": 25,
+      "firstName": "Test",
+      "lastName": "Lanelitt",
+      "zipCode": {
+        "id": 3802,
+        "city": "BØ I TELEMARK"
+      },
+      "nickname": "Tessa",
+      "profileImage": "25_Hccyo.jpg"
+    },
+    "assetName": "Kjeledress",
+    "description": "Lukter litt, men ikke så gale. ",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 6,
+      "assetType": "Klær"
+    },
+    "assetImages": [
+      {
+        "id": 29,
+        "imageUrl": "30_3YhWA.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
     "id": 28,
     "users": {
       "id": 27,
@@ -23,6 +110,36 @@
       {
         "id": 27,
         "imageUrl": "28_bqjKi.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 29,
+    "users": {
+      "id": 25,
+      "firstName": "Test",
+      "lastName": "Lanelitt",
+      "zipCode": {
+        "id": 3802,
+        "city": "BØ I TELEMARK"
+      },
+      "nickname": "Tessa",
+      "profileImage": "25_Hccyo.jpg"
+    },
+    "assetName": "Støvler",
+    "description": "Størrelse 53",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 7,
+      "assetType": "Sko"
+    },
+    "assetImages": [
+      {
+        "id": 28,
+        "imageUrl": "29_ItKv0.jpg",
         "mainImage": false
       }
     ],
@@ -83,6 +200,178 @@
       {
         "id": 26,
         "imageUrl": "27_M8NHA.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 33,
+    "users": {
+      "id": 26,
+      "firstName": "Admin",
+      "lastName": "Lanelitt",
+      "zipCode": {
+        "id": 1,
+        "city": "OSLO"
+      },
+      "nickname": "Addy",
+      "profileImage": "26_3WLku.jpg"
+    },
+    "assetName": "Hytte i Røldall",
+    "description": "Står tom, og det er syn å se den ikke bli brukt. Har solcelle paneler og får vann fra en bekk i nærheten. Flott utsikt",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 9,
+      "assetType": "Sport og Villmark"
+    },
+    "assetImages": [
+      {
+        "id": 32,
+        "imageUrl": "33_Tvr1z.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 36,
+    "users": {
+      "id": 19,
+      "firstName": "Fredrik",
+      "lastName": "Lammestad",
+      "nickname": "Mr. F",
+      "profileImage": "19_GY7tm.gif"
+    },
+    "assetName": "Tur sekk",
+    "description": "30 liter, noen løse stropper men ikke noe som hindrer en ivrig turgåer",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 9,
+      "assetType": "Sport og Villmark"
+    },
+    "assetImages": [
+      {
+        "id": 35,
+        "imageUrl": "36_cAUhN.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 37,
+    "users": {
+      "id": 19,
+      "firstName": "Fredrik",
+      "lastName": "Lammestad",
+      "nickname": "Mr. F",
+      "profileImage": "19_GY7tm.gif"
+    },
+    "assetName": "Kjekk liten mp3 spiller, ",
+    "description": "Opptil 16 timer spilletid og 2 gb med minne",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 10,
+      "assetType": "Multimedia"
+    },
+    "assetImages": [
+      {
+        "id": 36,
+        "imageUrl": "37_cWeGB.jpeg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 32,
+    "users": {
+      "id": 26,
+      "firstName": "Admin",
+      "lastName": "Lanelitt",
+      "zipCode": {
+        "id": 1,
+        "city": "OSLO"
+      },
+      "nickname": "Addy",
+      "profileImage": "26_3WLku.jpg"
+    },
+    "assetName": "Maleri",
+    "description": "Flott bilde, er ikke en original men kan fremdele vises på gallerier vis interesserte",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 11,
+      "assetType": "Diverse"
+    },
+    "assetImages": [
+      {
+        "id": 31,
+        "imageUrl": "32_IZkT5.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 34,
+    "users": {
+      "id": 26,
+      "firstName": "Admin",
+      "lastName": "Lanelitt",
+      "zipCode": {
+        "id": 1,
+        "city": "OSLO"
+      },
+      "nickname": "Addy",
+      "profileImage": "26_3WLku.jpg"
+    },
+    "assetName": "Kaffekane",
+    "description": "Holder 2 liter",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 11,
+      "assetType": "Diverse"
+    },
+    "assetImages": [
+      {
+        "id": 33,
+        "imageUrl": "34_uduxD.jpg",
+        "mainImage": false
+      }
+    ],
+    "public": true,
+    "published": true
+  },
+  {
+    "id": 38,
+    "users": {
+      "id": 26,
+      "firstName": "Admin",
+      "lastName": "Lanelitt",
+      "zipCode": {
+        "id": 1,
+        "city": "OSLO"
+      },
+      "nickname": "Addy",
+      "profileImage": "26_3WLku.jpg"
+    },
+    "assetName": "ting",
+    "description": "aaa",
+    "assetCondition": 1,
+    "assetType": {
+      "id": 11,
+      "assetType": "Diverse"
+    },
+    "assetImages": [
+      {
+        "id": 37,
+        "imageUrl": "38_xHCNp.PNG",
         "mainImage": false
       }
     ],
