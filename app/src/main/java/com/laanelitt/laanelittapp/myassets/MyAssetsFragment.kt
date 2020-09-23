@@ -1,39 +1,39 @@
-package com.laanelitt.laanelittapp.searchlist
+package com.laanelitt.laanelittapp.myassets
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import com.laanelitt.laanelittapp.R
-
-//liste etter søk
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.laanelitt.laanelittapp.Asset
 import com.laanelitt.laanelittapp.AssetListAdapter
+import com.laanelitt.laanelittapp.R
 
 
-class SearchListFragment : Fragment() {
+//liste over alle eiendeler
 
+
+class MyItemListFragment : Fragment() {
 
     private lateinit var assetList: ArrayList<Asset>
     private lateinit var linLayoutMgr: RecyclerView.LayoutManager
     private lateinit var assetAdapter: RecyclerView.Adapter<*>
     private lateinit var assetRecyclerView: RecyclerView
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
+        assetList= Asset.makeAssetListe(resources)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val layout= inflater.inflate(R.layout.fragment_my_assets, container, false)
 
-        assetList=Asset.makeAssetListe(resources)
-
-        val layout= inflater.inflate(R.layout.fragment_search_list, container, false)
-
-        linLayoutMgr=LinearLayoutManager(context)
+        linLayoutMgr= LinearLayoutManager(context)
         assetAdapter= AssetListAdapter(context, assetList)
-        assetRecyclerView=layout.findViewById<RecyclerView>(R.id.recyclerSearchList).apply{
+        assetRecyclerView=layout.findViewById<RecyclerView>(R.id.recyclerMyItemList).apply{
             setHasFixedSize(true)
             layoutManager=linLayoutMgr
             adapter=assetAdapter
@@ -42,7 +42,5 @@ class SearchListFragment : Fragment() {
         return layout
         // Inflate the layout for this fragment
     }
-
-
 
 }

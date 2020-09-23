@@ -7,11 +7,11 @@
 
     <fragment
         android:id="@+id/itemFragment"
-        android:name="com.laanelitt.laanelittapp.ItemFragment"
+        android:name="com.laanelitt.laanelittapp.AssetFragment"
         android:label="fragment_item"
-        tools:layout="@layout/fragment_item" >
+        tools:layout="@layout/fragment_asset" >
         <action
-            android:id="@+id/action_itemFragment_to_loanRequestPopupFragment"
+            android:id="@+id/action_assetFragment_to_loanRequestPopupFragment"
             app:destination="@id/loanRequestPopupFragment" />
     </fragment>
     <fragment
@@ -32,7 +32,7 @@
 
         tools:layout="@layout/fragment_search_list" >
         <action
-            android:id="@+id/action_searchListFragment_to_itemFragment"
+            android:id="@+id/action_searchListFragment_to_assetFragment"
             app:destination="@id/itemFragment" />
         <argument
             android:name="itemId"
@@ -40,14 +40,26 @@
     </fragment>
     <fragment
         android:id="@+id/myItemListFragment"
-        android:name="com.laanelitt.laanelittapp.MyItemListFragment"
+        android:name="com.laanelitt.laanelittapp.myassets.MyItemListFragment"
         android:label="@string/mine_eiendeler"
-        tools:layout="@layout/fragment_my_item_list" />
+        tools:layout="@layout/fragment_my_assets" >
+        <action
+            android:id="@+id/action_myIAssetsFragment_to_addAssetFragment"
+            app:destination="@id/addAssetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loanRequestPopupFragment"
         android:name="com.laanelitt.laanelittapp.LoanRequestPopupFragment"
         android:label="fragment_loan_request_popup"
         tools:layout="@layout/fragment_loan_request_popup"/>
+    <fragment
+        android:id="@+id/addAssetFragment"
+        android:name="com.laanelitt.laanelittapp.myassets.AddAssetFragment"
+        android:label="AddAssetFragment" >
+        <action
+            android:id="@+id/action_addAssetFragment_to_myAssetsFragment"
+            app:destination="@id/myItemListFragment" />
+    </fragment>
 
 
 </navigation>

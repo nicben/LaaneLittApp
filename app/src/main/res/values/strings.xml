@@ -20,43 +20,8 @@
     <string name="to_date">Til dato</string>
     <string name="send_request_item">SEND</string>
 
-    <string-array name="kategori">
-        <item>VERKTØY</item>
-        <item>ELEKTRONIKK</item>
-        <item>INSTRUMENT</item>
-        <item>KLÆR</item>
-        <item>SKO</item>
-        <item>BØKER</item>
-        <item>SPORT</item>
-        <item>MULTIMEDIA</item>
-        <item>DIVERSE</item>
-    </string-array>
-
-    <!--<array name="kommune_vaapen">
-        <item>@drawable/riksvaapen</item>
-        <item>@drawable/aremark</item>
-        <item>@drawable/askim</item>
-        <item>@drawable/eidsberg</item>
-        <item>@drawable/fredrikstad</item>
-        <item>@drawable/halden</item>
-        <item>@drawable/hobol</item>
-        <item>@drawable/hvaler</item>
-        <item>@drawable/marker</item>
-        <item>@drawable/moss</item>
-        <item>@drawable/raade</item>
-        <item>@drawable/rakkestad</item>
-        <item>@drawable/romskog</item>
-        <item>@drawable/rygge</item>
-        <item>@drawable/sarpsborg</item>
-        <item>@drawable/skiptvet</item>
-        <item>@drawable/spydeberg</item>
-        <item>@drawable/trogstad</item>
-        <item>@drawable/vaaler_ostfold</item>
-    </array>
-
-     TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">Main2Activity</string>
     <string name="LaaneLitt">LåneLitt</string>
+    <string name="navn">Navn</string>
+    <string name="beskrivelse">Beskrivelse</string>
 
 </resources>
