@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.laanelitt.laanelittapp.AssetListAdapter.AssetViewHolder
 
 class AssetListAdapter(private val context: Context?, var assetList: ArrayList<Asset>):RecyclerView.Adapter<AssetViewHolder>(){
     private val assetsList: ArrayList<Asset>
+
     //private val mInflater: LayoutInflater
     init {
         //mInflater= LayoutInflater.from(context)

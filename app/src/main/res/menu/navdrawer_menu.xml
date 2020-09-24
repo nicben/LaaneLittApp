@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/myItemListFragment"
-        android:title="@string/mine_eiendeler" />
-
-    <item
-        android:id="@+id/itemFragment"
+        android:id="@+id/assetFragment"
         android:title="@string/eiendel" />
+    <item
+        android:id="@+id/myAssetsFragment"
+        android:title="@string/mine_eiendeler" />
+    <item
+
+        android:title="@string/profil" />
+    <item
+
+        android:title="@string/instilling" />
 </menu>
