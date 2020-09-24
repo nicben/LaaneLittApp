@@ -23,5 +23,7 @@
     <string name="LaaneLitt">LåneLitt</string>
     <string name="navn">Navn</string>
     <string name="beskrivelse">Beskrivelse</string>
+    <string name="profil">Min profil</string>
+    <string name="instilling">Instillinger</string>
 
 </resources>

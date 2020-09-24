@@ -6,15 +6,15 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:layout_gravity="center"
-    android:layout_margin="8dp"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="10dp"
+    android:layout_margin="2dp"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="5dp"
     card_view:cardBackgroundColor="#FFFFFF"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="94dp"
         android:paddingVertical="6dp">
 
         <ImageView
@@ -23,20 +23,22 @@
             android:layout_height="111dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
             android:adjustViewBounds="true"
+            android:contentDescription="TODO"
             android:paddingHorizontal="5dp"
-            android:src="@drawable/default_asset_image"
-            android:contentDescription="TODO" />
+            android:src="@drawable/default_asset_image" />
 
         <TextView
             android:id="@+id/assetName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginStart="27dp"
             android:layout_toEndOf="@id/assetImage"
             android:paddingHorizontal="5dp"
             android:text="AssetName"
-            android:textSize="36sp" />
+            android:textSize="20sp" />
     </RelativeLayout>
-    
+
 </androidx.cardview.widget.CardView>
