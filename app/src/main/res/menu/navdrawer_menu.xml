@@ -12,5 +12,5 @@
         android:title="@string/profil" />
     <item
 
-        android:title="@string/instilling" />
+        android:title="@string/innstilling" />
 </menu>

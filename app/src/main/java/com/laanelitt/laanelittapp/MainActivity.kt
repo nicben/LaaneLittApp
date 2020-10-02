@@ -1,52 +1,68 @@
 package com.laanelitt.laanelittapp
-/* MainActivity is an example of an Activity. An Activity is a core Android class that draws an
-Android app user interface (UI) and receives input events. When your app launches, it launches the
-activity specified in the AndroidManifest.xml file.
 
-Many programming languages define a main method that starts the program. Android apps don't have a
-main method. Instead, the AndroidManifest.xml file indicates that MainActivity should be launched
-when the user taps the app's launcher icon. To launch an activity, the Android OS uses the
-information in the manifest to set up the environment for the app and construct the MainActivity.
-Then the MainActivity does some setup in turn.
-
-Each activity has an associated layout file. The activity and the layout are connected by a process
-known as layout inflation. When the activity starts, the views that are defined in the XML layout
-files are turned into (or "inflated" into) Kotlin view objects in memory. Once this happens, the
-activity can draw these objects to the screen and also dynamically modify them. */
-
-import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
+import android.os.Bundle
+import android.os.Handler
+import android.view.View
+import android.widget.Toast
+import androidx.core.os.postDelayed
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
-import com.laanelitt.laanelittapp.databinding.ActivityMainBinding
-
-private lateinit var drawerLayout: DrawerLayout
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    /*Activities do not use a constructor to initialize the object. Instead, a series of predefined
-    methods (called "lifecycle methods") are called as part of the activity setup. One of those
-    lifecycle methods is onCreate(), which you always override in your own app.
-    In onCreate(), you specify which layout is associated with the activity, and you inflate the
-    layout. The setContentView() method does both those things.*/
+
+    lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        @Suppress("UNUSED_VARIABLE")
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        drawerLayout = binding.drawerLayout
-        val navController = this.findNavController(R.id.myNavHostFragment)
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        NavigationUI.setupWithNavController(binding.navView, navController)
+        setContentView(R.layout.activity_main)
+        setupViews()
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.myNavHostFragment)
-        return NavigationUI.navigateUp(navController, drawerLayout)
+    fun setupViews()
+    {
+        var navHostFragment = supportFragmentManager.findFragmentById(
+            R.id.myNavHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
+        NavigationUI.setupWithNavController(bottomNavView, navHostFragment.navController)
+
+        //var appBarConfiguration = AppBarConfiguration(navHostFragment.navController.graph)
+        var appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.searchPageFragment, R.id.addAssetFragment, R.id.myAssetsFragment))
+        setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
+
+
+    private var backPressedOnce = false
+
+    override fun onBackPressed() {
+        if (navController.graph.startDestination == navController.currentDestination?.id)
+        {
+            if (backPressedOnce)
+            {
+                super.onBackPressed()
+                return
+            }
+
+            backPressedOnce = true
+            Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show()
+
+           // Handler().postDelayed(2000) {
+              //  backPressedOnce = false
+           // }
+        }
+        else {
+            super.onBackPressed()
+        }
+    }
+
     companion object {
         @JvmStatic
         fun visSnackbar(view: View?, melding: String?) {
