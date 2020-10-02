@@ -51,7 +51,7 @@
                 android:layout_margin="20dp"
                 android:background="#BF1A7565"
                 android:text="@string/send_loan_request_pop"
-                android:textColor="@color/White" />
+                android:textColor="@color/colorWhite" />
 
             <ImageView
                 android:id="@+id/imageView3"

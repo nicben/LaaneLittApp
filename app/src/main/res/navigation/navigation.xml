@@ -61,5 +61,4 @@
             app:destination="@id/myAssetsFragment" />
     </fragment>
 
-
 </navigation>
