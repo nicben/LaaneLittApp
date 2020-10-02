@@ -19,11 +19,10 @@ class AssetFragment : Fragment() {
         val binding1 = DataBindingUtil.inflate<FragmentAssetBinding>(inflater,R.layout.fragment_asset,container,false)
 
 
-        binding1.btn.setOnClickListener{
             binding1.btn.setOnClickListener { view : View ->
                 view.findNavController().navigate(R.id.action_assetFragment_to_loanRequestPopupFragment)
             }
-        }
+
         return binding1.root
 
     }

@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
 
-
     private var backPressedOnce = false
 
     override fun onBackPressed() {
