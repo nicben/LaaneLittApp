@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/myAssetsFragment"
-        android:name="com.laanelitt.laanelittapp.myassets.MyAssetsFragment"
+        android:name="com.laanelitt.laanelittapp.profile.MyAssetsFragment"
         android:label="@string/mine_eiendeler"
         tools:layout="@layout/fragment_my_assets" >
         <action

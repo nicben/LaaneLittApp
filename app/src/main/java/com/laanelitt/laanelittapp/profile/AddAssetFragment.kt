@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.myassets
+package com.laanelitt.laanelittapp.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,7 +21,7 @@ class AddAssetFragment : Fragment() {
        val binding = DataBindingUtil.inflate<FragmentAddAssetBinding>(inflater,R.layout.fragment_add_asset,container,false)
 
         binding.saveButton.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_addAssetFragment_to_myAssetsFragment)
+            //view.findNavController().navigate(R.id.action_addAssetFragment_to_myAssetsFragment)
         }
         return binding.root
 
