@@ -55,6 +55,7 @@ class AssetListAdapter(private val context: Context?, var assetList: ArrayList<A
 
         override fun onClick(view: View?) {
             val asset = assetsList[layoutPosition]
+            view?.findNavController()?.navigate(R.id.assetFragment)
             MainActivity.visSnackbar(view, "Du valgte "+ asset.assetName)
         }
     }

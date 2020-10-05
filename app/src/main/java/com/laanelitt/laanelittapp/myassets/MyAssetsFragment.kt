@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_add_asset.view.*
 //liste over alle eiendeler
 
 
-class MyassetsFragment : Fragment() {
+class MyAssetsFragment : Fragment() {
 
     private lateinit var assetList: ArrayList<Asset>
     private lateinit var linLayoutMgr: RecyclerView.LayoutManager

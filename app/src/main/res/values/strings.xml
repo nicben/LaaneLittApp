@@ -25,5 +25,7 @@
     <string name="beskrivelse">Beskrivelse</string>
     <string name="profil">Min profil</string>
     <string name="innstilling">Innstillinger</string>
+    <string name="assetname">AssetName</string>
+    <string name="assetimage">AssetImage</string>
 
 </resources>

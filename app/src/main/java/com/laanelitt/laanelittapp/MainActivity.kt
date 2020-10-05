@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+
 class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setupViews()
     }
 
@@ -38,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             R.id.searchPageFragment, R.id.addAssetFragment, R.id.myAssetsFragment))
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
-
 
     private var backPressedOnce = false
 
