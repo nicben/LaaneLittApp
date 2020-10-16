@@ -37,7 +37,7 @@
             android:layout_marginStart="27dp"
             android:layout_toEndOf="@id/assetImage"
             android:paddingHorizontal="5dp"
-            android:text="AssetName"
+            android:text="@string/asset_name"
             android:textSize="20sp" />
     </RelativeLayout>
 

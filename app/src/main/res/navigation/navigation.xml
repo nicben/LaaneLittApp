@@ -44,7 +44,7 @@
     <fragment
         android:id="@+id/myAssetsFragment"
         android:name="com.laanelitt.laanelittapp.profile.MyassetsFragment"
-        android:label="@string/mine_eiendeler"
+        android:label="@string/my_assets"
         tools:layout="@layout/fragment_my_assets" >
         <action
             android:id="@+id/action_myAssetsFragment_to_settingsFragment"
@@ -58,35 +58,33 @@
     <fragment
         android:id="@+id/addAssetFragment"
         android:name="com.laanelitt.laanelittapp.profile.AddAssetFragment"
-        tools:layout="@layout/fragment_add_asset"/>
+        tools:layout="@layout/fragment_add_asset">
+        <action
+            android:id="@+id/action_addAssetFragment_to_myAssetsFragment"
+            app:destination="@id/myAssetsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.laanelitt.laanelittapp.profile.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFragment_to_myAssetsFragment"
             app:destination="@id/myAssetsFragment" />
-        <action
-            android:id="@+id/action_settingsFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.laanelitt.laanelittapp.LoginFragment"
-        android:label="fragment_login"
+        android:name="com.laanelitt.laanelittapp.login.LoginFragment"
+        android:label="@string/login"
         tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_searchPageFragment"
-            app:destination="@id/searchPageFragment" />
         <action
             android:id="@+id/action_loginFragment_to_newUserFragment"
             app:destination="@id/newUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryListFragment"
-        android:name="com.laanelitt.laanelittapp.searchpage.CategoryListFragment"
-        android:label="fragment_category_list"
+        android:name="com.laanelitt.laanelittapp.CategoryListFragment"
+        android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_category_list" >
         <action
             android:id="@+id/action_categoryListFragment_to_assetFragment"
@@ -94,8 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/newUserFragment"
-        android:name="com.laanelitt.laanelittapp.newUserFragment"
-        android:label="fragment_new_user"
-        tools:layout="@layout/fragment_new_user" />
+        android:name="com.laanelitt.laanelittapp.login.NewUserFragment"
+        android:label="@string/new_user"/>
 
 </navigation>

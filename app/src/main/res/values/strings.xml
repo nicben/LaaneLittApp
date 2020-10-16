@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">LåneLitt</string>
-    <string name="mine_eiendeler">Mine Eiendeler</string>
-    <string name="sok">Søk</string>
-    <string name="eiendel">Eiendel</string>
-    <string name="sokeresultat">Søkeresultat</string>
+    <string name="my_assets">Mine Eiendeler</string>
+
+    <string name="not_signed_in">Ikke logget inn</string>
+    <string name="search">Søk</string>
+    <string name="search_result">Søkeresultat</string>
+
+    <string name="asset">Eiendel</string>
     <string name="sko">Sko</string>
     <string name="kler">Klær</string>
     <string name="verktoy">Verktøy</string>
@@ -21,18 +24,26 @@
     <string name="send_request_item">SEND</string>
 
     <string name="LaaneLitt">LåneLitt</string>
-    <string name="navn">Navn</string>
-    <string name="beskrivelse">Beskrivelse</string>
-    <string name="profil">Min profil</string>
-    <string name="innstilling">Innstillinger</string>
+    <string name="login_logo">LåneLitt</string>
+    <string name="name">Navn</string>
+    <string name="description">Beskrivelse</string>
+    <string name="my_profile">Min profil</string>
+    <string name="settings">Innstillinger</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="profil_">PROFIL</string>
-    <string name="epost">Epost</string>
-    <string name="tlf">Telefonnummer</string>
-    <string name="profilbilde">Profilbilde</string>
-    <string name="passord">Passord</string>
-    <string name="logg_ut">Logg ut</string>
+    <string name="profile_">PROFIL</string>
+    <string name="phone">Telefonnummer</string>
+    <string name="profileImg">Profilbilde</string>
+    <string name="logout_">LOGG UT</string>
     <string name="om_">OM</string>
+
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="login">Logg inn</string>
+    <string name="new_user">Ny bruker</string>
+
+    <string name="preference_file_key">prefKey</string>
+    <string name="saved_userId_key">savedUserId</string>
+    <string name="asset_name">Eiendelnavn</string>
 
 </resources>

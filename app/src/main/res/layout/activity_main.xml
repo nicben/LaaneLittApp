@@ -12,6 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavView">
 
+
         <fragment
                 android:id="@+id/myNavHostFragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"
