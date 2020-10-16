@@ -1,6 +1,7 @@
 package com.laanelitt.laanelittapp
 
 import android.content.res.Resources
+import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -8,18 +9,8 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.lang.Exception
 import java.lang.NullPointerException
-/*
-class Asset(
-    val assetName: String,
-    val imageLink: String
-){
-    val link: String
-    init{
-        link="https://lanelitt.no/AssetImages/"+imageLink
-    }
 
-}
-*/
+
 class Asset {
     var assetName: String
     var imageLink: String
@@ -31,8 +22,17 @@ class Asset {
         imageLink="https://lanelitt.no/AssetImages/"+test.optString("imageUrl")
     }
     companion object{
+        val client = OkHttpClient()
         fun makeAssetListe(resources: Resources): ArrayList<Asset>{
+            //run("https://lanelitt.no/public/assets/getAssetType/134/11")
+            val url="https://lanelitt.no/public/assets/getAssetType/134/11"
+
             val assetList=ArrayList<Asset>()
+            val r = Request.Builder()
+                .url(url)
+                .build()
+            //var body=client.newCall(r).execute().body().toString()
+            //println(body)
             try{
                 val jsonAssets: String=readAssetDataFromFile(resources)
                 val jsonAssetTable=JSONArray(jsonAssets)
@@ -47,13 +47,24 @@ class Asset {
                     println("hei"+thisAsset.assetName)
                     assetList.add(thisAsset)
                 }
-                return assetList
             }catch (e: Exception){
-                return assetList
             }
+            /*client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    println("*********************************************************************************")
+
+                }
+                override fun onResponse(call: Call, response: Response) {
+                    println("*********************************************************************************"+response.body()?.string())
+
+                }
+            })*/
+            return assetList
+
         }
         @Throws(IOException::class, NullPointerException::class)
         private fun readAssetDataFromFile(resources: Resources):String{
+
             var oneLine: String?
             var wholeFile=StringBuilder()
 
@@ -68,6 +79,20 @@ class Asset {
                 e.printStackTrace()
             }
             return wholeFile.toString()
+        }
+        fun run(url: String){
+            val request = Request.Builder()
+                .url(url)
+                .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    println("*********************************************************************************")}
+                override fun onResponse(call: Call, response: Response) {
+                    println("*********************************************************************************"+response.body()?.string())
+
+                }
+            })
         }
     }
 }//*/
