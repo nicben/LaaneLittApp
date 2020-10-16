@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp
+package com.laanelitt.laanelittapp.searchlist
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,9 +10,12 @@ import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.laanelitt.laanelittapp.AssetListAdapter.AssetViewHolder
+import com.laanelitt.laanelittapp.Asset
+import com.laanelitt.laanelittapp.MainActivity
+import com.laanelitt.laanelittapp.R
+import com.laanelitt.laanelittapp.searchlist.SearchListAdapter.AssetViewHolder
 
-class AssetListAdapter(private val context: Context?, var assetList: ArrayList<Asset>):RecyclerView.Adapter<AssetViewHolder>(){
+class SearchListAdapter(private val context: Context?, var assetList: ArrayList<Asset>):RecyclerView.Adapter<AssetViewHolder>(){
     private val assetsList: ArrayList<Asset>
 
     //private val mInflater: LayoutInflater
@@ -30,7 +33,7 @@ class AssetListAdapter(private val context: Context?, var assetList: ArrayList<A
     override fun onBindViewHolder(holder: AssetViewHolder, position: Int) {
 
         val thisAsset=assetsList[position]
-        holder.assetNameView.text=thisAsset.assetName
+        holder.assetNameView.text="søk "+thisAsset.assetName
 
         val imgUri=thisAsset.imageLink.toUri().buildUpon().scheme("https").build()
 
@@ -40,12 +43,12 @@ class AssetListAdapter(private val context: Context?, var assetList: ArrayList<A
     override fun getItemCount(): Int =assetsList.size
 
 
-    inner class AssetViewHolder(itemView: View, adapter: AssetListAdapter):RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    inner class AssetViewHolder(itemView: View, adapter: SearchListAdapter):RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
         val assetNameView: TextView
         val assetImageView: ImageView
 
-        val assAdapter:AssetListAdapter
+        val assAdapter: SearchListAdapter
         init {
             assetNameView=itemView.findViewById<View>(R.id.assetName) as TextView
             assetImageView=itemView.findViewById<View>(R.id.assetImage) as ImageView
@@ -55,7 +58,10 @@ class AssetListAdapter(private val context: Context?, var assetList: ArrayList<A
 
         override fun onClick(view: View?) {
             val asset = assetsList[layoutPosition]
-            MainActivity.visSnackbar(view, "Du valgte "+ asset.assetName)
+            view?.findNavController()?.navigate(R.id.action_searchListFragment_to_assetFragment)
+            MainActivity.visSnackbar(view, "Du valgte " + asset.assetName)
         }
     }
+
+
 }

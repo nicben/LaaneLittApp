@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.laanelitt.laanelittapp.Asset
-import com.laanelitt.laanelittapp.AssetListAdapter
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.login.LoginFragment
 import kotlinx.android.synthetic.main.fragment_my_assets.*
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_my_assets.*
 //liste over alle eiendeler
 
 
-class MyassetsFragment : Fragment() {
+class MyAssetsFragment : Fragment() {
 
     private lateinit var assetList: ArrayList<Asset>
     private lateinit var linLayoutMgr: RecyclerView.LayoutManager

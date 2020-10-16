@@ -47,8 +47,11 @@
         android:label="@string/my_assets"
         tools:layout="@layout/fragment_my_assets" >
         <action
-            android:id="@+id/action_myAssetsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_myAssetsFragment_to_addAssetFragment"
+            app:destination="@id/addAssetFragment" />
+        <action
+            android:id="@+id/action_myAssetsFragment_to_assetFragment"
+            app:destination="@id/assetFragment" />
     </fragment>
     <fragment
         android:id="@+id/loanRequestPopupFragment"

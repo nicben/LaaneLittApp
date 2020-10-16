@@ -23,7 +23,6 @@ class AddAssetFragment : Fragment() {
         binding.saveButton.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_addAssetFragment_to_myAssetsFragment)
         }
-
         return binding.root
 
     }
