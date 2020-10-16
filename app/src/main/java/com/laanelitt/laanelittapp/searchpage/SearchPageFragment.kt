@@ -6,18 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentSearchPageBinding
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.firebase.ui.auth.AuthUI
-import com.laanelitt.laanelittapp.login.LoginFragment
 import com.laanelitt.laanelittapp.login.LoginFragment.Pref.getUserId
-import com.laanelitt.laanelittapp.login.LoginViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
 
 class SearchPageFragment : Fragment() {
 
