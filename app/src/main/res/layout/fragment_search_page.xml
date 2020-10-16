@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
         tools:context=".searchpage.SearchPageFragment" >
+
+        <TextView
+            android:id="@+id/id_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/not_signed_in" />
 
         <SearchView
             android:id="@+id/search"
@@ -34,7 +43,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/verktoy"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
 
                 <Button
                     android:id="@+id/elKnapp"
@@ -46,7 +56,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/el"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
 
                 <Button
                     android:id="@+id/instrumentKnapp"
@@ -58,7 +69,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/instrument"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
             </TableRow>
 
             <TableRow>
@@ -73,7 +85,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/kler"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
 
                 <Button
                     android:id="@+id/skoKnapp"
@@ -85,7 +98,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/sko"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
 
                 <Button
                     android:id="@+id/bokerKnapp"
@@ -97,7 +111,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/boker"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
             </TableRow>
 
             <TableRow>
@@ -112,7 +127,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/sport"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
 
                 <Button
                     android:id="@+id/multiKnapp"
@@ -124,7 +140,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/multi"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
 
                 <Button
                     android:id="@+id/divKnapp"
@@ -136,7 +153,8 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/div"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
             </TableRow>
 
         </TableLayout>

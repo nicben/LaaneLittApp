@@ -16,19 +16,16 @@ class AssetFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding1 = DataBindingUtil.inflate<FragmentAssetBinding>(inflater,R.layout.fragment_asset,container,false)
+        val binding = DataBindingUtil.inflate<FragmentAssetBinding>(inflater,R.layout.fragment_asset,container,false)
 
 
-        binding1.btn.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_assetFragment_to_loanRequestPopupFragment)
-        }
-        return binding1.root
+
+            binding.btn.setOnClickListener { view : View ->
+                view.findNavController().navigate(R.id.action_assetFragment_to_loanRequestPopupFragment)
+            }
+
+        return binding.root
 
     }
-
-
-
-
-
 
 }

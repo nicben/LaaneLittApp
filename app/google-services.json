@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "855132334810",
+    "firebase_url": "https://laanelittapp.firebaseio.com",
+    "project_id": "laanelittapp",
+    "storage_bucket": "laanelittapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855132334810:android:1eebea931df728bbe153e3",
+        "android_client_info": {
+          "package_name": "com.laanelitt.laanelittapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855132334810-cvf7j3uc8n7tbhb9mipevjkjogr79pci.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laanelitt.laanelittapp",
+            "certificate_hash": "e7798dd45ae7693b332aab2ed79c158007ff0498"
+          }
+        },
+        {
+          "client_id": "855132334810-dl7mgu7n02alrcl7d7oashhsellkt4r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgzC8i3ckVnjEugoweGcPSMi0a9CQR4gY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855132334810-dl7mgu7n02alrcl7d7oashhsellkt4r7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
