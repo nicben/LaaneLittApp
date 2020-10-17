@@ -3,19 +3,13 @@ package com.laanelitt.laanelittapp.searchlist
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-
-import com.laanelitt.laanelittapp.R
 
 //liste etter søk
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.laanelitt.laanelittapp.Asset
 import com.laanelitt.laanelittapp.AssetViewModel
 import com.laanelitt.laanelittapp.AssetsListAdapter
 import com.laanelitt.laanelittapp.databinding.FragmentSearchListBinding
-import com.laanelitt.laanelittapp.profile.AssetListAdapter
 
 class SearchListFragment : Fragment() {
     /**/

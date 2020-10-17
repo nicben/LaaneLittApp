@@ -36,5 +36,6 @@
     <string name="passord">Passord</string>
     <string name="logg_ut">Logg ut</string>
     <string name="om_">OM</string>
+    <string name="no_description">No description</string>
 
 </resources>

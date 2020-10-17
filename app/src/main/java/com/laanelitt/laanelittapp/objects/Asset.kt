@@ -1,6 +1,7 @@
-package com.laanelitt.laanelittapp
+package com.laanelitt.laanelittapp.objects
 
 import android.content.res.Resources
+import com.laanelitt.laanelittapp.R
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -34,7 +35,7 @@ class Asset {
             //var body=client.newCall(r).execute().body().toString()
             //println(body)
             try{
-                val jsonAssets: String=readAssetDataFromFile(resources)
+                val jsonAssets: String= readAssetDataFromFile(resources)
                 val jsonAssetTable=JSONArray(jsonAssets)
                 /*
                 val jsonAllAss=JSONObject(jsonAssets)
@@ -43,7 +44,7 @@ class Asset {
                 for (i in 0 until jsonAssetTable.length()){
                     val jsonAsset=jsonAssetTable[i] as JSONObject
                     //val assImgs = jsonAsset.getJSONArray("assetImage")
-                    val thisAsset=Asset(jsonAsset)
+                    val thisAsset= Asset(jsonAsset)
                     println("hei"+thisAsset.assetName)
                     assetList.add(thisAsset)
                 }
