@@ -10,7 +10,7 @@ import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.laanelitt.laanelittapp.Asset
+import com.laanelitt.laanelittapp.objects.Asset
 import com.laanelitt.laanelittapp.MainActivity
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.profile.AssetListAdapter.AssetViewHolder

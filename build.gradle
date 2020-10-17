@@ -1,6 +1,18 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = '1.4.10'
+
+    ext {
+        version_moshi = "1.8.0"
+        version_retrofit = "2.5.0"
+
+        nav_version = "2.3.0"
+        kotlin_version = '1.4.10'
+        archLifecycleVersion = '1.1.1'
+        gradleVersion = '4.0.1'
+        supportlibVersion = '1.2.0'
+        dataBindingCompilerVersion = gradleVersion // Always need to be the same.
+    }
+
     repositories {
         google()
         jcenter()

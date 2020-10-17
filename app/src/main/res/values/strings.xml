@@ -36,6 +36,7 @@
     <string name="profileImg">Profilbilde</string>
     <string name="logout_">LOGG UT</string>
     <string name="om_">OM</string>
+    <string name="no_description">No description</string>
 
     <string name="password">Password</string>
     <string name="email">Email</string>

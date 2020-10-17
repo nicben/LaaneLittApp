@@ -9,7 +9,7 @@ import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.laanelitt.laanelittapp.Asset
+import com.laanelitt.laanelittapp.objects.Asset
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.login.LoginFragment
 import kotlinx.android.synthetic.main.fragment_my_assets.*
