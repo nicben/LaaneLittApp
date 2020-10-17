@@ -1,28 +1,31 @@
 package com.laanelitt.laanelittapp.searchpage
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.laanelitt.laanelittapp.R
-import com.laanelitt.laanelittapp.database.ItemDatabase
 import com.laanelitt.laanelittapp.databinding.FragmentSearchPageBinding
+
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.laanelitt.laanelittapp.login.LoginFragment.Pref.getUserId
 
 class SearchPageFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    private lateinit var binding: FragmentSearchPageBinding
 
-        val binding = DataBindingUtil.inflate<FragmentSearchPageBinding>(
-            inflater, R.layout.fragment_search_page, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_search_page, container, false
+        )
         //The complete onClickListener with Navigation
         binding.verktoyKnapp.setOnClickListener { view: View ->
             view.findNavController()
@@ -72,4 +75,20 @@ class SearchPageFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeAuthenticationState()
+
+    }
+
+    private fun observeAuthenticationState() {
+
+        if (getUserId(requireContext(), "ID", "null") == "Logget inn") {
+            binding.idText.text = getUserId(requireContext(), "ID", "null")
+
+        } else {
+            // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
+            findNavController().navigate(R.id.loginFragment)
+        }
+    }
 }

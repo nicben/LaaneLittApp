@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:autofillHints=""
-            android:hint="@string/navn"
+            android:hint="@string/name"
             android:inputType="text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -25,7 +25,7 @@
             android:autofillHints=""
             android:gravity="top"
             android:layout_below="@id/editName"
-            android:hint="@string/beskrivelse"
+            android:hint="@string/description"
             android:inputType="textMultiLine"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
