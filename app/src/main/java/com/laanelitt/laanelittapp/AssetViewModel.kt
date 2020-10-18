@@ -8,24 +8,28 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AssetViewModel : ViewModel(){
+class AssetViewModel: ViewModel(){
 
     // Interne MutableLiveData som lagrer responsen fra APIet
+
     private val _response = MutableLiveData<String>()
     private val _assets = MutableLiveData<List<Assets>>()
 
+
     // Public immutable LiveData som kan brukes av UI
+
     val response: LiveData<String>
         get() = _response
     val assets: LiveData<List<Assets>>
         get() = _assets
     init {
-        getCatAssets() // Gjør REST-kallet med en gang ViewModel-objektet lages
+
+        getCatAssets("11") // Gjør REST-kallet med en gang ViewModel-objektet lages
         println("****************getCatAssetsInit************************")
 
     }
-    private fun getCatAssets() {println("****************getCatAssets************************")
-        AssetApi.retrofitService.getCatAssets("11").enqueue(
+    private fun getCatAssets(catNr: String) {println("****************getCatAssets************************")
+        AssetApi.retrofitService.getCatAssets(catNr).enqueue(
             object: Callback<List<Assets>> {
                 override fun onResponse(call: Call<List<Assets>>,
                                         response: Response<List<Assets>>

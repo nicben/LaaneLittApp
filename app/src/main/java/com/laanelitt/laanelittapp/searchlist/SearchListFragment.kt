@@ -14,16 +14,8 @@ import com.laanelitt.laanelittapp.databinding.FragmentSearchListBinding
 class SearchListFragment : Fragment() {
     /**/
     private val viewModel:AssetViewModel by lazy {
-        ViewModelProviders.of(this).get(AssetViewModel::class.java)
+        ViewModelProviders.of(this).get(AssetViewModel()::class.java)
     }
-    /*
-    private lateinit var assetList: ArrayList<Asset>
-    private lateinit var linLayoutMgr: RecyclerView.LayoutManager
-    private lateinit var assetAdapter: RecyclerView.Adapter<*>
-    private lateinit var assetRecyclerView: RecyclerView*/
-
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         println("****************************************AHHHH")
         val binding=FragmentSearchListBinding.inflate(inflater)

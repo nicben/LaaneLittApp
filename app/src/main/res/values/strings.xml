@@ -46,5 +46,6 @@
     <string name="preference_file_key">prefKey</string>
     <string name="saved_userId_key">savedUserId</string>
     <string name="asset_name">Eiendelnavn</string>
+    <string name="assetimage">AssetImage</string>
 
 </resources>
