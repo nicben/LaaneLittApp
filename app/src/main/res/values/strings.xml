@@ -36,7 +36,7 @@
     <string name="profileImg">Profilbilde</string>
     <string name="logout_">LOGG UT</string>
     <string name="om_">OM</string>
-    <string name="no_description">No description</string>
+    <string name="no_description">Ingen beskrivelse</string>
 
     <string name="password">Password</string>
     <string name="email">Email</string>
@@ -46,6 +46,6 @@
     <string name="preference_file_key">prefKey</string>
     <string name="saved_userId_key">savedUserId</string>
     <string name="asset_name">Eiendelnavn</string>
-    <string name="assetimage">AssetImage</string>
+    <string name="asset_img">AssetImage</string>
 
 </resources>
