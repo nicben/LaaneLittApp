@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentAssetBinding
 
 
@@ -16,7 +17,8 @@ class AssetFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentAssetBinding>(inflater,R.layout.fragment_asset,container,false)
+        val binding = DataBindingUtil.inflate<FragmentAssetBinding>(inflater,
+            R.layout.fragment_asset,container,false)
 
 
 

@@ -31,9 +31,9 @@
     </fragment>
     <fragment
         android:id="@+id/searchListFragment"
-        android:name="com.laanelitt.laanelittapp.searchlist.SearchListFragment"
+        android:name="com.laanelitt.laanelittapp.categorylist.CategoryFragment"
         android:label="@string/LaaneLitt"
-        tools:layout="@layout/fragment_search_list" >
+        tools:layout="@layout/fragment_category_list" >
         <action
             android:id="@+id/action_searchListFragment_to_assetFragment"
             app:destination="@id/assetFragment" />
@@ -88,10 +88,13 @@
         android:id="@+id/categoryListFragment"
         android:name="com.laanelitt.laanelittapp.CategoryListFragment"
         android:label="@string/LaaneLitt"
-        tools:layout="@layout/fragment_category_list" >
+        tools:layout="@layout/fragment_categorwy_list" >
         <action
             android:id="@+id/action_categoryListFragment_to_assetFragment"
             app:destination="@id/assetFragment" />
+        <argument
+            android:name="ID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/newUserFragment"

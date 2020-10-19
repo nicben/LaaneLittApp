@@ -1,32 +1,45 @@
-package com.laanelitt.laanelittapp
+package com.laanelitt.laanelittapp.categorylist
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.laanelitt.laanelittapp.MainActivity
+import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.AssetCardBinding
 import com.laanelitt.laanelittapp.objects.Assets
 
-class AssetsListAdapter : ListAdapter<Assets, AssetsListAdapter.AssetsViewHolder>(DiffCallback){
+class CategoryListAdapter(/*private val onClickListener: OnClickListener*/) : ListAdapter<Assets, CategoryListAdapter.CategoryViewHolder>(DiffCallback){
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):AssetsViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val binding:AssetCardBinding=AssetCardBinding.inflate(LayoutInflater.from(parent.context))
-        return AssetsViewHolder(binding)
+        return CategoryViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AssetsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val assets=getItem(position)
         val imgUri="https://lanelitt.no/AssetImages/"+assets.assetImages[0].imageUrl
         val uri=imgUri.toUri().buildUpon().scheme("https").build()
-
+        holder.itemView.setOnClickListener {
+            it?.findNavController()?.navigate(R.id.assetFragment)
+            MainActivity.visSnackbar(it, "Du valgte "+assets.assetName+". ID: "+assets.id)
+        }
+        /*holder.itemView.setOnClickListener {
+            onClickListener.onClick(assets)
+        }*/
         Glide.with(holder.binding.assetImage.context).load(uri).into(holder.binding.assetImage)
         holder.bind(assets)
     }
-    class AssetsViewHolder(var binding: AssetCardBinding): RecyclerView.ViewHolder(binding.root){
+    class OnClickListener(val clickListener: (assets:Assets) -> Unit) {
+        fun onClick(assets:Assets) = clickListener(assets)
+    }
+    class CategoryViewHolder(var binding: AssetCardBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(assets: Assets){
             binding.assets=assets
             binding.executePendingBindings()
