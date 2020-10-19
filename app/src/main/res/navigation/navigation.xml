@@ -83,6 +83,16 @@
         <action
             android:id="@+id/action_loginFragment_to_newUserFragment"
             app:destination="@id/newUserFragment" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="" />
+        <argument
+            android:name="password"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue=""/>
     </fragment>
     <fragment
         android:id="@+id/categoryListFragment"
@@ -96,6 +106,17 @@
     <fragment
         android:id="@+id/newUserFragment"
         android:name="com.laanelitt.laanelittapp.login.NewUserFragment"
-        android:label="@string/new_user"/>
+        android:label="@string/new_user"
+        tools:layout="@layout/fragment_new_user" >
+        <action
+            android:id="@+id/action_newUserFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <argument
+            android:name="newUsername"
+            app:argType="string" />
+        <argument
+            android:name="newPassword"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

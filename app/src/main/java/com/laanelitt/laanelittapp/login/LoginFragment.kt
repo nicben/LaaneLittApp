@@ -21,6 +21,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,14 +31,20 @@ class LoginFragment : Fragment() {
             inflater, R.layout.fragment_login, container, false
         )
 
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        val args = LoginFragmentArgs.fromBundle(requireArguments())
         val usernameEditText = view.findViewById<EditText>(R.id.username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
+        usernameEditText.setText(args.username)
+        passwordEditText.setText(args.password)
+        Toast.makeText(context, "username: ${args.username}, password: ${args.password}", Toast.LENGTH_LONG).show()
 
         // If the user presses the back button, bring them back to the home screen.
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -49,29 +56,36 @@ class LoginFragment : Fragment() {
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
-              if(Pref.getUserId(requireContext(), "ID", "null") == "Logget inn"){
-              findNavController().navigate(R.id.searchPageFragment)
-           }
+            if (Pref.getUserId(requireContext(), "ID", "null") == "Logget inn") {
+                findNavController().navigate(R.id.searchPageFragment)
+            }
 
         }
 
         binding.registerBtn.setOnClickListener {
-            findNavController().navigate(R.id.newUserFragment)
+            findNavController().navigate(
+                LoginFragmentDirections.actionLoginFragmentToNewUserFragment(
+                    usernameEditText.text.toString(),
+                    passwordEditText.text.toString()
+                )
+            )
         }
-
     }
 
     private fun login(username: String, password: String) {
         if (username == "1" && password == "1") {
-            Pref.setUserId(requireContext(),"ID", "Logget inn");
+            Pref.setUserId(requireContext(), "ID", "Logget inn")
         } else {
-            Toast.makeText(requireContext(),"Feil brukernavn/passord", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), "Feil brukernavn/passord", Toast.LENGTH_LONG).show()
         }
     }
 
-
     object Pref {
-        private val PREF_FILE: String = com.laanelitt.laanelittapp.BuildConfig.APPLICATION_ID.replace(".", "_")
+        private val PREF_FILE: String =
+            com.laanelitt.laanelittapp.BuildConfig.APPLICATION_ID.replace(
+                ".",
+                "_"
+            )
         private var sharedPreferences: SharedPreferences? = null
         private fun openPref(context: Context) {
             sharedPreferences = context.getSharedPreferences(PREF_FILE, MODE_PRIVATE)
@@ -88,13 +102,13 @@ class LoginFragment : Fragment() {
             openPref(context)
             val prefsPrivateEditor: SharedPreferences.Editor = sharedPreferences!!.edit()
             prefsPrivateEditor.putString(key, value)
-            prefsPrivateEditor.commit()
+            prefsPrivateEditor.apply()
             sharedPreferences = null
         }
 
         fun removeUserId(context: Context, key: String?, value: String?) {
             openPref(context)
-            sharedPreferences?.edit()?.clear()?.apply();
+            sharedPreferences?.edit()?.clear()?.apply()
         }
     }
 
