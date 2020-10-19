@@ -33,7 +33,7 @@ class NewUserFragment : Fragment() {
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val newUsernamet = view.findViewById<EditText>(R.id.new_username)
+        //val newUsername = view.findViewById<EditText>(R.id.new_username)
         val newPassword1 = view.findViewById<EditText>(R.id.new_password_1)
         val newPassword2 = view.findViewById<EditText>(R.id.new_password_2)
 
@@ -55,7 +55,7 @@ class NewUserFragment : Fragment() {
             findNavController().navigate(R.id.searchPageFragment)
 
         } else {
-            Toast.makeText(requireContext(),"Feil passord", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(),"Feil passord", Toast.LENGTH_LONG).show()
         }
     }
 }
