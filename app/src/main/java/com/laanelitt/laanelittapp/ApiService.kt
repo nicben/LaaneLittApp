@@ -1,6 +1,8 @@
 package com.laanelitt.laanelittapp
 
 import com.laanelitt.laanelittapp.objects.Assets
+import com.laanelitt.laanelittapp.objects.LogginUser
+import com.laanelitt.laanelittapp.objects.Users
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
@@ -30,11 +32,14 @@ interface ApiService {
     @GET("assets/getAssetType/134/{catNr}/")
     fun getSearchAssets(): Call<List<Assets>>
 
+    @GET("api/login/{uName}/{pWord}")
+    fun getLoggin(@Path("uName") userName:String, @Path("pWord") password:String): Call<LogginUser>
+
 }
 
 // Her kan du definere flere metoder for å kalle andre API-endepunkter
-// Public objekt som initialiserer Retrofit tjenestene i FylkeApiService for applikasjonen
-object AssetApi {
+// Public objekt som initialiserer Retrofit tjenestene i ApiService for applikasjonen
+object LaneLittApi {
     val retrofitService : ApiService by lazy {
         retrofit.create(ApiService::class.java) }
 }

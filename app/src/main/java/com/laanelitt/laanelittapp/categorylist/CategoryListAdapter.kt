@@ -28,7 +28,7 @@ class CategoryListAdapter(/*private val onClickListener: OnClickListener*/) : Li
         val imgUri="https://lanelitt.no/AssetImages/"+assets.assetImages[0].imageUrl
         val uri=imgUri.toUri().buildUpon().scheme("https").build()
         holder.itemView.setOnClickListener {
-            it?.findNavController()?.navigate(R.id.assetFragment)
+            it.findNavController().navigate(R.id.action_categoryListFragment_to_assetFragment)
             MainActivity.visSnackbar(it, "Du valgte "+assets.assetName+". ID: "+assets.id)
         }
         /*holder.itemView.setOnClickListener {
@@ -37,15 +37,9 @@ class CategoryListAdapter(/*private val onClickListener: OnClickListener*/) : Li
         Glide.with(holder.binding.assetImage.context).load(uri).into(holder.binding.assetImage)
         holder.bind(assets)
     }
-    class OnClickListener(val clickListener: (assets:Assets) -> Unit) {
+    /*class OnClickListener(val clickListener: (assets:Assets) -> Unit) {
         fun onClick(assets:Assets) = clickListener(assets)
-    }
-    class CategoryViewHolder(var binding: AssetCardBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(assets: Assets){
-            binding.assets=assets
-            binding.executePendingBindings()
-        }
-    }
+    }*/
     companion object DiffCallback: DiffUtil.ItemCallback<Assets>() {
         override fun areItemsTheSame(oldItem: Assets, newItem: Assets): Boolean {
             return  oldItem===newItem
@@ -55,6 +49,18 @@ class CategoryListAdapter(/*private val onClickListener: OnClickListener*/) : Li
             return oldItem.assetName==newItem.assetName
         }
 
+    }
+    class CategoryViewHolder(var binding: AssetCardBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(assets: Assets){
+            binding.assets=assets
+            binding.executePendingBindings()
+        }
+        /*
+        override fun onClick(view: View?) {
+            val assets = assetsList[layoutPosition]
+            view?.findNavController()?.navigate(R.id.action_myAssetsFragment_to_assetFragment)
+            MainActivity.visSnackbar(view, "Du valgte " + assets.assetName)
+        }*/
     }
 
 }

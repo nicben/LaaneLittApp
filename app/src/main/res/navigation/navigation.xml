@@ -23,6 +23,12 @@
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_search_page" >
         <action
+            android:id="@+id/action_searchPageFragment_to_searchListFragment"
+            app:destination="@id/categoryListFragment" />
+        <argument
+            android:name="catId"
+            app:argType="string" />
+        <action
             android:id="@+id/action_searchPageFragment_to_categoryListFragment"
             app:destination="@id/categoryListFragment" />
 

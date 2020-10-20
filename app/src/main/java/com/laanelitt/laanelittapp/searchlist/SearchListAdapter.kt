@@ -58,7 +58,7 @@ class SearchListAdapter(private val context: Context?, var assetList: ArrayList<
 
         override fun onClick(view: View?) {
             val asset = assetsList[layoutPosition]
-            view?.findNavController()?.navigate(R.id.action_searchListFragment_to_assetFragment)
+            //view?.findNavController()?.navigate(R.id.action_categoryListFragment_to_assetFragment)
             MainActivity.visSnackbar(view, "Du valgte " + asset.assetName)
         }
     }

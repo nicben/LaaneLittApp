@@ -6,7 +6,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 
@@ -20,8 +19,8 @@ import com.laanelitt.laanelittapp.login.LoginFragmentDirections
 
 class CategoryListFragment : Fragment() {
     /**/
-    private val viewModel: CategoryViewModel by lazy {
-        ViewModelProviders.of(this).get(CategoryViewModel()::class.java)
+    private val viewModel: CategoryListViewModel by lazy {
+        ViewModelProviders.of(this).get(CategoryListViewModel()::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         println("****************************************AHHHH")

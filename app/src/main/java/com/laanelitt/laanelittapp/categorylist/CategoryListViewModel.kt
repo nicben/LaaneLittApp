@@ -3,19 +3,18 @@ package com.laanelitt.laanelittapp.categorylist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.laanelitt.laanelittapp.AssetApi
+import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.objects.Assets
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoryViewModel: ViewModel(){
+class CategoryListViewModel: ViewModel(){
 
     // Interne MutableLiveData som lagrer responsen fra APIet
 
     private val _response = MutableLiveData<String>()
     private val _assets = MutableLiveData<List<Assets>>()
-    //private val _navigateToSelectedAsset = MutableLiveData<Assets>()
 
     // Public immutable LiveData som kan brukes av UI
 
@@ -23,17 +22,15 @@ class CategoryViewModel: ViewModel(){
         get() = _response
     val assets: LiveData<List<Assets>>
         get() = _assets
-    /*val navigateToSelectedAsset: LiveData<Assets>
-        get() = _navigateToSelectedAsset
-    */
     init {
 
         getCatAssets("11") // Gjør REST-kallet med en gang ViewModel-objektet lages
         println("****************getCatAssetsInit************************")
 
     }
-    private fun getCatAssets(catNr: String) {println("****************getCatAssets************************")
-        AssetApi.retrofitService.getCatAssets(catNr).enqueue(
+    private fun getCatAssets(catNr: String) {
+        println("****************getCatAssets************************")
+        LaneLittApi.retrofitService.getCatAssets(catNr).enqueue(
             object: Callback<List<Assets>> {
                 override fun onResponse(call: Call<List<Assets>>,
                                         response: Response<List<Assets>>
@@ -47,7 +44,8 @@ class CategoryViewModel: ViewModel(){
                     _response.value = "Feil: " + t.message
                     _assets.value=ArrayList()
                 }
-            })
+            }
+        )
     }
     /*fun displayAsset(asset: Assets){
         _navigateToSelectedAsset.value=asset
