@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp
+package com.laanelitt.laanelittapp.categorylist
 
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.objects.Assets
 
 
@@ -26,7 +27,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?){
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Assets>?) {
     println("****************BindingAdapter************************")
-    val adapter = recyclerView.adapter as AssetsListAdapter
+    val adapter = recyclerView.adapter as CategoryListAdapter
     adapter.submitList(data)
 }
 

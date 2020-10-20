@@ -29,27 +29,6 @@ import kotlin.random.Random
 class LoginViewModel : ViewModel() {
 
 
-    enum class AuthenticationState {
-        AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
-    }
-
-  /*  val authenticationState = FirebaseUserLiveData().map { user ->
-        if (user != null) {
-            AuthenticationState.AUTHENTICATED
-        }
-        } else {
-            AuthenticationState.UNAUTHENTICATED
-    }
-*/
-
-   /* val authenticationState = FirebaseUserLiveData().map { userId ->
-        if (userId != null) {
-            AuthenticationState.AUTHENTICATED
-        } else {
-            AuthenticationState.UNAUTHENTICATED
-        }
-    }*/
-
     // A placeholder username validation check
     private fun isUserNameValid(username: String): Boolean {
         return if (username.contains("@")) {

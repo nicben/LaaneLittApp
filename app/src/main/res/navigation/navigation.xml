@@ -31,9 +31,9 @@
     </fragment>
     <fragment
         android:id="@+id/searchListFragment"
-        android:name="com.laanelitt.laanelittapp.searchlist.SearchListFragment"
+        android:name="com.laanelitt.laanelittapp.categorylist.CategoryFragment"
         android:label="@string/LaaneLitt"
-        tools:layout="@layout/fragment_search_list" >
+        tools:layout="@layout/fragment_category_list" >
         <action
             android:id="@+id/action_searchListFragment_to_assetFragment"
             app:destination="@id/assetFragment" />
@@ -83,19 +83,43 @@
         <action
             android:id="@+id/action_loginFragment_to_newUserFragment"
             app:destination="@id/newUserFragment" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="" />
+        <argument
+            android:name="password"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue=""/>
     </fragment>
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="com.laanelitt.laanelittapp.CategoryListFragment"
         android:label="@string/LaaneLitt"
-        tools:layout="@layout/fragment_category_list" >
+        tools:layout="@layout/fragment_categorwy_list" >
         <action
             android:id="@+id/action_categoryListFragment_to_assetFragment"
             app:destination="@id/assetFragment" />
+        <argument
+            android:name="ID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/newUserFragment"
         android:name="com.laanelitt.laanelittapp.login.NewUserFragment"
-        android:label="@string/new_user"/>
+        android:label="@string/new_user"
+        tools:layout="@layout/fragment_new_user" >
+        <action
+            android:id="@+id/action_newUserFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <argument
+            android:name="newUsername"
+            app:argType="string" />
+        <argument
+            android:name="newPassword"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
