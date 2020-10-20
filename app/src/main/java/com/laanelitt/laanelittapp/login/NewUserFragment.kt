@@ -65,7 +65,7 @@ class NewUserFragment : Fragment() {
                 )
             )
         } else {
-            Toast.makeText(requireContext(), "Feil passord", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),"Feil passord", Toast.LENGTH_LONG).show()
         }
     }
 
