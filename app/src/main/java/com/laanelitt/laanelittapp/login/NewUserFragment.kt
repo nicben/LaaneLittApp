@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentNewUserBinding
@@ -60,14 +59,11 @@ class NewUserFragment : Fragment() {
 
     private fun register(username: String, password1: String, password2: String) {
         if (password1 == password2) {
-            findNavController().navigate(
-                NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
+            findNavController().navigate(NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
                     username,
                     password1
                 )
             )
-
-
         } else {
             Toast.makeText(requireContext(), "Feil passord", Toast.LENGTH_LONG).show()
         }

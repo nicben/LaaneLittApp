@@ -2,12 +2,20 @@ package com.laanelitt.laanelittapp.categorylist
 
 import android.os.Bundle
 import android.view.*
+import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 
 //liste etter søk
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
+import com.laanelitt.laanelittapp.login.LoginFragment
+import com.laanelitt.laanelittapp.login.LoginFragmentArgs
+import com.laanelitt.laanelittapp.login.LoginFragmentDirections
 
 class CategoryListFragment : Fragment() {
     /**/
@@ -35,5 +43,18 @@ class CategoryListFragment : Fragment() {
         println("****************************************AHHHH2")
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val args = CategoryListFragmentArgs.fromBundle(requireArguments())
+        Toast.makeText(context, "catId: ${args.catId}", Toast.LENGTH_LONG).show()
+
+        // If the user presses the back button, bring them back to the home screen.
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack(R.id.searchPageFragment, false)
+        }
+
     }
 }

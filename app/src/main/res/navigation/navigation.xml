@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_assetFragment_to_loanRequestPopupFragment"
             app:destination="@id/loanRequestPopupFragment" />
+        <argument
+            android:name="assetId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/searchPageFragment"
@@ -28,6 +31,16 @@
         <action
             android:id="@+id/action_searchPageFragment_to_categoryListFragment"
             app:destination="@id/categoryListFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/searchListFragment"
+        android:name="com.laanelitt.laanelittapp.categorylist.CategoryListFragment"
+        android:label="@string/LaaneLitt"
+        tools:layout="@layout/fragment_category_list" >
+        <action
+            android:id="@+id/action_searchListFragment_to_assetFragment"
+            app:destination="@id/assetFragment" />
     </fragment>
     <fragment
         android:id="@+id/myAssetsFragment"
@@ -82,18 +95,7 @@
             app:nullable="true"
             android:defaultValue=""/>
     </fragment>
-    <fragment
-        android:id="@+id/categoryListFragment"
-        android:name="com.laanelitt.laanelittapp.categorylist.CategoryListFragment"
-        android:label="@string/LaaneLitt"
-        tools:layout="@layout/fragment_category_list" >
-        <action
-            android:id="@+id/action_categoryListFragment_to_assetFragment"
-            app:destination="@id/assetFragment" />
-        <argument
-            android:name="ID"
-            app:argType="string" />
-    </fragment>
+
     <fragment
         android:id="@+id/newUserFragment"
         android:name="com.laanelitt.laanelittapp.login.NewUserFragment"
@@ -107,6 +109,20 @@
             app:argType="string" />
         <argument
             android:name="newPassword"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.laanelitt.laanelittapp.categorylist.CategoryListFragment"
+        android:label="@string/LaaneLitt"
+        tools:layout="@layout/fragment_category_list" >
+
+        <action
+            android:id="@+id/action_categoryListFragment_to_assetFragment"
+            app:destination="@id/assetFragment" />
+        <argument
+            android:name="catId"
             app:argType="string" />
     </fragment>
 
