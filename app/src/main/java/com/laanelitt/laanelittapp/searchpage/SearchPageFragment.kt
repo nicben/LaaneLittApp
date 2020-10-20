@@ -106,7 +106,7 @@ class SearchPageFragment : Fragment() {
 
     }
 
-    private fun observeAuthenticationState() {
+    fun observeAuthenticationState() {
 
         if (getUserId(requireContext(), "ID", "null") != "") {
             binding.idText.text = getUserId(requireContext(), "ID", "null")

@@ -3,7 +3,7 @@ package com.laanelitt.laanelittapp.categorylist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.laanelitt.laanelittapp.AssetApi
+import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.objects.Assets
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,8 +28,9 @@ class CategoryListViewModel: ViewModel(){
         println("****************getCatAssetsInit************************")
 
     }
-    private fun getCatAssets(catNr: String) {println("****************getCatAssets************************")
-        AssetApi.retrofitService.getCatAssets(catNr).enqueue(
+    private fun getCatAssets(catNr: String) {
+        println("****************getCatAssets************************")
+        LaneLittApi.retrofitService.getCatAssets(catNr).enqueue(
             object: Callback<List<Assets>> {
                 override fun onResponse(call: Call<List<Assets>>,
                                         response: Response<List<Assets>>
@@ -43,7 +44,8 @@ class CategoryListViewModel: ViewModel(){
                     _response.value = "Feil: " + t.message
                     _assets.value=ArrayList()
                 }
-            })
+            }
+        )
     }
     /*fun displayAsset(asset: Assets){
         _navigateToSelectedAsset.value=asset

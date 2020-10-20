@@ -29,6 +29,8 @@ class MyAssetsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (LoginFragment.Pref.getUserId(requireContext(), "ID", "null") == "") {
+        findNavController().navigate(R.id.loginFragment)}
 
         assetList= Asset.makeAssetListe(resources)
 

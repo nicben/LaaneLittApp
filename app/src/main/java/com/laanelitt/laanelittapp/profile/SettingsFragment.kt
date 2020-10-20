@@ -38,7 +38,8 @@ class SettingsFragment : Fragment() {
         }
 
         binding.logoutBtn.setOnClickListener {
-            LoginFragment.Pref.removeUserId(requireContext(), "ID", "null")
+            LoginFragment.Pref.setUserId(requireContext(), "ID", "")
+            //LoginFragment.Pref.removeUserId(requireContext(), "ID", "null")
             findNavController().navigate(R.id.loginFragment)
         }
 

@@ -37,9 +37,9 @@ class CategoryListAdapter(/*private val onClickListener: OnClickListener*/) : Li
         Glide.with(holder.binding.assetImage.context).load(uri).into(holder.binding.assetImage)
         holder.bind(assets)
     }
-    class OnClickListener(val clickListener: (assets:Assets) -> Unit) {
+    /*class OnClickListener(val clickListener: (assets:Assets) -> Unit) {
         fun onClick(assets:Assets) = clickListener(assets)
-    }
+    }*/
     companion object DiffCallback: DiffUtil.ItemCallback<Assets>() {
         override fun areItemsTheSame(oldItem: Assets, newItem: Assets): Boolean {
             return  oldItem===newItem

@@ -10,7 +10,7 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.objects.Assets
 
 
-@BindingAdapter("imageUrl")
+/*@BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?){
     println("****************bindImage************************")
     imgUrl?.let {
@@ -23,7 +23,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?){
                 )
                 .into(imgView)
     }
-}
+}*/
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Assets>?) {
     println("****************BindingAdapter************************")
