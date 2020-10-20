@@ -21,25 +21,13 @@
         tools:layout="@layout/fragment_search_page" >
         <action
             android:id="@+id/action_searchPageFragment_to_searchListFragment"
-            app:destination="@id/searchListFragment" />
+            app:destination="@id/categoryListFragment" />
         <argument
             android:name="catId"
             app:argType="string" />
         <action
             android:id="@+id/action_searchPageFragment_to_categoryListFragment"
             app:destination="@id/categoryListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchListFragment"
-        android:name="com.laanelitt.laanelittapp.categorylist.CategoryFragment"
-        android:label="@string/LaaneLitt"
-        tools:layout="@layout/fragment_category_list" >
-        <action
-            android:id="@+id/action_searchListFragment_to_assetFragment"
-            app:destination="@id/assetFragment" />
-        <argument
-            android:name="itemId"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/myAssetsFragment"
@@ -96,9 +84,9 @@
     </fragment>
     <fragment
         android:id="@+id/categoryListFragment"
-        android:name="com.laanelitt.laanelittapp.CategoryListFragment"
+        android:name="com.laanelitt.laanelittapp.categorylist.CategoryListFragment"
         android:label="@string/LaaneLitt"
-        tools:layout="@layout/fragment_categorwy_list" >
+        tools:layout="@layout/fragment_category_list" >
         <action
             android:id="@+id/action_categoryListFragment_to_assetFragment"
             app:destination="@id/assetFragment" />

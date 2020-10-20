@@ -9,13 +9,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoryViewModel: ViewModel(){
+class CategoryListViewModel: ViewModel(){
 
     // Interne MutableLiveData som lagrer responsen fra APIet
 
     private val _response = MutableLiveData<String>()
     private val _assets = MutableLiveData<List<Assets>>()
-    //private val _navigateToSelectedAsset = MutableLiveData<Assets>()
 
     // Public immutable LiveData som kan brukes av UI
 
@@ -23,9 +22,6 @@ class CategoryViewModel: ViewModel(){
         get() = _response
     val assets: LiveData<List<Assets>>
         get() = _assets
-    /*val navigateToSelectedAsset: LiveData<Assets>
-        get() = _navigateToSelectedAsset
-    */
     init {
 
         getCatAssets("11") // Gjør REST-kallet med en gang ViewModel-objektet lages
