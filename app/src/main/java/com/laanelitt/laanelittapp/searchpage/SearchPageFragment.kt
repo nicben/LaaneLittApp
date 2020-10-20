@@ -5,13 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentSearchPageBinding
-
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.laanelitt.laanelittapp.categorylist.CategoryListFragmentArgs
 import com.laanelitt.laanelittapp.login.LoginFragment.Pref.getUserId
 
 class SearchPageFragment : Fragment() {
@@ -29,47 +29,71 @@ class SearchPageFragment : Fragment() {
         //The complete onClickListener with Navigation
         binding.verktoyKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_searchPageFragment_to_searchListFragment)
+                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment("1"))
         }
 
         binding.elKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_searchPageFragment_to_searchListFragment)
+                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    "2"
+                )
+                )
         }
 
         binding.instrumentKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_searchPageFragment_to_searchListFragment)
+                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    "3"
+                )
+                )
         }
 
         binding.klerKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_searchPageFragment_to_searchListFragment)
+                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                     "6"
+                )
+                )
         }
 
         binding.skoKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_searchPageFragment_to_searchListFragment)
+                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    "7"
+                )
+                )
         }
 
         binding.bokerKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_searchPageFragment_to_searchListFragment)
+                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    "8"
+                )
+                )
         }
 
         binding.sportKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_searchPageFragment_to_searchListFragment)
+                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    "9"
+                )
+                )
         }
 
         binding.multiKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_searchPageFragment_to_searchListFragment)
+                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    "10"
+                )
+                )
         }
 
         binding.divKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_searchPageFragment_to_searchListFragment)
+                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    "11"
+                )
+                )
         }
 
         return binding.root
@@ -78,6 +102,7 @@ class SearchPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeAuthenticationState()
+
 
     }
 
