@@ -21,7 +21,6 @@ class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,13 +30,11 @@ class LoginFragment : Fragment() {
             inflater, R.layout.fragment_login, container, false
         )
 
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         val args = LoginFragmentArgs.fromBundle(requireArguments())
         val usernameEditText = view.findViewById<EditText>(R.id.username)
@@ -59,7 +56,6 @@ class LoginFragment : Fragment() {
             if (Pref.getUserId(requireContext(), "ID", "null") == "Logget inn") {
                 findNavController().navigate(R.id.searchPageFragment)
             }
-
         }
 
         binding.registerBtn.setOnClickListener {
