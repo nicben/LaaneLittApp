@@ -53,7 +53,7 @@ class LoginFragment : Fragment() {
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
-            if (Pref.getUserId(requireContext(), "ID", "null") == "Logget inn") {
+            if (Pref.getUserId(requireContext(), "ID", "null") != "") {
                 findNavController().navigate(R.id.searchPageFragment)
             }
         }
@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
 
     private fun login(username: String, password: String) {
         if (username == "1" && password == "1") {
-            Pref.setUserId(requireContext(), "ID", "Logget inn")
+            Pref.setUserId(requireContext(), "ID", username)
         } else {
             Toast.makeText(requireContext(), "Feil brukernavn/passord", Toast.LENGTH_LONG).show()
         }
@@ -107,7 +107,6 @@ class LoginFragment : Fragment() {
             sharedPreferences?.edit()?.clear()?.apply()
         }
     }
-
 }
 
 

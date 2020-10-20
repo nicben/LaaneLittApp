@@ -108,7 +108,7 @@ class SearchPageFragment : Fragment() {
 
     private fun observeAuthenticationState() {
 
-        if (getUserId(requireContext(), "ID", "null") == "Logget inn") {
+        if (getUserId(requireContext(), "ID", "null") != "") {
             binding.idText.text = getUserId(requireContext(), "ID", "null")
 
         } else {

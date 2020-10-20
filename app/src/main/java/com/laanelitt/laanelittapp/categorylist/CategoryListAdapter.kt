@@ -18,6 +18,7 @@ class CategoryListAdapter(/*private val onClickListener: OnClickListener*/) : Li
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+        //val binding:AssetCardBinding=AssetCardBinding.inflate(LayoutInflater.from(parent.context))
         val binding:AssetCardBinding=AssetCardBinding.inflate(LayoutInflater.from(parent.context))
         return CategoryViewHolder(binding)
     }
