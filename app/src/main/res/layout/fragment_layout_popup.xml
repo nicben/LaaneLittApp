@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:weightSum="2"
         android:layout_gravity="center_vertical"
-        tools:context=".LoanRequestPopupFragment">
+        tools:context=".Asset.LoanRequestPopupFragment">
 
 
         <TextView

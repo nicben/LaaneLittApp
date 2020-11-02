@@ -9,12 +9,12 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/asset_card"
-        android:layout_width="match_parent"
+        android:id="@+id/cat_asset_card"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
 
         android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
 
@@ -31,7 +31,7 @@
             android:paddingVertical="0dp">
 
             <ImageView
-                android:id="@+id/assetImage"
+                android:id="@+id/catAssetImage"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginStart="0dp"
@@ -40,7 +40,7 @@
                 android:paddingHorizontal="5dp"
                 android:src="@drawable/default_asset_image" />
             <TextView
-                android:id="@+id/assetName"
+                android:id="@+id/catAssetName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"

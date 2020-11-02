@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp
+package com.laanelitt.laanelittapp.Asset
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

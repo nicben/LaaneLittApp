@@ -16,8 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentLoginBinding
-import com.laanelitt.laanelittapp.objects.LogginUser
-import com.laanelitt.laanelittapp.objects.Users
+import com.laanelitt.laanelittapp.objects.LoginUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,11 +58,6 @@ class LoginFragment : Fragment() {
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
-            /*if (Pref.getUserId(requireContext(), "ID", "null") != "") {
-            if (Pref.getUserId(requireContext(), "ID", "null") == "Logget inn") {
-                findNavController().navigate(R.id.searchPageFragment)
-            }
-            }*/
         }
 
         binding.registerBtn.setOnClickListener {
@@ -78,8 +72,8 @@ class LoginFragment : Fragment() {
 
     private fun login(username: String, password: String) {
         LaneLittApi.retrofitService.getLoggin(username, password).enqueue(
-            object: Callback<LogginUser> {
-                override fun onResponse(call: Call<LogginUser>, response: Response<LogginUser>) {
+            object: Callback<LoginUser> {
+                override fun onResponse(call: Call<LoginUser>, response: Response<LoginUser>) {
                     println("LOGIN YES")
                     println(response.body()?.user?.id)
                     if(response.body()?.user?.id!=null){
@@ -93,23 +87,16 @@ class LoginFragment : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<LogginUser>, t: Throwable) {
+                override fun onFailure(call: Call<LoginUser>, t: Throwable) {
                     println("LOGIN NO")
                     println("**"+t+"**")
-                    Toast.makeText(requireContext(), "Feil brukernavn/passord", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Noe skjedde galt", Toast.LENGTH_LONG).show()
                 }
 
             }
 
         )
 
-        /*if (username == "1" && password == "1") {
-            Pref.setUserId(requireContext(), "ID", "Logget inn")
-        if (username == "1" && password == "1") {
-            Pref.setUserId(requireContext(), "ID", username)
-        } else {
-            Toast.makeText(requireContext(), "Feil brukernavn/passord", Toast.LENGTH_LONG).show()
-        }*/
     }
 
     object Pref {
@@ -138,10 +125,6 @@ class LoginFragment : Fragment() {
             sharedPreferences = null
         }
 
-        /*fun removeUserId(context: Context, key: String?, value: String?) {
-            openPref(context)
-            sharedPreferences?.edit()?.clear()?.apply()
-        }*/
     }
 
 }
