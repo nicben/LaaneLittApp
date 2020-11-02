@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/assetFragment"
-        android:name="com.laanelitt.laanelittapp.AssetFragment"
+        android:name="com.laanelitt.laanelittapp.Asset.AssetFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_asset" >
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/myAssetsFragment"
-        android:name="com.laanelitt.laanelittapp.profile.MyAssetsFragment"
+        android:name="com.laanelitt.laanelittapp.profile.myassets.MyAssetsFragment"
         android:label="@string/my_assets"
         tools:layout="@layout/fragment_my_assets" >
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/loanRequestPopupFragment"
-        android:name="com.laanelitt.laanelittapp.LoanRequestPopupFragment"
+        android:name="com.laanelitt.laanelittapp.Asset.LoanRequestPopupFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_loan_request_popup"/>
     <fragment

@@ -2,50 +2,47 @@ package com.laanelitt.laanelittapp.categorylist
 
 import android.os.Bundle
 import android.view.*
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 //liste etter søk
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
-import com.laanelitt.laanelittapp.login.LoginFragment
-import com.laanelitt.laanelittapp.login.LoginFragmentArgs
-import com.laanelitt.laanelittapp.login.LoginFragmentDirections
 
 class CategoryListFragment : Fragment() {
     /**/
     private val viewModel: CategoryListViewModel by lazy {
-        ViewModelProviders.of(this).get(CategoryListViewModel()::class.java)
+        ViewModelProvider(requireActivity()).get(CategoryListViewModel()::class.java)
     }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        println("****************************************AHHHH")
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+
         val binding=FragmentCategoryListBinding.inflate(inflater)
+        println("****************************************AHHHH  ")
+
+        viewModel.getCatAssets(CategoryListFragmentArgs.fromBundle(requireArguments()).catId)
+        println("****************************************AHHHH1,5  ")
 
         binding.setLifecycleOwner(this)
         binding.viewModel=viewModel
 
         binding.recyclerCategoryList.adapter= CategoryListAdapter()
-        /*binding.recyclerCategoryList.adapter= CategoryListAdapter(CategoryListAdapter.OnClickListener{
-            viewModel.displayAsset(it)
-        })
 
-        viewModel.navigateToSelectedAsset.observe(this, Observer {
+        binding.recyclerCategoryList.layoutManager = GridLayoutManager(context, 2)
 
-        })*/
-
-        binding.recyclerCategoryList.layoutManager=LinearLayoutManager(context)
-
-        println("****************************************AHHHH2")
+        println("****************************************AHHHH2  ")
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        println("****************************************viewCreated")
         super.onViewCreated(view, savedInstanceState)
 
         val args = CategoryListFragmentArgs.fromBundle(requireArguments())

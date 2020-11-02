@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.profile
+package com.laanelitt.laanelittapp.profile.myassets
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.laanelitt.laanelittapp.objects.Asset
@@ -37,12 +38,14 @@ class MyAssetsFragment : Fragment() {
         val layout= inflater.inflate(R.layout.fragment_my_assets, container, false)
 
         linLayoutMgr= LinearLayoutManager(context)
+        linLayoutMgr= GridLayoutManager(context, 2)
         assetAdapter= AssetListAdapter(context, assetList)
         assetRecyclerView=layout.findViewById<RecyclerView>(R.id.recyclerMyItemList).apply{
             setHasFixedSize(true)
             layoutManager=linLayoutMgr
             adapter=assetAdapter
         }
+
 
         return layout
         // Inflate the layout for this fragment

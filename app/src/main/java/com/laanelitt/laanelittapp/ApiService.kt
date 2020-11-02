@@ -1,8 +1,7 @@
 package com.laanelitt.laanelittapp
 
 import com.laanelitt.laanelittapp.objects.Assets
-import com.laanelitt.laanelittapp.objects.LogginUser
-import com.laanelitt.laanelittapp.objects.Users
+import com.laanelitt.laanelittapp.objects.LoginUser
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
@@ -33,7 +32,7 @@ interface ApiService {
     fun getSearchAssets(): Call<List<Assets>>
 
     @GET("api/login/{uName}/{pWord}")
-    fun getLoggin(@Path("uName") userName:String, @Path("pWord") password:String): Call<LogginUser>
+    fun getLoggin(@Path("uName") userName:String, @Path("pWord") password:String): Call<LoginUser>
 
 }
 

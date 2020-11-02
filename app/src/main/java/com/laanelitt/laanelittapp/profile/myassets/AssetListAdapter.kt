@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.profile
+package com.laanelitt.laanelittapp.profile.myassets
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.laanelitt.laanelittapp.objects.Asset
 import com.laanelitt.laanelittapp.MainActivity
 import com.laanelitt.laanelittapp.R
-import com.laanelitt.laanelittapp.profile.AssetListAdapter.AssetViewHolder
+import com.laanelitt.laanelittapp.profile.myassets.AssetListAdapter.AssetViewHolder
 
 class AssetListAdapter(private val context: Context?, var assetList: ArrayList<Asset>):RecyclerView.Adapter<AssetViewHolder>(){
     private val assetsList: ArrayList<Asset>
@@ -35,6 +35,7 @@ class AssetListAdapter(private val context: Context?, var assetList: ArrayList<A
         val thisAsset=assetsList[position]
         holder.assetNameView.text=thisAsset.assetName
 
+        //val imgUri=thisAsset.imageLink.toUri().buildUpon().scheme("https").build()
         val imgUri=thisAsset.imageLink.toUri().buildUpon().scheme("https").build()
 
         Glide.with(holder.assetImageView.context).load(imgUri).into(holder.assetImageView)

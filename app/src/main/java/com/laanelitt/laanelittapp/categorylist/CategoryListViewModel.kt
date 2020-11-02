@@ -22,13 +22,8 @@ class CategoryListViewModel: ViewModel(){
         get() = _response
     val assets: LiveData<List<Assets>>
         get() = _assets
-    init {
 
-        getCatAssets("11") // Gjør REST-kallet med en gang ViewModel-objektet lages
-        println("****************getCatAssetsInit************************")
-
-    }
-    private fun getCatAssets(catNr: String) {
+    fun getCatAssets(catNr: String) {
         println("****************getCatAssets************************")
         LaneLittApi.retrofitService.getCatAssets(catNr).enqueue(
             object: Callback<List<Assets>> {
@@ -40,18 +35,12 @@ class CategoryListViewModel: ViewModel(){
                     _assets.value = response.body()
                 }
                 override fun onFailure(call: Call<List<Assets>>, t: Throwable) {
-                    println("NAY******************************************************")
+                    println("GOD DAMN IT******************************************************")
                     _response.value = "Feil: " + t.message
                     _assets.value=ArrayList()
                 }
             }
         )
     }
-    /*fun displayAsset(asset: Assets){
-        _navigateToSelectedAsset.value=asset
-    }
-    fun displayAssetComplete(){
-        _navigateToSelectedAsset.value=null
-    }*/
 
 }
