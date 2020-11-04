@@ -47,5 +47,6 @@
     <string name="saved_userId_key">savedUserId</string>
     <string name="asset_name">Eiendelnavn</string>
     <string name="asset_img">AssetImage</string>
+    <string name="om_oss">Om oss</string>
 
 </resources>

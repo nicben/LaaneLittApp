@@ -43,7 +43,6 @@ class AssetListAdapter(private val context: Context?, var assetList: ArrayList<A
 
     override fun getItemCount(): Int =assetsList.size
 
-
     inner class AssetViewHolder(itemView: View, adapter: AssetListAdapter):RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
         val assetNameView: TextView
@@ -52,7 +51,7 @@ class AssetListAdapter(private val context: Context?, var assetList: ArrayList<A
         val assAdapter: AssetListAdapter
         init {
             assetNameView=itemView.findViewById<View>(R.id.assetName) as TextView
-            assetImageView=itemView.findViewById<View>(R.id.assetImage) as ImageView
+           assetImageView=itemView.findViewById<View>(R.id.assetImage) as ImageView
             assAdapter=adapter
             itemView.setOnClickListener(this)
         }
