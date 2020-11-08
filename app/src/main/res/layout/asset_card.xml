@@ -5,7 +5,7 @@
     <data>
         <variable
             name="assets"
-            type="com.laanelitt.laanelittapp.objects.Assets" />
+            type="com.laanelitt.laanelittapp.objects.Asset" />
     </data>
 
     <LinearLayout

@@ -10,18 +10,18 @@ import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.laanelitt.laanelittapp.objects.Asset
+import com.laanelitt.laanelittapp.objects.OldAsset
 import com.laanelitt.laanelittapp.MainActivity
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.profile.myassets.AssetListAdapter.AssetViewHolder
 
-class AssetListAdapter(private val context: Context?, var assetList: ArrayList<Asset>):RecyclerView.Adapter<AssetViewHolder>(){
-    private val assetsList: ArrayList<Asset>
+class AssetListAdapter(private val context: Context?, var oldAssetList: ArrayList<OldAsset>):RecyclerView.Adapter<AssetViewHolder>(){
+    private val assetsList: ArrayList<OldAsset>
 
     //private val mInflater: LayoutInflater
     init {
         //mInflater= LayoutInflater.from(context)
-        assetsList=assetList
+        assetsList=oldAssetList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetViewHolder {
@@ -51,7 +51,7 @@ class AssetListAdapter(private val context: Context?, var assetList: ArrayList<A
         val assAdapter: AssetListAdapter
         init {
             assetNameView=itemView.findViewById<View>(R.id.assetName) as TextView
-           assetImageView=itemView.findViewById<View>(R.id.assetImage) as ImageView
+            assetImageView=itemView.findViewById<View>(R.id.assetImage) as ImageView
             assAdapter=adapter
             itemView.setOnClickListener(this)
         }

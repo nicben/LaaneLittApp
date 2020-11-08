@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.laanelitt.laanelittapp.objects.Asset
+import com.laanelitt.laanelittapp.objects.OldAsset
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.login.LoginFragment
 import kotlinx.android.synthetic.main.fragment_my_assets.*
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_my_assets.*
 
 class MyAssetsFragment : Fragment() {
 
-    private lateinit var assetList: ArrayList<Asset>
+    private lateinit var oldAssetList: ArrayList<OldAsset>
     private lateinit var linLayoutMgr: RecyclerView.LayoutManager
     private lateinit var assetAdapter: RecyclerView.Adapter<*>
     private lateinit var assetRecyclerView: RecyclerView
@@ -33,13 +33,13 @@ class MyAssetsFragment : Fragment() {
         if (LoginFragment.Pref.getUserId(requireContext(), "ID", "null") == "") {
         findNavController().navigate(R.id.loginFragment)}
 
-        assetList= Asset.makeAssetListe(resources)
+        oldAssetList= OldAsset.makeAssetListe(resources)
 
         val layout= inflater.inflate(R.layout.fragment_my_assets, container, false)
 
         linLayoutMgr= LinearLayoutManager(context)
         linLayoutMgr= GridLayoutManager(context, 2)
-        assetAdapter= AssetListAdapter(context, assetList)
+        assetAdapter= AssetListAdapter(context, oldAssetList)
         assetRecyclerView=layout.findViewById<RecyclerView>(R.id.recyclerMyItemList).apply{
             setHasFixedSize(true)
             layoutManager=linLayoutMgr
