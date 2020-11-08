@@ -8,6 +8,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 private const val BASE_URL="https://lanelitt.no/public/"
@@ -26,13 +27,16 @@ private val retrofit = Retrofit.Builder()
 // Lag et interface som definerer hvordan Retrofit kaller APIet
 interface ApiService {
     @GET("assets/getAssetType/134/{catNr}/")
-    fun getCatAssets(@Path("catNr") categoiNr:String): Call<List<Assets>>
+    suspend fun getCatAssets(@Path("catNr") categoiNr:String): List<Assets>
 
-    @GET("assets/getAssetType/134/{catNr}/")
+    @GET("assets/getAssetType/134/{}/")
     fun getSearchAssets(): Call<List<Assets>>
 
     @GET("api/login/{uName}/{pWord}")
     fun getLoggin(@Path("uName") userName:String, @Path("pWord") password:String): Call<LoginUser>
+
+   // @POST("/api/register")
+    //fun registerUser():
 
 }
 

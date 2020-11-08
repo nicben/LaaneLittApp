@@ -3,14 +3,11 @@ package com.laanelitt.laanelittapp.categorylist
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
-import androidx.lifecycle.LiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
-import com.laanelitt.laanelittapp.MainActivity
-import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.CatAssetCardBinding
 import com.laanelitt.laanelittapp.objects.Assets
 
@@ -24,11 +21,10 @@ class CategoryListAdapter() : ListAdapter<Assets, CategoryListAdapter.CategoryVi
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val assets=getItem(position)
-        val imgUri="https://lanelitt.no/AssetImages/"+assets.assetImages[0].imageUrl
+        val imgUri="https://lanelitt.no/AssetImages/"+assets.AssetImages[0].imageUrl
         val uri=imgUri.toUri().buildUpon().scheme("https").build()
         holder.itemView.setOnClickListener {
-            it.findNavController().navigate(R.id.action_categoryListFragment_to_assetFragment)
-            MainActivity.visSnackbar(it, "Du valgte "+assets.assetName+". ID: "+assets.id)
+            it.findNavController().navigate(CategoryListFragmentDirections.actionCategoryListFragmentToAssetFragment(assets.id.toString()))
         }
         Glide.with(holder.binding.catAssetImage.context).load(uri).into(holder.binding.catAssetImage)
         holder.bind(assets)
