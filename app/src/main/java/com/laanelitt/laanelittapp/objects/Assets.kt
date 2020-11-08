@@ -4,7 +4,7 @@ data class Assets(
     val id: Double,
     val assetName: String,
     val description: String,
-    val assetImages: List<assetImages>,
+    val AssetImages: List<AssetImages>,
     val users: Users
 )
 
