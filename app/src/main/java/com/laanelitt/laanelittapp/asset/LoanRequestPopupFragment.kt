@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.Asset
+package com.laanelitt.laanelittapp.asset
 
 import android.os.Bundle
 import android.view.LayoutInflater

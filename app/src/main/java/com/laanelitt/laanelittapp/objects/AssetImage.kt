@@ -1,5 +1,5 @@
 package com.laanelitt.laanelittapp.objects
 
-data class AssetImages (
+data class AssetImage (
     val imageUrl: String
 )

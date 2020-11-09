@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentLoginBinding
-import com.laanelitt.laanelittapp.objects.LoginUser
+import com.laanelitt.laanelittapp.objects.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,8 +72,8 @@ class LoginFragment : Fragment() {
 
     private fun login(username: String, password: String) {
         LaneLittApi.retrofitService.getLoggin(username, password).enqueue(
-            object: Callback<LoginUser> {
-                override fun onResponse(call: Call<LoginUser>, response: Response<LoginUser>) {
+            object: Callback<LoggedInUser> {
+                override fun onResponse(call: Call<LoggedInUser>, response: Response<LoggedInUser>) {
                     println("LOGIN YES")
                     println(response.body()?.user?.id)
                     if(response.body()?.user?.id!=null){
@@ -87,7 +87,7 @@ class LoginFragment : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<LoginUser>, t: Throwable) {
+                override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
                     println("LOGIN NO")
                     println("**"+t+"**")
                     Toast.makeText(requireContext(), "Noe skjedde galt", Toast.LENGTH_LONG).show()

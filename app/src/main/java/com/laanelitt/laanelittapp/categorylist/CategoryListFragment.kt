@@ -2,23 +2,17 @@ package com.laanelitt.laanelittapp.categorylist
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
-//liste etter søk
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.laanelitt.laanelittapp.R
+import androidx.lifecycle.Observer
 import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
 
+//liste etter kategori
 class CategoryListFragment : Fragment() {
     /**/
     private val viewModel: CategoryListViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(CategoryListViewModel()::class.java)
+        ViewModelProvider(this).get(CategoryListViewModel()::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -26,15 +20,28 @@ class CategoryListFragment : Fragment() {
         val binding=FragmentCategoryListBinding.inflate(inflater)
         println("****************************************AHHHH  ")
 
+        binding.lifecycleOwner = this
+
+        binding.viewModel = viewModel
+
         viewModel.getCatAssets(CategoryListFragmentArgs.fromBundle(requireArguments()).catId)
-        println("****************************************AHHHH1,5  ")
 
-        binding.setLifecycleOwner(this)
-        binding.viewModel=viewModel
+        binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
+            viewModel.displayPropertyDetails(it)
+        })
 
-        binding.recyclerCategoryList.adapter= CategoryListAdapter()
+        // Observe the navigateToSelectedProperty LiveData and Navigate when it isn't null
+        // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready
+        // for another navigation event.
+        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
+            if ( null != it ) {
+                // Must find the NavController from the Fragment
+                this.findNavController().navigate(CategoryListFragmentDirections.actionShowDetail(it))
+                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
+                viewModel.displayPropertyDetailsComplete()
+            }
+        })
 
-        binding.recyclerCategoryList.layoutManager = GridLayoutManager(context, 2)
 
         println("****************************************AHHHH2  ")
 
@@ -45,13 +52,13 @@ class CategoryListFragment : Fragment() {
         println("****************************************viewCreated")
         super.onViewCreated(view, savedInstanceState)
 
-        val args = CategoryListFragmentArgs.fromBundle(requireArguments())
+        /*val args = CategoryListFragmentArgs.fromBundle(requireArguments())
         Toast.makeText(context, "catId: ${args.catId}", Toast.LENGTH_LONG).show()
 
         // If the user presses the back button, bring them back to the home screen.
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack(R.id.searchPageFragment, false)
-        }
+        }*/
 
     }
 }
