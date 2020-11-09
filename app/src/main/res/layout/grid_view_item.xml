@@ -25,7 +25,7 @@
         <import type="android.view.View"/>
         <variable
             name="property"
-            type="com.example.android.marsrealestate.network.Asset"/>
+            type="com.laanelitt.laanelittapp.objects.Asset"/>
     </data>
 
     <FrameLayout

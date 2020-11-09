@@ -11,7 +11,6 @@ import androidx.navigation.findNavController
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentSearchPageBinding
 import androidx.navigation.fragment.findNavController
-import com.laanelitt.laanelittapp.categorylist.CategoryListFragmentArgs
 import com.laanelitt.laanelittapp.login.LoginFragment.Pref.getUserId
 
 class SearchPageFragment : Fragment() {

@@ -27,13 +27,13 @@ private val retrofit = Retrofit.Builder()
 // Lag et interface som definerer hvordan Retrofit kaller APIet
 interface ApiService {
     @GET("assets/getAssetType/134/{catNr}/")
-    suspend fun getCatAssets(@Path("catNr") categoiNr:String): List<Assets>
+    suspend fun getCatAssets(@Path("catNr") categoryNr:String): List<Asset>
 
     @GET("assets/getAssetType/134/{}/")
-    fun getSearchAssets(): Call<List<Assets>>
+    fun getSearchAssets(): Call<List<Asset>>
 
     @GET("api/login/{uName}/{pWord}")
-    fun getLoggin(@Path("uName") userName:String, @Path("pWord") password:String): Call<LoginUser>
+    fun getLoggin(@Path("uName") userName:String, @Path("pWord") password:String): Call<LoggedInUser>
 
    // @POST("/api/register")
     //fun registerUser():

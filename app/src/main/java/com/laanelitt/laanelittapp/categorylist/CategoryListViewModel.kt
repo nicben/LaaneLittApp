@@ -17,6 +17,7 @@ class CategoryListViewModel: ViewModel(){
     // Interne MutableLiveData som lagrer responsen fra APIet
 
     private val _response = MutableLiveData<String>()
+
     private val _assets = MutableLiveData<List<Asset>>()
 
     // Public immutable LiveData som kan brukes av UI
@@ -25,6 +26,12 @@ class CategoryListViewModel: ViewModel(){
         get() = _response
     val assets: LiveData<List<Asset>>
         get() = _assets
+
+    // LiveData to handle navigation to the selected property
+    private val _navigateToSelectedProperty = MutableLiveData<Asset>()
+
+    val navigateToSelectedProperty: LiveData<Asset>
+        get() = _navigateToSelectedProperty
 
     fun getCatAssets(catNr: String) {
         viewModelScope.launch {
@@ -37,27 +44,26 @@ class CategoryListViewModel: ViewModel(){
                 println(_response.value)
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
-                println("GOD DAMN IT******************************************************")
+                println(e.message + "GOD DAMN IT******************************************************")
             }
         }
 
-//        println("****************getCatAssets************************")
-//        LaneLittApi.retrofitService.getCatAssets(catNr).enqueue(
-//            object: Callback<List<Assets>> {
-//                override fun onResponse(call: Call<List<Assets>>,
-//                                        response: Response<List<Assets>>
-//                ) {
-//                    println("YAY******************************************************")
-//                    _response.value = "Ok: ${response.body()!!.size} Assets er hentet."
-//                    _assets.value = response.body()
-//                }
-//                override fun onFailure(call: Call<List<Assets>>, t: Throwable) {
-//                    println("GOD DAMN IT******************************************************")
-//                    _response.value = "Feil: " + t.message
-//                    _assets.value=ArrayList()
-//                }
-//            }
-//        )
+    }
+
+
+    /**
+     * When the property is clicked, set the [_navigateToSelectedProperty] [MutableLiveData]
+     * @param Asset The [Asset] that was clicked on.
+     */
+    fun displayPropertyDetails(asset: Asset) {
+        _navigateToSelectedProperty.value = asset
+    }
+
+    /**
+     * After the navigation has taken place, make sure navigateToSelectedProperty is set to null
+     */
+    fun displayPropertyDetailsComplete() {
+        _navigateToSelectedProperty.value = null
     }
 
 }

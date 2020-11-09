@@ -14,23 +14,23 @@
  *  limitations under the License.
  */
 
-package com.example.android.marsrealestate.detail
+package com.laanelitt.laanelittapp.asset
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.android.marsrealestate.network.Asset
+import com.laanelitt.laanelittapp.objects.Asset
 
 /**
  * Simple ViewModel factory that provides the MarsProperty and context to the ViewModel.
  */
-class DetailViewModelFactory(
-        private val asset: Asset,
-        private val application: Application) : ViewModelProvider.Factory {
+class AssetViewModelFactory(
+    private val asset: Asset,
+    private val application: Application) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(asset, application) as T
+        if (modelClass.isAssignableFrom(AssetViewModel::class.java)) {
+            return AssetViewModel(asset, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

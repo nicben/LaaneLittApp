@@ -21,12 +21,12 @@ class CategoryListAdapter() : ListAdapter<Asset, CategoryListAdapter.CategoryVie
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val assets=getItem(position)
-        val imgUri="https://lanelitt.no/AssetImages/"+assets.AssetImage[0].imageUrl
+        val imgUri="https://lanelitt.no/AssetImages/"+assets.assetImages[0].imageUrl
         val uri=imgUri.toUri().buildUpon().scheme("https").build()
         holder.itemView.setOnClickListener {
-            it.findNavController().navigate(CategoryListFragmentDirections.actionCategoryListFragmentToAssetFragment(assets.id.toString()))
+         //   it.findNavController().navigate(CategoryListFragmentDirections.actionCategoryListFragmentToAssetFragment(assets.id.toString()))
         }
-        Glide.with(holder.binding.catAssetImage.context).load(uri).into(holder.binding.catAssetImage)
+       // Glide.with(holder.binding.catAssetImage.context).load(uri).into(holder.binding.catAssetImage)
         holder.bind(assets)
     }
     companion object DiffCallback: DiffUtil.ItemCallback<Asset>() {
