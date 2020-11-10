@@ -1,8 +1,11 @@
 package com.laanelitt.laanelittapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.postDelayed
@@ -12,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,7 +29,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        //actionbar
+        val actionbar = supportActionBar
+        //set actionbar title
+        actionbar!!.title = "LåneLitt"
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+
         setupViews()
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_bar, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+
+
+            R.id.action_settings -> Toast.makeText(this,"settings", Toast.LENGTH_SHORT).show()
+
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     fun setupViews()
@@ -39,29 +74,6 @@ class MainActivity : AppCompatActivity() {
         var appBarConfiguration = AppBarConfiguration(setOf(
             R.id.searchPageFragment, R.id.addAssetFragment, R.id.myAssetsFragment))
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
-    }
-
-    private var backPressedOnce = false
-
-    override fun onBackPressed() {
-        if (navController.graph.startDestination == navController.currentDestination?.id)
-        {
-            if (backPressedOnce)
-            {
-                super.onBackPressed()
-                return
-            }
-
-            backPressedOnce = true
-            Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show()
-
-           // Handler().postDelayed(2000) {
-              //  backPressedOnce = false
-           // }
-        }
-        else {
-            super.onBackPressed()
-        }
     }
 
     companion object {
