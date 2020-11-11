@@ -29,6 +29,7 @@ class SearchPageFragment : Fragment() {
         binding.verktoyKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment("1"))
+            view.findNavController()?.navigate(R.id.settingsFragment)
         }
 
         binding.elKnapp.setOnClickListener { view: View ->

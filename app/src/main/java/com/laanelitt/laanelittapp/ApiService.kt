@@ -1,12 +1,15 @@
 package com.laanelitt.laanelittapp
 
 import com.laanelitt.laanelittapp.objects.Asset
+import com.laanelitt.laanelittapp.objects.Code
 import com.laanelitt.laanelittapp.objects.LoggedInUser
+import com.laanelitt.laanelittapp.objects.User
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -39,8 +42,8 @@ interface ApiService {
     @GET("api/login/{uName}/{pWord}")
     fun login(@Path("uName") userName:String, @Path("pWord") password:String): Call<LoggedInUser>
 
-   // @POST("/api/register")
-    //fun registerUser():
+    @POST("api/register")
+    fun registerUser(@Body NewUser: User): Call<Code>
 
 
     /*addAsset:
