@@ -6,13 +6,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.Observer
+import com.laanelitt.laanelittapp.ListViewModel
+import com.laanelitt.laanelittapp.PhotoGridAdapter
 import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
 
 //liste etter kategori
 class CategoryListFragment : Fragment() {
     /**/
-    private val viewModel: CategoryListViewModel by lazy {
-        ViewModelProvider(this).get(CategoryListViewModel()::class.java)
+    private val viewModel: ListViewModel by lazy {
+        ViewModelProvider(this).get(ListViewModel()::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

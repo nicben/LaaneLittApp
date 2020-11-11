@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.categorylist
+package com.laanelitt.laanelittapp
 
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -6,7 +6,6 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.objects.Asset
 
 @BindingAdapter("listData")

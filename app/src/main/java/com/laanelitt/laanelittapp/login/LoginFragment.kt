@@ -71,7 +71,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun login(username: String, password: String) {
-        LaneLittApi.retrofitService.getLoggin(username, password).enqueue(
+        LaneLittApi.retrofitService.login(username, password).enqueue(
             object: Callback<LoggedInUser> {
                 override fun onResponse(call: Call<LoggedInUser>, response: Response<LoggedInUser>) {
                     println("LOGIN YES")

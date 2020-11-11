@@ -47,31 +47,16 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.action_bar, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-
-
-            R.id.action_settings -> Toast.makeText(this,"settings", Toast.LENGTH_SHORT).show()
-
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
 
     fun setupViews()
     {
-        var navHostFragment = supportFragmentManager.findFragmentById(
+        val navHostFragment = supportFragmentManager.findFragmentById(
             R.id.myNavHostFragment) as NavHostFragment
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(bottomNavView, navHostFragment.navController)
 
         //var appBarConfiguration = AppBarConfiguration(navHostFragment.navController.graph)
-        var appBarConfiguration = AppBarConfiguration(setOf(
+        val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.searchPageFragment, R.id.addAssetFragment, R.id.myAssetsFragment))
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }

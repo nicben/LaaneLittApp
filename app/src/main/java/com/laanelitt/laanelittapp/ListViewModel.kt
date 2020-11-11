@@ -1,18 +1,13 @@
-package com.laanelitt.laanelittapp.categorylist
+package com.laanelitt.laanelittapp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.laanelitt.laanelittapp.ApiService
-import com.laanelitt.laanelittapp.LaneLittApi
 import kotlinx.coroutines.launch
 import com.laanelitt.laanelittapp.objects.Asset
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class CategoryListViewModel: ViewModel(){
+class ListViewModel: ViewModel(){
 
     // Interne MutableLiveData som lagrer responsen fra APIet
 
@@ -45,6 +40,24 @@ class CategoryListViewModel: ViewModel(){
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
                 println(e.message + "GOD DAMN IT******************************************************")
+            }
+        }
+
+    }
+
+
+    fun getMyAssets(userId:String) {
+        viewModelScope.launch {
+            try {
+                println(userId + "Test1******************************************************")
+                val listResult = LaneLittApi.retrofitService.getMyAssets(userId)
+                println("Test2******************************************************")
+                _response.value = "Success: ${listResult.size}  assets retrieved"
+                _assets.value = listResult
+                println(_response.value)
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
+                println(e.message + "My assets apikall feilet******************************************************")
             }
         }
 

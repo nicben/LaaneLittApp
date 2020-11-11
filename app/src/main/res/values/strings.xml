@@ -48,5 +48,7 @@
     <string name="asset_name">Eiendelnavn</string>
     <string name="asset_img">AssetImage</string>
     <string name="om_oss">Om oss</string>
+    <string name="add_asset">Legg til</string>
+    <string name="new_asset">Legg til ny eiendel</string>
 
 </resources>
