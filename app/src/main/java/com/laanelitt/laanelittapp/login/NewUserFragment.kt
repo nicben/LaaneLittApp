@@ -10,8 +10,14 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentNewUserBinding
+import com.laanelitt.laanelittapp.objects.Code
+import com.laanelitt.laanelittapp.objects.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class NewUserFragment : Fragment() {
@@ -49,7 +55,9 @@ class NewUserFragment : Fragment() {
         }
 
         binding.newUserBtn.setOnClickListener {
+
             register(
+
                 newUsername.text.toString(),
                 newPassword1.text.toString(),
                 newPassword2.text.toString()
@@ -59,13 +67,36 @@ class NewUserFragment : Fragment() {
 
     private fun register(username: String, password1: String, password2: String) {
         if (password1 == password2) {
-            findNavController().navigate(NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
-                    username,
-                    password1
-                )
+
+            val newUser: User=User(null, null, null,null)
+            newUser.email=username
+            newUser.password=password1
+
+            LaneLittApi.retrofitService.registerUser(newUser).enqueue(
+                object: Callback<Code>{
+                    override fun onResponse(call: Call<Code>, response: Response<Code>) {
+                        println("lagd ny bruker? "+response.body()?.code.toString())
+                        if(response.body()?.code.toString()=="200"){
+                            findNavController().navigate(NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
+                                username,
+                                password1
+                            )
+                            )
+                        }
+                        else{
+                            Toast.makeText(requireContext(),"Epost ikke gyldig/eksisterer allerede", Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Code>, t: Throwable) {
+                        println("lagde ikke ny bruker?")
+                        Toast.makeText(requireContext(),"Du skulle ikke se denne, noe har gått galt", Toast.LENGTH_LONG).show()
+                    }
+                }
             )
+
         } else {
-            Toast.makeText(requireContext(),"Feil passord", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),"Passord ulikt", Toast.LENGTH_LONG).show()
         }
     }
 
