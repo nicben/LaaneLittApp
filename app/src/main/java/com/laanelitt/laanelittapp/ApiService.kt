@@ -36,8 +36,7 @@ interface ApiService {
     suspend fun getMyAssets(@Path("userId") userId:String): List<Asset>
 
     @GET("assets/search/{userId}/{search}/")
-    suspend fun getAssetSearch(@Path("userId") userId:String, @Path("search") search:String): Call<List<Asset>>
-
+    suspend fun getAssetSearch(@Path("userId") userId:String, @Path("search") search:String): List<Asset>
 
     @GET("api/login/{uName}/{pWord}")
     fun login(@Path("uName") userName:String, @Path("pWord") password:String): Call<LoggedInUser>
@@ -55,10 +54,12 @@ interface ApiService {
     path: /assets/editAsset/{userId}/{assetId}
     controller: App\Controller\AssetController::editAsset
     methods: PUT
+
     removeAsset:
   path: /assets/removeAsset/{assetId}
   controller: App\Controller\AssetController::removeAsset
   methods: DELETE
+
   sendLoanRequest:
   path: /user/{iUserId}/asset/{iAssetId}/request
   controller: App\Controller\LoanController::sendLoanRequest
@@ -72,7 +73,11 @@ getLoanRequest:
 replyLoanRequests:
   path: /user/{iUserId}/loanRequest/{iLoanId}/{iStatus}
   controller: App\Controller\LoanController::replyLoanRequest
-  methods:    POST*/
+  methods:    POST
+
+  getAssetSearch:
+  path: /assets/search/{userId}/{search}
+  */
 
 }
 

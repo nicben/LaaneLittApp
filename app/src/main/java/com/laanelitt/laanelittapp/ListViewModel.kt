@@ -39,7 +39,7 @@ class ListViewModel: ViewModel(){
                 println(_response.value)
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
-                println(e.message + "GOD DAMN IT******************************************************")
+                println(e.message + " cat assets api-kall feilet *********************************")
             }
         }
 
@@ -49,7 +49,7 @@ class ListViewModel: ViewModel(){
     fun getMyAssets(userId:String) {
         viewModelScope.launch {
             try {
-                println(userId + "Test1******************************************************")
+                println(userId + "Test1***********************************************************")
                 val listResult = LaneLittApi.retrofitService.getMyAssets(userId)
                 println("Test2******************************************************")
                 _response.value = "Success: ${listResult.size}  assets retrieved"
@@ -57,12 +57,27 @@ class ListViewModel: ViewModel(){
                 println(_response.value)
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
-                println(e.message + "My assets apikall feilet******************************************************")
+                println(e.message + " My assets api-kall feilet **********************************")
             }
         }
 
     }
 
+    fun getAssetSearch(userId:String, search:String) {
+        viewModelScope.launch {
+            try {
+                println(userId + "Test1******************************************************")
+                val listResult = LaneLittApi.retrofitService.getAssetSearch(userId, search)
+                println("Test2***********" + userId + " " + search + "****************************")
+                _response.value = "Success: ${listResult.size}  assets retrieved"
+                _assets.value = listResult
+                println(_response.value)
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
+                println(e.message + " Asset search api-kall feilet *******************************")
+            }
+        }
+    }
 
     /**
      * When the property is clicked, set the [_navigateToSelectedProperty] [MutableLiveData]

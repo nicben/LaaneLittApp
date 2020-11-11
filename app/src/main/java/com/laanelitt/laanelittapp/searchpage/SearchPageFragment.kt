@@ -1,19 +1,21 @@
 package com.laanelitt.laanelittapp.searchpage
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentSearchPageBinding
-import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.login.LoginFragment.Pref.getUserId
 
-class SearchPageFragment : Fragment() {
+class SearchPageFragment : Fragment(){
 
     private lateinit var binding: FragmentSearchPageBinding
 
@@ -25,57 +27,104 @@ class SearchPageFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_search_page, container, false
         )
+
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                findNavController().navigate(
+                   SearchPageFragmentDirections.actionSearchPageFragmentToSearchListFragment(query
+                    )
+                )
+                //Toast.makeText(context, query, Toast.LENGTH_LONG).show()
+                return false
+            }
+
+        })
+
         //The complete onClickListener with Navigation
         binding.verktoyKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment("1"))
-            view.findNavController()?.navigate(R.id.settingsFragment)
+                .navigate(
+                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                        "1"
+                    )
+                )
         }
 
         binding.elKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment("2") )
+                .navigate(
+                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                        "2"
+                    )
+                )
         }
 
         binding.instrumentKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment("3"))
+                .navigate(
+                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                        "3"
+                    )
+                )
         }
 
         binding.klerKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
-                     "6"))
+                .navigate(
+                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                        "6"
+                    )
+                )
         }
 
         binding.skoKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
-                    "7"))
+                .navigate(
+                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                        "7"
+                    )
+                )
         }
 
         binding.bokerKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
-                    "8"))
+                .navigate(
+                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                        "8"
+                    )
+                )
         }
 
         binding.sportKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
-                    "9"))
+                .navigate(
+                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                        "9"
+                    )
+                )
         }
 
         binding.multiKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
-                    "10"))
+                .navigate(
+                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                        "10"
+                    )
+                )
         }
 
         binding.divKnapp.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
-                    "11"))
+                .navigate(
+                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                        "11"
+                    )
+                )
         }
 
         return binding.root
@@ -96,4 +145,8 @@ class SearchPageFragment : Fragment() {
             findNavController().navigate(R.id.loginFragment)
         }
     }
+
+
 }
+
+

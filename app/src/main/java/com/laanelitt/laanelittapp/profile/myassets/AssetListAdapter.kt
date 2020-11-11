@@ -50,9 +50,9 @@ class AssetListAdapter(private val context: Context?, var oldAssetList: ArrayLis
 
         val assAdapter: AssetListAdapter
         init {
-            assetNameView=itemView.findViewById<View>(R.id.assetName) as TextView
-            assetImageView=itemView.findViewById<View>(R.id.assetImage) as ImageView
-            assAdapter=adapter
+            assetNameView = itemView.findViewById<View>(R.id.assetName) as TextView
+            assetImageView = itemView.findViewById<View>(R.id.assetImage) as ImageView
+            assAdapter = adapter
             itemView.setOnClickListener(this)
         }
 
