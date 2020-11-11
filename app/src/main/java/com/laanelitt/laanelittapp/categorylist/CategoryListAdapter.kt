@@ -24,9 +24,7 @@ class CategoryListAdapter() : ListAdapter<Asset, CategoryListAdapter.CategoryVie
         val imgUri="https://lanelitt.no/AssetImages/"+assets.assetImages[0].imageUrl
         val uri=imgUri.toUri().buildUpon().scheme("https").build()
         holder.itemView.setOnClickListener {
-         //   it.findNavController().navigate(CategoryListFragmentDirections.actionCategoryListFragmentToAssetFragment(assets.id.toString()))
         }
-       // Glide.with(holder.binding.catAssetImage.context).load(uri).into(holder.binding.catAssetImage)
         holder.bind(assets)
     }
     companion object DiffCallback: DiffUtil.ItemCallback<Asset>() {
@@ -45,7 +43,4 @@ class CategoryListAdapter() : ListAdapter<Asset, CategoryListAdapter.CategoryVie
             binding.executePendingBindings()
         }
     }
-
-
-
 }

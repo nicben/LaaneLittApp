@@ -1,71 +1,124 @@
 package com.laanelitt.laanelittapp.profile.myassets
 
+
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.addCallback
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.laanelitt.laanelittapp.objects.OldAsset
+import com.laanelitt.laanelittapp.ListViewModel
+import com.laanelitt.laanelittapp.PhotoGridAdapter
 import com.laanelitt.laanelittapp.R
+import com.laanelitt.laanelittapp.databinding.FragmentMyAssetsBinding
 import com.laanelitt.laanelittapp.login.LoginFragment
-import kotlinx.android.synthetic.main.fragment_my_assets.*
-
-
-//liste over alle eiendeler
 
 
 class MyAssetsFragment : Fragment() {
 
-    private lateinit var oldAssetList: ArrayList<OldAsset>
-    private lateinit var linLayoutMgr: RecyclerView.LayoutManager
-    private lateinit var assetAdapter: RecyclerView.Adapter<*>
-    private lateinit var assetRecyclerView: RecyclerView
-
+    private val viewModel: ListViewModel by lazy {
+        ViewModelProvider(this).get(ListViewModel()::class.java)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (LoginFragment.Pref.getUserId(requireContext(), "ID", "null") == "") {
-        findNavController().navigate(R.id.loginFragment)}
+        setHasOptionsMenu(true)
+        val binding= FragmentMyAssetsBinding.inflate(inflater)
 
-        oldAssetList= OldAsset.makeAssetListe(resources)
+        binding.lifecycleOwner = this
 
-        val layout= inflater.inflate(R.layout.fragment_my_assets, container, false)
+        binding.viewModel = viewModel
 
-        linLayoutMgr= LinearLayoutManager(context)
-        linLayoutMgr= GridLayoutManager(context, 2)
-        assetAdapter= AssetListAdapter(context, oldAssetList)
-        assetRecyclerView=layout.findViewById<RecyclerView>(R.id.recyclerMyItemList).apply{
-            setHasFixedSize(true)
-            layoutManager=linLayoutMgr
-            adapter=assetAdapter
+        val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
+        if (userId != null) {
+            viewModel.getMyAssets(userId)
+            println("*********************   my assts, userId: " + userId + " *******************")
         }
 
+        binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
+            viewModel.displayPropertyDetails(it)
+        })
 
-        return layout
-        // Inflate the layout for this fragment
+        // Observe the navigateToSelectedProperty LiveData and Navigate when it isn't null
+        // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready
+        // for another navigation event.
+        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
+            if (null != it) {
+                // Must find the NavController from the Fragment
+                //this.findNavController().navigate(MyAssetsFragmenDirections.actionShowDetail(it))
+                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
+                viewModel.displayPropertyDetailsComplete()
+            }
+        })
 
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        println("***************** myAsset viewCreated *************************")
         super.onViewCreated(view, savedInstanceState)
+    }
 
-        // If the user presses the back button, bring them back to the home screen.
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack(R.id.searchPageFragment, false)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+        inflater.inflate(R.menu.action_bar, menu)
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_settings -> findNavController().navigate(R.id.settingsFragment)
         }
+        return super.onOptionsItemSelected(item)
+    }
+}
 
-        settings_btn.setOnClickListener {
-            findNavController().navigate(R.id.settingsFragment)
-        }
 
+/* private lateinit var oldAssetList: ArrayList<OldAsset>
+private lateinit var linLayoutMgr: RecyclerView.LayoutManager
+private lateinit var assetAdapter: RecyclerView.Adapter<*>
+private lateinit var assetRecyclerView: RecyclerView
+
+override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+): View? {
+    if (LoginFragment.Pref.getUserId(requireContext(), "ID", "null") == "") {
+    findNavController().navigate(R.id.loginFragment)}
+
+    oldAssetList= OldAsset.makeAssetListe(resources)
+
+    val layout= inflater.inflate(R.layout.fragment_my_assets, container, false)
+
+    linLayoutMgr= LinearLayoutManager(context)
+    linLayoutMgr= GridLayoutManager(context, 2)
+    assetAdapter= AssetListAdapter(context, oldAssetList)
+    assetRecyclerView=layout.findViewById<RecyclerView>(R.id.recyclerMyItemList).apply{
+        setHasFixedSize(true)
+        layoutManager=linLayoutMgr
+        adapter=assetAdapter
+    }
+
+
+    return layout
+    // Inflate the layout for this fragment
+
+}
+
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    // If the user presses the back button, bring them back to the home screen.
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+        findNavController().popBackStack(R.id.searchPageFragment, false)
+    }
+
+    settings_btn.setOnClickListener {
+        findNavController().navigate(R.id.settingsFragment)
     }
 
 }
+
+}*/
 
 

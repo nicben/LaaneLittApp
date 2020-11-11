@@ -15,7 +15,7 @@
  *
  */
 
-package com.laanelitt.laanelittapp.categorylist
+package com.laanelitt.laanelittapp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -26,7 +26,7 @@ import com.laanelitt.laanelittapp.databinding.GridViewItemBinding
 import com.laanelitt.laanelittapp.objects.Asset
 
 
-class PhotoGridAdapter( private val onClickListener: OnClickListener ) :
+class PhotoGridAdapter( private val onClickListener: OnClickListener) :
         ListAdapter<Asset,
                 PhotoGridAdapter.AssetViewHolder>(DiffCallback) {
 
@@ -73,8 +73,6 @@ class PhotoGridAdapter( private val onClickListener: OnClickListener ) :
     class OnClickListener(val clickListener: (asset:Asset) -> Unit) {
         fun onClick(asset:Asset) = clickListener(asset)
     }
-
-
 
 }
 
