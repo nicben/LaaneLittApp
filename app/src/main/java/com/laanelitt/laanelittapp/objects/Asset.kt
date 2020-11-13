@@ -4,10 +4,13 @@ import java.io.Serializable
 
 data class Asset(
     val id: Int,
-    val assetName: String,
-    val description: String?,
+    var assetName: String,
+    var description: String?,
     val assetImages: List<AssetImage>,
-    val users: User
+    val users: User,
+    var assetType: AssetType?,
+    val assetCondition: Int,
+    val public: Boolean
 ): Serializable
 
 

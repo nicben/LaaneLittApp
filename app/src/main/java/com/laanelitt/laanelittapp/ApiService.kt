@@ -6,10 +6,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 private const val BASE_URL="https://lanelitt.no/public/"
 
@@ -45,33 +42,29 @@ interface ApiService {
     @POST("user/{iUserId}/asset/{iAssetId}/request")
     fun sendLoanRequest(@Path ("iUserId") userId:String, @Path("iAssetId") assetId:Int, @Body newLoan: Loan): Call<String>
 
-/*     @POST("user/{iUserId}/edit")
+    @PUT("assets/editAsset/{userId}/{assetId}")
+    fun editAsset(@Path ("userId") userId:Int, @Path("assetId") assetId:Int, @Body editAsset: Asset): Call<Asset>
+
+    @DELETE("assets/removeAsset/{assetId}")
+    fun deleteAsset(@Path("assetId") assetId:Int): Call<String>
+
+
+/*
+    @POST("user/{iUserId}/edit")
     fun editUser(@Path ("iUserId") userId:Int, @Body ): Call<Code>
 
-   @POST("assets/addAsset")
+    @POST("assets/addAsset")
     fun addAsset(@Body NewAsset: Asset): Call<Code>
 
-    editAsset:
-    path: /assets/editAsset/{userId}/{assetId}
-    controller: App\Controller\AssetController::editAsset
-    methods: PUT
+    getLoanRequest:
+        path: /user/{iUserId}/loanRequest
+        controller: App\Controller\LoanController::getLoanRequest
+        methods:    GET
 
-    removeAsset:
-      path: /assets/removeAsset/{assetId}
-      controller: App\Controller\AssetController::removeAsset
-      methods: DELETE
-
-
-getLoanRequest:
-    path: /user/{iUserId}/loanRequest
-    controller: App\Controller\LoanController::getLoanRequest
-    methods:    GET
-
-replyLoanRequests:
-  path: /user/{iUserId}/loanRequest/{iLoanId}/{iStatus}
-  controller: App\Controller\LoanController::replyLoanRequest
-  methods:    POST
-
+    replyLoanRequests:
+      path: /user/{iUserId}/loanRequest/{iLoanId}/{iStatus}
+      controller: App\Controller\LoanController::replyLoanRequest
+      methods:    POST
   */
 
 }

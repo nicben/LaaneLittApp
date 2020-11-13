@@ -50,7 +50,7 @@
             android:importantForAutofill="no" />
 
         <Button
-            android:id="@+id/register_btn"
+            android:id="@+id/registerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -71,7 +71,7 @@
             android:layout_marginStart="24dp"
             android:text="@string/login"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/register_btn"
+            app:layout_constraintEnd_toStartOf="@+id/registerButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.549" />

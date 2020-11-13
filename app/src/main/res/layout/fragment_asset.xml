@@ -20,7 +20,7 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/main_photo_image"
+                android:id="@+id/assetImage"
                 android:layout_width="0dp"
                 android:layout_height="266dp"
                 app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
@@ -31,7 +31,7 @@
                 android:contentDescription="TODO" />
 
             <TextView
-                android:id="@+id/property_type_text"
+                android:id="@+id/assetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -39,11 +39,11 @@
                 android:textSize="30sp"
                 android:text="@{viewModel.selectedProperty.assetName}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_photo_image"
+                app:layout_constraintTop_toBottomOf="@+id/assetImage"
                 tools:text="Navn" />
 
             <TextView
-                android:id="@+id/price_value_text"
+                android:id="@+id/assetDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -51,11 +51,11 @@
                 android:textSize="17sp"
                 android:text="@{viewModel.selectedProperty.description}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_type_text"
+                app:layout_constraintTop_toBottomOf="@+id/assetName"
                 tools:text="Beskrivelse" />
 
             <Button
-                android:id="@+id/btnPickDate"
+                android:id="@+id/pickDateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -66,10 +66,10 @@
                 android:textSize="15sp"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/price_value_text" />
+                app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
 
             <TextView
-                android:id="@+id/dateTextView"
+                android:id="@+id/datePickerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""

@@ -138,10 +138,14 @@
     <fragment
         android:id="@+id/myAssetFragment"
         android:name="com.laanelitt.laanelittapp.asset.MyAssetFragment"
-        android:label="@string/LaaneLitt" >
+        android:label="@string/LaaneLitt"
+        tools:layout="@layout/fragment_my_asset" >
 
         <argument
             android:name="selectedProperty"
             app:argType="com.laanelitt.laanelittapp.objects.Asset" />
+
     </fragment>
+
+
 </navigation>

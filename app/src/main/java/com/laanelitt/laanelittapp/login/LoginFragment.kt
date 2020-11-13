@@ -34,7 +34,6 @@ class LoginFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false
         )
-
         return binding.root
     }
 
@@ -49,9 +48,9 @@ class LoginFragment : Fragment() {
         Toast.makeText(context, "username: ${args.username}, password: ${args.password}", Toast.LENGTH_LONG).show()
 
         // If the user presses the back button, bring them back to the home screen.
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack(R.id.searchPageFragment, false)
-        }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+//            findNavController().popBackStack(R.id.searchPageFragment, false)
+//        }
 
         binding.loginBtn.setOnClickListener {
             login(
@@ -60,7 +59,7 @@ class LoginFragment : Fragment() {
             )
         }
 
-        binding.registerBtn.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             findNavController().navigate(
                 LoginFragmentDirections.actionLoginFragmentToNewUserFragment(
                     usernameEditText.text.toString(),

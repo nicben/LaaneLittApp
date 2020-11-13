@@ -51,5 +51,8 @@
     <string name="add_asset">Legg til</string>
     <string name="new_asset">Legg til ny eiendel</string>
     <string name="edit">Endre</string>
+    <string name="save">Lagre</string>
+    <string name="delete">Slett</string>
+
 
 </resources>

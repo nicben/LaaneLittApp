@@ -43,8 +43,8 @@ class AssetFragment : Fragment(){
 //        // Material Date Picker  -->
 //        // https://brandonlehr.com/android/learn-to-code/2018/08/19/callling-android-datepicker-fragment-from-a-fragment-and-getting-the-date
 
-        var userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
-        var assetId = asset.id
+        val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
+        val assetId = asset.id
 
         val fm = (activity as AppCompatActivity?)!!.supportFragmentManager
         val builder : MaterialDatePicker.Builder<Pair<Long, Long>> = MaterialDatePicker.Builder.dateRangePicker()
@@ -60,7 +60,7 @@ class AssetFragment : Fragment(){
         builder.setTitleText("Velg dato")
         val picker: MaterialDatePicker<Pair<Long, Long>>  = builder.build()
 
-        binding.btnPickDate.setOnClickListener {
+        binding.pickDateButton.setOnClickListener {
             picker.show(fm, picker.toString())
         }
 
@@ -74,7 +74,7 @@ class AssetFragment : Fragment(){
             val startDateStr = sdf.format(start)
             val endDateStr = sdf.format(end)
 
-            if (userId != null && assetId !=null && startDateStr != null && endDateStr != null) {
+            if (userId != null  && startDateStr != null && endDateStr != null) {
                 sendLoanRequest(userId, assetId, startDateStr, endDateStr, picker.headerText)
             }
 
@@ -83,7 +83,6 @@ class AssetFragment : Fragment(){
     return binding.root
 
     }
-
 
     private fun sendLoanRequest(userId: String, assetId: Int, startDate: String, endDate: String, dates: String) {
         val statusSendt = RequestStatus (null, null )
