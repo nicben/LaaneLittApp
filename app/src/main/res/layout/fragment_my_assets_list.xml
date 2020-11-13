@@ -30,28 +30,6 @@
             tools:itemCount="16"
             tools:listitem="@layout/grid_view_item" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".profile.MyItemListFragment">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerMyItemList"
-            android:layout_height="500dp"
-            android:layout_width="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"/>
-
-        <Button
-        android:id="@+id/settings_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings" />
-
-    </LinearLayout>-->
 
 </layout>

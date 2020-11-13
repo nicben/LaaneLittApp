@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".asset.MyAssetFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.laanelitt.laanelittapp.asset.AssetViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/main_photo_image"
+                android:layout_width="0dp"
+                android:layout_height="266dp"
+                app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic"
+                android:contentDescription="TODO" />
+
+            <TextView
+                android:id="@+id/property_type_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="#de000000"
+                android:textSize="30sp"
+                android:text="@{viewModel.selectedProperty.assetName}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_photo_image"
+                tools:text="Navn" />
+
+            <TextView
+                android:id="@+id/price_value_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#de000000"
+                android:textSize="17sp"
+                android:text="@{viewModel.selectedProperty.description}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_type_text"
+                tools:text="Beskrivelse" />
+
+            <Button
+                 android:id="@+id/btnEditAsset"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center_horizontal"
+                 android:layout_marginStart="145dp"
+                 android:layout_marginTop="110dp"
+                 android:background="#BF1A7565"
+                 android:text="@string/edit"
+                 android:textSize="15sp"
+                 android:textColor="@color/colorWhite"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/price_value_text" />
+
+             <!--  <TextView
+                 android:id="@+id/dateTextView"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text=""
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintLeft_toLeftOf="parent"
+                 app:layout_constraintRight_toRightOf="parent"
+                 app:layout_constraintTop_toTopOf="parent"/>
+
+             -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

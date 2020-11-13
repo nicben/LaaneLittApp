@@ -49,15 +49,14 @@ class NewUserFragment : Fragment() {
 
         Toast.makeText(context, "username: ${args.newUsername}, password: ${args.newPassword}", Toast.LENGTH_LONG).show()
 
-        // If the user presses the back button, bring them back to the home screen.
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack(R.id.searchPageFragment, false)
-        }
+//        // If the user presses the back button, bring them back to the home screen.
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+//            findNavController().popBackStack(R.id.searchPageFragment, false)
+//        }
 
         binding.newUserBtn.setOnClickListener {
 
             register(
-
                 newUsername.text.toString(),
                 newPassword1.text.toString(),
                 newPassword2.text.toString()
@@ -99,5 +98,4 @@ class NewUserFragment : Fragment() {
             Toast.makeText(requireContext(),"Passord ulikt", Toast.LENGTH_LONG).show()
         }
     }
-
 }

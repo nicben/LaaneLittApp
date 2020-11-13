@@ -17,5 +17,4 @@ data class User(
     var newsletter = false
     var terms = false
     var password: String? = ""
-
 }

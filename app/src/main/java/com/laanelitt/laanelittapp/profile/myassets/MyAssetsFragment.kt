@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.ListViewModel
 import com.laanelitt.laanelittapp.PhotoGridAdapter
 import com.laanelitt.laanelittapp.R
-import com.laanelitt.laanelittapp.databinding.FragmentMyAssetsBinding
+import com.laanelitt.laanelittapp.databinding.FragmentMyAssetsListBinding
 import com.laanelitt.laanelittapp.login.LoginFragment
 
 
@@ -24,7 +24,7 @@ class MyAssetsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        val binding= FragmentMyAssetsBinding.inflate(inflater)
+        val binding= FragmentMyAssetsListBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
 
@@ -88,7 +88,7 @@ override fun onCreateView(
 
     oldAssetList= OldAsset.makeAssetListe(resources)
 
-    val layout= inflater.inflate(R.layout.fragment_my_assets, container, false)
+    val layout= inflater.inflate(R.layout.fragment_my_assets_list, container, false)
 
     linLayoutMgr= LinearLayoutManager(context)
     linLayoutMgr= GridLayoutManager(context, 2)
