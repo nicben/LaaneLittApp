@@ -1,23 +1,21 @@
-package com.laanelitt.laanelittapp.searchpage
+package com.laanelitt.laanelittapp.homepage
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.R
-import com.laanelitt.laanelittapp.databinding.FragmentSearchPageBinding
+import com.laanelitt.laanelittapp.databinding.FragmentHomePageBinding
 import com.laanelitt.laanelittapp.login.LoginFragment.Pref.getUserId
 
-class SearchPageFragment : Fragment(){
+class HomePageFragment : Fragment(){
 
-    private lateinit var binding: FragmentSearchPageBinding
+    private lateinit var binding: FragmentHomePageBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +23,7 @@ class SearchPageFragment : Fragment(){
     ): View? {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_search_page, container, false
+            inflater, R.layout.fragment_home_page, container, false
         )
 
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -36,7 +34,7 @@ class SearchPageFragment : Fragment(){
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 findNavController().navigate(
-                   SearchPageFragmentDirections.actionSearchPageFragmentToSearchListFragment(query
+                   HomePageFragmentDirections.actionSearchPageFragmentToSearchListFragment(query
                     )
                 )
                 //Toast.makeText(context, query, Toast.LENGTH_LONG).show()
@@ -49,7 +47,7 @@ class SearchPageFragment : Fragment(){
         binding.verktoyKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(
-                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    HomePageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
                         "1"
                     )
                 )
@@ -58,7 +56,7 @@ class SearchPageFragment : Fragment(){
         binding.elKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(
-                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    HomePageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
                         "2"
                     )
                 )
@@ -67,7 +65,7 @@ class SearchPageFragment : Fragment(){
         binding.instrumentKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(
-                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    HomePageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
                         "3"
                     )
                 )
@@ -76,7 +74,7 @@ class SearchPageFragment : Fragment(){
         binding.klerKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(
-                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    HomePageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
                         "6"
                     )
                 )
@@ -85,7 +83,7 @@ class SearchPageFragment : Fragment(){
         binding.skoKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(
-                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    HomePageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
                         "7"
                     )
                 )
@@ -94,7 +92,7 @@ class SearchPageFragment : Fragment(){
         binding.bokerKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(
-                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    HomePageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
                         "8"
                     )
                 )
@@ -103,7 +101,7 @@ class SearchPageFragment : Fragment(){
         binding.sportKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(
-                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    HomePageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
                         "9"
                     )
                 )
@@ -112,7 +110,7 @@ class SearchPageFragment : Fragment(){
         binding.multiKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(
-                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    HomePageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
                         "10"
                     )
                 )
@@ -121,7 +119,7 @@ class SearchPageFragment : Fragment(){
         binding.divKnapp.setOnClickListener { view: View ->
             view.findNavController()
                 .navigate(
-                    SearchPageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
+                    HomePageFragmentDirections.actionSearchPageFragmentToCategoryListFragment(
                         "11"
                     )
                 )

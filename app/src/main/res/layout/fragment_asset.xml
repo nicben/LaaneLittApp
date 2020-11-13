@@ -14,68 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-       <!-- <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_vertical"
-            tools:context=".Asset.AssetFragment" >
-
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="236dp"
-                android:layout_height="180dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="50dp"
-                android:contentDescription="ItemPic"
-                app:srcCompat="@drawable/maleri"/>
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:text="Maleri" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="374dp"
-                android:layout_height="77dp"
-                android:text="Flott bilde, er ikke en original men kan fremdeles vises på gallerier hvis interesserte."
-                android:layout_gravity="center_horizontal" />
-
-            <Button
-                android:id="@+id/btn"
-                android:layout_width="144dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="20dp"
-                android:background="#BF1A7565"
-                android:text="@string/send_loan_request_pop"
-                android:textColor="@color/colorWhite" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="77dp"
-                android:layout_height="58dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                app:srcCompat="@drawable/images"
-                android:contentDescription="PersonBorrowing" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Mari Hansen" />
-
-        </LinearLayout>-->
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,6 +77,68 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
+
+            <!-- <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:layout_gravity="center_vertical"
+     tools:context=".Asset.AssetFragment" >
+
+
+     <ImageView
+         android:id="@+id/imageView"
+         android:layout_width="236dp"
+         android:layout_height="180dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="40dp"
+         android:layout_marginBottom="50dp"
+         android:contentDescription="ItemPic"
+         app:srcCompat="@drawable/maleri"/>
+
+     <TextView
+         android:id="@+id/textView3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginBottom="5dp"
+         android:text="Maleri" />
+
+     <TextView
+         android:id="@+id/textView"
+         android:layout_width="374dp"
+         android:layout_height="77dp"
+         android:text="Flott bilde, er ikke en original men kan fremdeles vises på gallerier hvis interesserte."
+         android:layout_gravity="center_horizontal" />
+
+     <Button
+         android:id="@+id/btn"
+         android:layout_width="144dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_margin="20dp"
+         android:background="#BF1A7565"
+         android:text="@string/send_loan_request_pop"
+         android:textColor="@color/colorWhite" />
+
+     <ImageView
+         android:id="@+id/imageView3"
+         android:layout_width="77dp"
+         android:layout_height="58dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="10dp"
+         android:layout_marginBottom="5dp"
+         app:srcCompat="@drawable/images"
+         android:contentDescription="PersonBorrowing" />
+
+     <TextView
+         android:id="@+id/textView2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:text="Mari Hansen" />
+
+ </LinearLayout>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

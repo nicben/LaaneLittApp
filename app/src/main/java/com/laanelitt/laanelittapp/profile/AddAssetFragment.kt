@@ -28,7 +28,6 @@ class AddAssetFragment : Fragment() {
             view.findNavController().navigate(R.id.action_addAssetFragment_to_myAssetsFragment)
         }
 
-
         return binding.root
 
     }

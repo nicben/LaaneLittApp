@@ -1,9 +1,6 @@
 package com.laanelitt.laanelittapp
 
-import com.laanelitt.laanelittapp.objects.Asset
-import com.laanelitt.laanelittapp.objects.Code
-import com.laanelitt.laanelittapp.objects.LoggedInUser
-import com.laanelitt.laanelittapp.objects.User
+import com.laanelitt.laanelittapp.objects.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
@@ -27,6 +24,7 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
+
 // Lag et interface som definerer hvordan Retrofit kaller APIet
 interface ApiService {
     @GET("assets/getAssetType/134/{catNr}/")
@@ -44,11 +42,14 @@ interface ApiService {
     @POST("api/register")
     fun registerUser(@Body NewUser: User): Call<Code>
 
+    @POST("user/{iUserId}/asset/{iAssetId}/request")
+    fun sendLoanRequest(@Path ("iUserId") userId:Int, @Path("iAssetId") assetId:Int, @Body NewLoan: Loan): Call<String>
 
-    /*addAsset:
-    path: /assets/addAsset
-    controller: App\Controller\AssetController::addAsset
-    methods: POST
+/*     @POST("user/{iUserId}/edit")
+    fun editUser(@Path ("iUserId") userId:Int, @Body ): Call<Code>
+
+   @POST("assets/addAsset")
+    fun addAsset(@Body NewAsset: Asset): Call<Code>
 
     editAsset:
     path: /assets/editAsset/{userId}/{assetId}
@@ -56,14 +57,10 @@ interface ApiService {
     methods: PUT
 
     removeAsset:
-  path: /assets/removeAsset/{assetId}
-  controller: App\Controller\AssetController::removeAsset
-  methods: DELETE
+      path: /assets/removeAsset/{assetId}
+      controller: App\Controller\AssetController::removeAsset
+      methods: DELETE
 
-  sendLoanRequest:
-  path: /user/{iUserId}/asset/{iAssetId}/request
-  controller: App\Controller\LoanController::sendLoanRequest
-  methods: POST
 
 getLoanRequest:
     path: /user/{iUserId}/loanRequest
@@ -75,8 +72,6 @@ replyLoanRequests:
   controller: App\Controller\LoanController::replyLoanRequest
   methods:    POST
 
-  getAssetSearch:
-  path: /assets/search/{userId}/{search}
   */
 
 }

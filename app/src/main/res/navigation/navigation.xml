@@ -11,9 +11,6 @@
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_asset" >
 
-        <action
-            android:id="@+id/action_assetFragment_to_loanRequestPopupFragment"
-            app:destination="@id/loanRequestPopupFragment" />
         <argument
             android:name="selectedProperty"
             app:argType="com.laanelitt.laanelittapp.objects.Asset" />
@@ -21,9 +18,9 @@
 
     <fragment
         android:id="@+id/searchPageFragment"
-        android:name="com.laanelitt.laanelittapp.searchpage.SearchPageFragment"
+        android:name="com.laanelitt.laanelittapp.homepage.HomePageFragment"
         android:label="@string/LaaneLitt"
-        tools:layout="@layout/fragment_search_page" >
+        tools:layout="@layout/fragment_home_page" >
         <action
             android:id="@+id/action_searchPageFragment_to_searchListFragment"
             app:destination="@id/searchListFragment" />
@@ -53,14 +50,14 @@
         android:id="@+id/myAssetsFragment"
         android:name="com.laanelitt.laanelittapp.profile.myassets.MyAssetsFragment"
         android:label="@string/my_assets"
-        tools:layout="@layout/fragment_my_assets" >
+        tools:layout="@layout/fragment_my_assets_list" >
 
         <action
             android:id="@+id/action_showDetail"
-            app:destination="@id/assetFragment" />
+            app:destination="@id/myAssetFragment" />
         <action
-            android:id="@+id/action_myAssetsFragment_to_assetFragment"
-            app:destination="@id/assetFragment" />
+            android:id="@+id/action_myAssetsFragment_to_myAssetFragment"
+            app:destination="@id/myAssetFragment" />
     </fragment>
 
     <fragment
@@ -83,11 +80,7 @@
         android:id="@+id/settingsFragment"
         android:name="com.laanelitt.laanelittapp.profile.SettingsFragment"
         android:label="@string/settings"
-        tools:layout="@layout/fragment_settings" >
-        <action
-            android:id="@+id/action_settingsFragment_to_myAssetsFragment"
-            app:destination="@id/myAssetsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/loginFragment"
@@ -142,4 +135,13 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/myAssetFragment"
+        android:name="com.laanelitt.laanelittapp.asset.MyAssetFragment"
+        android:label="@string/LaaneLitt" >
+
+        <argument
+            android:name="selectedProperty"
+            app:argType="com.laanelitt.laanelittapp.objects.Asset" />
+    </fragment>
 </navigation>
