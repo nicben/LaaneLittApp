@@ -22,7 +22,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.properties.Delegates
 
 
 //profil til item - info
@@ -43,37 +42,20 @@ class AssetFragment : Fragment(){
 
 //        // Material Date Picker  -->
 //        // https://brandonlehr.com/android/learn-to-code/2018/08/19/callling-android-datepicker-fragment-from-a-fragment-and-getting-the-date
-//        val fm = (activity as AppCompatActivity?)!!.supportFragmentManager
-//        val builder : MaterialDatePicker.Builder<Pair<Long, Long>> = MaterialDatePicker.Builder.dateRangePicker()
-//
-//        builder.setTitleText("Velg dato")
-//        val picker : MaterialDatePicker<*> = builder.build()
-//
-//        binding.btnPickDate.setOnClickListener {
-//            picker.show(fm, picker.toString())
-//        }
-//        picker.addOnPositiveButtonClickListener{
-//            //dateTextView.setText("Valgt dato:" + picker.selection)
-//            val dates = picker.headerText
-//            Toast.makeText(context, "Valgt dato: ${dates}", Toast.LENGTH_LONG).show()
-//            //sendLoanRequest()
-//
-//        }
 
-        var userId = 61 //LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
-        var assetId = 36
+        var userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
+        var assetId = asset.id
 
-        //------DatePicker-------
         val fm = (activity as AppCompatActivity?)!!.supportFragmentManager
         val builder : MaterialDatePicker.Builder<Pair<Long, Long>> = MaterialDatePicker.Builder.dateRangePicker()
 
-        val constraintsBuilder = CalendarConstraints.Builder()  // 1
+        val constraintsBuilder = CalendarConstraints.Builder()
         val calendar = Calendar.getInstance()
 
-        constraintsBuilder.setStart(calendar.timeInMillis)   //   2
-        calendar.roll(Calendar.YEAR, 1)   //   3
-        constraintsBuilder.setEnd(calendar.timeInMillis)   // 4
-        builder.setCalendarConstraints(constraintsBuilder.build())   //  5
+        constraintsBuilder.setStart(calendar.timeInMillis)
+        calendar.roll(Calendar.YEAR, 1)
+        constraintsBuilder.setEnd(calendar.timeInMillis)
+        builder.setCalendarConstraints(constraintsBuilder.build())
 
         builder.setTitleText("Velg dato")
         val picker: MaterialDatePicker<Pair<Long, Long>>  = builder.build()
@@ -81,19 +63,10 @@ class AssetFragment : Fragment(){
         binding.btnPickDate.setOnClickListener {
             picker.show(fm, picker.toString())
         }
-//        picker.addOnPositiveButtonClickListener{
-//            //dateTextView.setText("Valgt dato:" + picker.selection)
-//            val dates = picker.headerText
-//            Toast.makeText(context, "Valgt dato: ${dates}", Toast.LENGTH_LONG).show()
-//            //sendLoanRequest()
-//
-//        }
 
         picker.addOnPositiveButtonClickListener(MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>> { selection ->
             val start = selection.first
-            val startDate = start?.let { Date(it) }
             val end = selection.second
-            val endDate = end?.let { Date(it) }
 
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
@@ -101,13 +74,10 @@ class AssetFragment : Fragment(){
             val startDateStr = sdf.format(start)
             val endDateStr = sdf.format(end)
 
+            if (userId != null && assetId !=null && startDateStr != null && endDateStr != null) {
+                sendLoanRequest(userId, assetId, startDateStr, endDateStr, picker.headerText)
+            }
 
-
-//            if (userId != null && assetId !=null && startDate != null && endDate != null) {
-//                sendLoanRequest(userId, assetId, startDate, endDate)
-//            }
-
-            Toast.makeText(context, "Valgt dato: ${picker.headerText}", Toast.LENGTH_LONG).show()
         })
 
     return binding.root
@@ -115,7 +85,7 @@ class AssetFragment : Fragment(){
     }
 
 
-    private fun sendLoanRequest(userId: Int, assetId: Int, startDate: Date, endDate: Date) {
+    private fun sendLoanRequest(userId: String, assetId: Int, startDate: String, endDate: String, dates: String) {
         val statusSendt = RequestStatus (null, null )
         val newLoan = Loan(null, null, null, startDate, endDate, statusSendt)
 
@@ -124,9 +94,9 @@ class AssetFragment : Fragment(){
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     println("Nytt lån? " + response.body())
                     if (response.body() == "Låneforhold er opprettet") {
-                        Toast.makeText(requireContext(), "Godkjent", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Valgt dato: ${dates}", Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(requireContext(), "Ikke godkjent", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Låneforholdet ble ikke opprettet", Toast.LENGTH_LONG).show()
                     }
                 }
 
