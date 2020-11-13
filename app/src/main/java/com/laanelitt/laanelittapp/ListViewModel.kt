@@ -42,7 +42,6 @@ class ListViewModel: ViewModel(){
                 println(e.message + " cat assets api-kall feilet *********************************")
             }
         }
-
     }
 
 

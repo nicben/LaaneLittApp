@@ -10,7 +10,7 @@
 
 
         <EditText
-            android:id="@+id/editName"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:autofillHints=""
@@ -19,12 +19,12 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <EditText
-            android:id="@+id/editDescription"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints=""
             android:gravity="top"
-            android:layout_below="@id/editName"
+            android:layout_below="@id/name"
             android:hint="@string/description"
             android:inputType="textMultiLine"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />

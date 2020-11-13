@@ -20,7 +20,7 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/main_photo_image"
+                android:id="@+id/mainImage"
                 android:layout_width="0dp"
                 android:layout_height="266dp"
                 app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
@@ -31,7 +31,7 @@
                 android:contentDescription="TODO" />
 
             <TextView
-                android:id="@+id/property_type_text"
+                android:id="@+id/assetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -39,11 +39,23 @@
                 android:textSize="30sp"
                 android:text="@{viewModel.selectedProperty.assetName}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_photo_image"
+                app:layout_constraintTop_toBottomOf="@+id/mainImage"
                 tools:text="Navn" />
 
+            <EditText
+                android:id="@+id/editAssetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="#de000000"
+                android:textSize="30sp"
+                android:inputType="text"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mainImage"/>
+
             <TextView
-                android:id="@+id/price_value_text"
+                android:id="@+id/assetDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -51,11 +63,23 @@
                 android:textSize="17sp"
                 android:text="@{viewModel.selectedProperty.description}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_type_text"
+                app:layout_constraintTop_toBottomOf="@+id/assetName"
                 tools:text="Beskrivelse" />
 
+            <EditText
+                android:id="@+id/editAssetDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#de000000"
+                android:textSize="17sp"
+                android:inputType="textMultiLine"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/assetName"/>
+
             <Button
-                 android:id="@+id/btnEditAsset"
+                 android:id="@+id/editAssetButton"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:layout_gravity="center_horizontal"
@@ -66,19 +90,37 @@
                  android:textSize="15sp"
                  android:textColor="@color/colorWhite"
                  app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintTop_toBottomOf="@+id/price_value_text" />
+                 app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
 
-             <!--  <TextView
-                 android:id="@+id/dateTextView"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text=""
-                 app:layout_constraintBottom_toBottomOf="parent"
-                 app:layout_constraintLeft_toLeftOf="parent"
-                 app:layout_constraintRight_toRightOf="parent"
-                 app:layout_constraintTop_toTopOf="parent"/>
+            <Button
+                android:id="@+id/saveAssetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="95dp"
+                android:layout_marginTop="110dp"
+                android:background="#BF1A7565"
+                android:text="@string/save"
+                android:textSize="15sp"
+                android:visibility="invisible"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
 
-             -->
+            <Button
+                android:id="@+id/deleteAssetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="205dp"
+                android:layout_marginTop="110dp"
+                android:background="@color/colorRed"
+                android:text="@string/delete"
+                android:textSize="15sp"
+                android:visibility="invisible"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
