@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentLoginBinding
@@ -145,33 +144,7 @@ class LoginFragment : Fragment() {
             return result
         }
 
-        fun setUser(context: Context, key: String?, value: String?) {
-            openPref(context)
-            val prefsPrivateEditor: SharedPreferences.Editor = sharedPreferences!!.edit()
-            val gson = Gson()
-            val json = gson.toJson(value)
-            prefsPrivateEditor.putString(key, json)
-            prefsPrivateEditor.apply()
-            sharedPreferences = null
-            println("**" + "setUser" + value + "**")
-
-
-        }
-
-        fun getUser(context: Context, key: String?, defaultValue: String?): AssetOwner {
-            openPref(context)
-            val gson = Gson()
-            val result = sharedPreferences!!.getString(key, defaultValue)
-            val obj: AssetOwner = gson.fromJson<AssetOwner>(result, AssetOwner::class.java)
-            sharedPreferences = null
-            println("**" + "getUser" + result + obj + "**")
-            return obj
-
-        }
-
     }
-
-
 }
 
 
