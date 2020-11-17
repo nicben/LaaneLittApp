@@ -5,16 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentNewUserBinding
 import com.laanelitt.laanelittapp.objects.Code
-import com.laanelitt.laanelittapp.objects.User
+import com.laanelitt.laanelittapp.objects.AssetOwner
+import kotlinx.android.synthetic.main.fragment_new_user.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,26 +39,21 @@ class NewUserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val args = NewUserFragmentArgs.fromBundle(requireArguments())
-        val newUsername = view.findViewById<EditText>(R.id.new_username)
-        val newPassword1 = view.findViewById<EditText>(R.id.new_password_1)
-        val newPassword2 = view.findViewById<EditText>(R.id.new_password_2)
 
-        newUsername.setText(args.newUsername)
-        newPassword1.setText(args.newPassword)
+        new_username.getEditText()?.setText(args.newUsername)
+        new_password_1.getEditText()?.setText(args.newPassword)
 
-        Toast.makeText(context, "username: ${args.newUsername}, password: ${args.newPassword}", Toast.LENGTH_LONG).show()
+//        Toast.makeText(context, "username: ${args.newUsername}, password: ${args.newPassword}", Toast.LENGTH_LONG).show()
 
-//        // If the user presses the back button, bring them back to the home screen.
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-//            findNavController().popBackStack(R.id.searchPageFragment, false)
-//        }
 
         binding.newUserBtn.setOnClickListener {
-
+            val usernameInput = new_username.getEditText()?.getText()
+            val passwordInput1 = new_password_1.getEditText()?.getText()
+            val passwordInput2 = new_password_2.getEditText()?.getText()
             register(
-                newUsername.text.toString(),
-                newPassword1.text.toString(),
-                newPassword2.text.toString()
+                usernameInput.toString(),
+                passwordInput1.toString(),
+                passwordInput2.toString()
             )
         }
     }
@@ -67,14 +61,12 @@ class NewUserFragment : Fragment() {
     private fun register(username: String, password1: String, password2: String) {
         if (password1 == password2) {
 
-            val newUser: User=User(null, null, null,null)
-            newUser.email=username
-            newUser.password=password1
-
+            val newUser = AssetOwner(null, null, null,null, null, password1, username)
+            println(""+newUser.email + " " + password1  )
             LaneLittApi.retrofitService.registerUser(newUser).enqueue(
                 object: Callback<Code>{
                     override fun onResponse(call: Call<Code>, response: Response<Code>) {
-                        println("lagd ny bruker? "+response.body()?.code.toString())
+                        println("lagd ny bruker? "+response.body()?.toString())
                         if(response.body()?.code.toString()=="200"){
                             findNavController().navigate(NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
                                 username,

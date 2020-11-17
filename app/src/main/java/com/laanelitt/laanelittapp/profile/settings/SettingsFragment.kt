@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.profile
+package com.laanelitt.laanelittapp.profile.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -32,14 +32,28 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // If the user presses the back button, bring them back to the home screen.
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack(R.id.searchPageFragment, false)
+        binding.settingNameButton.setOnClickListener {
+
+            findNavController().navigate(R.id.editNameFragment)
         }
 
-        binding.logoutBtn.setOnClickListener {
+        binding.settingImageButton.setOnClickListener {
+
+            findNavController().navigate(R.id.editImageFragment)
+        }
+
+//        binding.settingMailButton.setOnClickListener {
+//
+//            findNavController().navigate(R.id.editEmailFragment)
+//        }
+
+        binding.settingPasswordButton.setOnClickListener {
+
+            findNavController().navigate(R.id.editPasswordFragment)
+        }
+
+        binding.settingLogoutButton.setOnClickListener {
             LoginFragment.Pref.setUserId(requireContext(), "ID", "")
-            //LoginFragment.Pref.removeUserId(requireContext(), "ID", "null")
             findNavController().navigate(R.id.loginFragment)
         }
 

@@ -6,4 +6,16 @@
     <dimen name="button_text_size">20sp</dimen>
     <dimen name="fragment_horizontal_margin">16dp</dimen>
     <dimen name="fragment_vertical_margin">16dp</dimen>
+
+    <!-- nicole bruker - settings -->
+    <dimen name="margin_top_small">8dp</dimen>
+    <dimen name="margin_top_big">16dp</dimen>
+    <dimen name="height_btn">60dp</dimen>
+    <dimen name="start_end_margin">10dp</dimen>
+    <dimen name="width_0dp">0dp</dimen>
+    <dimen name="title_size">25sp</dimen>
+    <dimen name="description_size">17sp</dimen>
+    <dimen name="margin_top_XL">32dp</dimen>
+    <dimen name="text_size_btn">15sp</dimen>
+
 </resources>

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".asset.MyAssetFragment">
+    tools:context=".profile.myassets.MyAssetFragment">
 
     <data>
         <variable
@@ -22,7 +22,7 @@
             <ImageView
                 android:id="@+id/mainImage"
                 android:layout_width="0dp"
-                android:layout_height="266dp"
+                android:layout_height="250dp"
                 app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -34,93 +34,131 @@
                 android:id="@+id/assetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="#de000000"
-                android:textSize="30sp"
+                android:layout_marginTop="@dimen/margin_top_XL"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/title_size"
                 android:text="@{viewModel.selectedProperty.assetName}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mainImage"
                 tools:text="Navn" />
 
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editAssetName"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="#de000000"
-                android:textSize="30sp"
-                android:inputType="text"
+                android:layout_marginTop="@dimen/margin_top_XL"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:hint="@string/title"
                 android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mainImage"/>
+                app:layout_constraintTop_toBottomOf="@+id/mainImage"
+                app:counterEnabled="true"
+                app:counterMaxLength="25"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/title_size"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <TextView
                 android:id="@+id/assetDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="#de000000"
-                android:textSize="17sp"
+                android:layout_marginTop="@dimen/margin_top_small"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/description_size"
                 android:text="@{viewModel.selectedProperty.description}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/assetName"
                 tools:text="Beskrivelse" />
 
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editAssetDescription"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="#de000000"
-                android:textSize="17sp"
-                android:inputType="textMultiLine"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:hint="@string/description"
                 android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetName"/>
+                app:layout_constraintTop_toBottomOf="@+id/editAssetName"
+                app:counterEnabled="true"
+                app:counterMaxLength="300"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/description_size"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
+                    android:maxLines="6"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                 android:id="@+id/editAssetButton"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center_horizontal"
-                 android:layout_marginStart="145dp"
-                 android:layout_marginTop="110dp"
-                 android:background="#BF1A7565"
-                 android:text="@string/edit"
-                 android:textSize="15sp"
-                 android:textColor="@color/colorWhite"
-                 app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
+                android:id="@+id/editAssetButton"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="@dimen/height_btn"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginTop="@dimen/margin_top_XL"
+                android:text="@string/edit"
+                android:textSize="@dimen/text_size_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
 
             <Button
                 android:id="@+id/saveAssetButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="@dimen/height_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="95dp"
-                android:layout_marginTop="110dp"
-                android:background="#BF1A7565"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginTop="@dimen/margin_top_XL"
+                android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/save"
-                android:textSize="15sp"
+                android:textSize="@dimen/text_size_btn"
                 android:visibility="invisible"
-                android:textColor="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/editAssetDescription" />
 
             <Button
                 android:id="@+id/deleteAssetButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="@dimen/height_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="205dp"
-                android:layout_marginTop="110dp"
-                android:background="@color/colorRed"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginTop="@dimen/margin_top_small"
+                android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/delete"
-                android:textSize="15sp"
+                android:textSize="@dimen/text_size_btn"
+                android:textColor="@color/colorRed"
                 android:visibility="invisible"
-                android:textColor="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/saveAssetButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

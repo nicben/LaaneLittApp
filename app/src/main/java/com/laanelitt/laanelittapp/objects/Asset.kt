@@ -7,7 +7,7 @@ data class Asset(
     var assetName: String,
     var description: String?,
     val assetImages: List<AssetImage>,
-    val users: User,
+    val users: AssetOwner,
     var assetType: AssetType?,
     val assetCondition: Int,
     val public: Boolean

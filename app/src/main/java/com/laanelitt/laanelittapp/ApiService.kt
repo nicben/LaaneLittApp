@@ -37,7 +37,7 @@ interface ApiService {
     fun login(@Path("uName") userName:String, @Path("pWord") password:String): Call<LoggedInUser>
 
     @POST("api/register")
-    fun registerUser(@Body newUser: User): Call<Code>
+    fun registerUser(@Body newUser: AssetOwner): Call<Code>
 
     @POST("user/{iUserId}/asset/{iAssetId}/request")
     fun sendLoanRequest(@Path ("iUserId") userId:String, @Path("iAssetId") assetId:Int, @Body newLoan: Loan): Call<String>
@@ -48,10 +48,16 @@ interface ApiService {
     @DELETE("assets/removeAsset/{assetId}")
     fun deleteAsset(@Path("assetId") assetId:Int): Call<String>
 
+    @POST("updatePassword")
+    fun updatePassword(@Body user: AssetOwner): Call<String>
+
+    @POST("user/{iUserId}/edit")
+    fun editUser(@Path ("iUserId") userId:Int, @Body user: User): Call<Code>
+
+
 
 /*
-    @POST("user/{iUserId}/edit")
-    fun editUser(@Path ("iUserId") userId:Int, @Body ): Call<Code>
+
 
     @POST("assets/addAsset")
     fun addAsset(@Body NewAsset: Asset): Call<Code>
