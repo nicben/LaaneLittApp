@@ -5,7 +5,7 @@ buildscript {
         version_moshi = "1.9.3"
         version_retrofit = "2.9.0"
 
-        nav_version = "2.3.0"
+        nav_version = "2.3.1"
         kotlin_version = '1.4.10'
         archLifecycleVersion = '1.1.1'
         gradleVersion = '4.0.1'

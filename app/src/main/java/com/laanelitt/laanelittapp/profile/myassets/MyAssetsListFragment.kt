@@ -14,7 +14,7 @@ import com.laanelitt.laanelittapp.databinding.FragmentMyAssetsListBinding
 import com.laanelitt.laanelittapp.login.LoginFragment
 
 
-class MyAssetsFragment : Fragment() {
+class MyAssetsListFragment : Fragment() {
 
     private val viewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel()::class.java)
@@ -46,7 +46,7 @@ class MyAssetsFragment : Fragment() {
         viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
             if (null != it) {
                 // Must find the NavController from the Fragment
-                this.findNavController().navigate(MyAssetsFragmentDirections.actionShowDetail(it))
+                this.findNavController().navigate(MyAssetsListFragmentDirections.actionShowDetail(it))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayPropertyDetailsComplete()
             }

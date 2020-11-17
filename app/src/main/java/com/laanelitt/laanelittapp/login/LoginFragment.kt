@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -17,14 +15,20 @@ import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentLoginBinding
 import com.laanelitt.laanelittapp.objects.LoggedInUser
+import com.laanelitt.laanelittapp.objects.AssetOwner
+import com.laanelitt.laanelittapp.objects.UserLocalStore
+import kotlinx.android.synthetic.main.fragment_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
+    var userLocalStore: UserLocalStore? = null
+
 
     private lateinit var binding: FragmentLoginBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,55 +44,69 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args = LoginFragmentArgs.fromBundle(requireArguments())
-        val usernameEditText = view.findViewById<EditText>(R.id.username)
-        val passwordEditText = view.findViewById<EditText>(R.id.password)
-        usernameEditText.setText(args.username)
-        passwordEditText.setText(args.password)
-        Toast.makeText(context, "username: ${args.username}, password: ${args.password}", Toast.LENGTH_LONG).show()
+        userLocalStore = UserLocalStore(requireContext())
 
-        // If the user presses the back button, bring them back to the home screen.
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-//            findNavController().popBackStack(R.id.searchPageFragment, false)
-//        }
+        val args = LoginFragmentArgs.fromBundle(requireArguments())
+        username.getEditText()?.setText(args.username)
+        password.getEditText()?.setText(args.password)
+
+//        Toast.makeText(context, "username: ${args.username}, password: ${args.password}", Toast.LENGTH_LONG).show()
+
 
         binding.loginBtn.setOnClickListener {
+            val usernameInput = username.getEditText()?.getText()
+            val passwordInput = password.getEditText()?.getText()
             login(
-                usernameEditText.text.toString(),
-                passwordEditText.text.toString()
+                usernameInput.toString(),
+                passwordInput.toString()
             )
         }
 
         binding.registerButton.setOnClickListener {
+            val usernameInput = username.getEditText()?.getText()
+            val passwordInput = password.getEditText()?.getText()
             findNavController().navigate(
                 LoginFragmentDirections.actionLoginFragmentToNewUserFragment(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
+                    usernameInput.toString(),
+                    passwordInput.toString()
                 )
             )
         }
     }
 
     private fun login(username: String, password: String) {
+
         LaneLittApi.retrofitService.login(username, password).enqueue(
-            object: Callback<LoggedInUser> {
-                override fun onResponse(call: Call<LoggedInUser>, response: Response<LoggedInUser>) {
+            object : Callback<LoggedInUser> {
+                override fun onResponse(
+                    call: Call<LoggedInUser>,
+                    response: Response<LoggedInUser>
+                ) {
                     println("LOGIN YES")
                     println(response.body()?.user?.id)
-                    if(response.body()?.user?.id!=null){
+                    if (response.body()?.user?.id != null) {
                         Pref.setUserId(requireContext(), "ID", response.body()?.user?.id.toString())
-                        Toast.makeText(requireContext(), "Du er logget inn", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Du er logget inn", Toast.LENGTH_LONG)
+                            .show()
                         println(response.body()?.user?.id.toString())
+                        val user = response.body()?.user
+
+                        userLocalStore?.storeUserData(user!!)
+                        userLocalStore?.setUserLoggedIn(true)
                         findNavController().navigate(R.id.searchPageFragment)
-                    }
-                    else{
-                        Toast.makeText(requireContext(), "Feil brukernavn/passord", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Feil brukernavn/passord",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
 
+                //              Man kommer rett hit ved feil brukernavn/passord
                 override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
                     println("LOGIN NO")
-                    println("**"+t+"**")
+                    println("**" + t + "**")
                     Toast.makeText(requireContext(), "Noe skjedde galt", Toast.LENGTH_LONG).show()
                 }
 
@@ -99,6 +117,7 @@ class LoginFragment : Fragment() {
     }
 
     object Pref {
+
         private val PREF_FILE: String =
             com.laanelitt.laanelittapp.BuildConfig.APPLICATION_ID.replace(
                 ".",
@@ -109,12 +128,6 @@ class LoginFragment : Fragment() {
             sharedPreferences = context.getSharedPreferences(PREF_FILE, MODE_PRIVATE)
         }
 
-        fun getUserId(context: Context, key: String?, defaultValue: String?): String? {
-            openPref(context)
-            val result = sharedPreferences!!.getString(key, defaultValue)
-            sharedPreferences = null
-            return result
-        }
 
         fun setUserId(context: Context, key: String?, value: String?) {
             openPref(context)
@@ -124,8 +137,14 @@ class LoginFragment : Fragment() {
             sharedPreferences = null
         }
 
-    }
+        fun getUserId(context: Context, key: String?, defaultValue: String?): String? {
+            openPref(context)
+            val result = sharedPreferences!!.getString(key, defaultValue)
+            sharedPreferences = null
+            return result
+        }
 
+    }
 }
 
 

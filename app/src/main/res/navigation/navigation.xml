@@ -47,8 +47,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/myAssetsFragment"
-        android:name="com.laanelitt.laanelittapp.profile.myassets.MyAssetsFragment"
+        android:id="@+id/myAssetsListFragment"
+        android:name="com.laanelitt.laanelittapp.profile.myassets.MyAssetsListFragment"
         android:label="@string/my_assets"
         tools:layout="@layout/fragment_my_assets_list" >
 
@@ -56,15 +56,9 @@
             android:id="@+id/action_showDetail"
             app:destination="@id/myAssetFragment" />
         <action
-            android:id="@+id/action_myAssetsFragment_to_myAssetFragment"
+            android:id="@+id/action_myAssetsListFragment_to_myAssetFragment"
             app:destination="@id/myAssetFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/loanRequestPopupFragment"
-        android:name="com.laanelitt.laanelittapp.asset.LoanRequestPopupFragment"
-        android:label="@string/LaaneLitt"
-        tools:layout="@layout/fragment_loan_request_popup"/>
 
     <fragment
         android:id="@+id/addAssetFragment"
@@ -72,15 +66,25 @@
         android:label="@string/new_asset"
         tools:layout="@layout/fragment_add_asset">
         <action
-            android:id="@+id/action_addAssetFragment_to_myAssetsFragment"
-            app:destination="@id/myAssetsFragment" />
+            android:id="@+id/action_addAssetFragment_to_myAssetsListFragment"
+            app:destination="@id/myAssetsListFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.laanelitt.laanelittapp.profile.SettingsFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.SettingsFragment"
         android:label="@string/settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_editNameFragment"
+            app:destination="@id/editNameFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_editPasswordFragment"
+            app:destination="@id/editPasswordFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_editImageFragment"
+            app:destination="@id/editImageFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
@@ -137,7 +141,7 @@
 
     <fragment
         android:id="@+id/myAssetFragment"
-        android:name="com.laanelitt.laanelittapp.asset.MyAssetFragment"
+        android:name="com.laanelitt.laanelittapp.profile.myassets.MyAssetFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_my_asset" >
 
@@ -146,6 +150,38 @@
             app:argType="com.laanelitt.laanelittapp.objects.Asset" />
 
     </fragment>
+    <fragment
+        android:id="@+id/editNameFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.EditNameFragment"
+        android:label="@string/change_name"
+        tools:layout="@layout/fragment_edit_name">
 
+        <action
+            android:id="@+id/action_editNameFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editEmailFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.EditEmailFragment"
+        android:label="@string/change_email"
+        tools:layout="@layout/fragment_edit_email"/>
+    <fragment
+        android:id="@+id/editImageFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.EditImageFragment"
+        android:label="@string/change_profile_img"
+        tools:layout="@layout/fragment_edit_image">
+        <action
+            android:id="@+id/action_editImageFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPasswordFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.EditPasswordFragment"
+        android:label="@string/change_password"
+        tools:layout="@layout/fragment_edit_password">
+        <action
+            android:id="@+id/action_editPasswordFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
 
 </navigation>

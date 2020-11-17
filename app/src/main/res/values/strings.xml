@@ -35,11 +35,11 @@
     <string name="phone">Telefonnummer</string>
     <string name="profileImg">Profilbilde</string>
     <string name="logout_">LOGG UT</string>
-    <string name="om_">OM</string>
+    <string name="about_">OM</string>
     <string name="no_description">Ingen beskrivelse</string>
 
     <string name="password">Password</string>
-    <string name="email">Email</string>
+    <string name="email">Epost</string>
     <string name="login">Logg inn</string>
     <string name="new_user">Ny bruker</string>
 
@@ -47,12 +47,27 @@
     <string name="saved_userId_key">savedUserId</string>
     <string name="asset_name">Eiendelnavn</string>
     <string name="asset_img">AssetImage</string>
-    <string name="om_oss">Om oss</string>
-    <string name="add_asset">Legg til</string>
+    <string name="about_us">Om oss</string>
     <string name="new_asset">Legg til ny eiendel</string>
     <string name="edit">Endre</string>
     <string name="save">Lagre</string>
     <string name="delete">Slett</string>
+    <string name="delete_profile">Slett profil</string>
+    <string name="firstname">Fornavn</string>
+    <string name="middlename">Mellomnavn</string>
+    <string name="lastname">Etternavn</string>
+    <string name="update">Oppdater</string>
+    <string name="new_password">Nytt passord</string>
+    <string name="confirm_password">Bekreft passord</string>
+    <string name="change_name">Endre navn</string>
+    <string name="change_email">Endre epost</string>
+    <string name="change_profile_img">Endre profilbilde</string>
+    <string name="change_password">Endre passord</string>
+    <string name="register">Registrer ny bruker</string>
+    <string name="title">Tittel</string>
+    <string name="home">Hjem</string>
+    <string name="add_asset">Legg til</string>
+    <string name="profile">Profil</string>
 
 
 </resources>
