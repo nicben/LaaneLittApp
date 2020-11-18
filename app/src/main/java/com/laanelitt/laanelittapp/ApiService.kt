@@ -28,10 +28,10 @@ interface ApiService {
     suspend fun getCatAssets(@Path("catNr") categoryNr:String): List<Asset>
 
     @GET("assets/getMyAsset/{userId}/")
-    suspend fun getMyAssets(@Path("userId") userId:String): List<Asset>
+    suspend fun getMyAssets(@Path("userId") userId:Int): List<Asset>
 
     @GET("assets/search/{userId}/{search}/")
-    suspend fun getAssetSearch(@Path("userId") userId:String, @Path("search") search:String): List<Asset>
+    suspend fun getAssetSearch(@Path("userId") userId:Int, @Path("search") search:String): List<Asset>
 
     @GET("api/login/{uName}/{pWord}")
     fun login(@Path("uName") userName:String, @Path("pWord") password:String): Call<LoggedInUser>
@@ -40,7 +40,7 @@ interface ApiService {
     fun registerUser(@Body newUser: AssetOwner): Call<Code>
 
     @POST("user/{iUserId}/asset/{iAssetId}/request")
-    fun sendLoanRequest(@Path ("iUserId") userId:String, @Path("iAssetId") assetId:Int, @Body newLoan: Loan): Call<String>
+    fun sendLoanRequest(@Path ("iUserId") userId:Int, @Path("iAssetId") assetId:Int, @Body newLoan: Loan): Call<String>
 
     @PUT("assets/editAsset/{userId}/{assetId}")
     fun editAsset(@Path ("userId") userId:Int, @Path("assetId") assetId:Int, @Body editAsset: Asset): Call<Asset>

@@ -45,10 +45,10 @@ class ListViewModel: ViewModel(){
     }
 
 
-    fun getMyAssets(userId:String) {
+    fun getMyAssets(userId:Int) {
         viewModelScope.launch {
             try {
-                println(userId + "Test1***********************************************************")
+                println("" + userId + "Test1***********************************************************")
                 val listResult = LaneLittApi.retrofitService.getMyAssets(userId)
                 println("Test2******************************************************")
                 _response.value = "Success: ${listResult.size}  assets retrieved"
@@ -62,10 +62,10 @@ class ListViewModel: ViewModel(){
 
     }
 
-    fun getAssetSearch(userId:String, search:String) {
+    fun getAssetSearch(userId:Int, search:String) {
         viewModelScope.launch {
             try {
-                println(userId + "Test1******************************************************")
+                println("" +userId + "Test1******************************************************")
                 val listResult = LaneLittApi.retrofitService.getAssetSearch(userId, search)
                 println("Test2***********" + userId + " " + search + "****************************")
                 _response.value = "Success: ${listResult.size}  assets retrieved"

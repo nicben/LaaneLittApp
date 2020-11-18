@@ -9,13 +9,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentHomePageBinding
-import com.laanelitt.laanelittapp.login.LoginFragment.Pref.getUserId
+import com.laanelitt.laanelittapp.objects.UserLocalStore
+
+
+var userLocalStore: UserLocalStore? = null
+
 
 class HomePageFragment : Fragment(){
 
+//    var userLocalStore: UserLocalStore? = null
     private lateinit var binding: FragmentHomePageBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +33,8 @@ class HomePageFragment : Fragment(){
             inflater, R.layout.fragment_home_page, container, false
         )
 
+        userLocalStore = UserLocalStore(requireContext())
+
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
@@ -34,7 +43,8 @@ class HomePageFragment : Fragment(){
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 findNavController().navigate(
-                   HomePageFragmentDirections.actionSearchPageFragmentToSearchListFragment(query
+                    HomePageFragmentDirections.actionSearchPageFragmentToSearchListFragment(
+                        query
                     )
                 )
                 //Toast.makeText(context, query, Toast.LENGTH_LONG).show()
@@ -135,16 +145,16 @@ class HomePageFragment : Fragment(){
 
     fun observeAuthenticationState() {
 
-        if (getUserId(requireContext(), "ID", "null") != "") {
-            binding.idText.text = getUserId(requireContext(), "ID", "null")
+       val loggedInUser = userLocalStore?.getLoggedInUser
+        if (loggedInUser != null) {
+            val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.profileImage
+            binding.idText.text = userInfo
 
         } else {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
             findNavController().navigate(R.id.loginFragment)
         }
     }
-
-
 }
 
 

@@ -1,9 +1,8 @@
 package com.laanelitt.laanelittapp.login
 
-import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,15 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentLoginBinding
+import com.laanelitt.laanelittapp.homepage.userLocalStore
 import com.laanelitt.laanelittapp.objects.LoggedInUser
-import com.laanelitt.laanelittapp.objects.AssetOwner
 import com.laanelitt.laanelittapp.objects.UserLocalStore
 import kotlinx.android.synthetic.main.fragment_login.*
 import retrofit2.Call
@@ -24,22 +27,24 @@ import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
-    var userLocalStore: UserLocalStore? = null
 
+    private lateinit var auth: FirebaseAuth
 
     private lateinit var binding: FragmentLoginBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        auth = FirebaseAuth.getInstance()
+
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false
         )
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,16 +55,30 @@ class LoginFragment : Fragment() {
         username.getEditText()?.setText(args.username)
         password.getEditText()?.setText(args.password)
 
-//        Toast.makeText(context, "username: ${args.username}, password: ${args.password}", Toast.LENGTH_LONG).show()
-
-
         binding.loginBtn.setOnClickListener {
             val usernameInput = username.getEditText()?.getText()
             val passwordInput = password.getEditText()?.getText()
-            login(
-                usernameInput.toString(),
-                passwordInput.toString()
-            )
+
+            auth.signInWithEmailAndPassword(usernameInput.toString(), passwordInput.toString())
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithEmail:success")
+
+                        login(
+                            usernameInput.toString(),
+                            passwordInput.toString()
+                        )
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Toast.makeText(requireContext(), "Authentication failed.",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+
         }
 
         binding.registerButton.setOnClickListener {
@@ -74,6 +93,7 @@ class LoginFragment : Fragment() {
         }
     }
 
+
     private fun login(username: String, password: String) {
 
         LaneLittApi.retrofitService.login(username, password).enqueue(
@@ -85,14 +105,15 @@ class LoginFragment : Fragment() {
                     println("LOGIN YES")
                     println(response.body()?.user?.id)
                     if (response.body()?.user?.id != null) {
-                        Pref.setUserId(requireContext(), "ID", response.body()?.user?.id.toString())
+                        //Pref.setUserId(requireContext(), "ID", response.body()?.user?.id.toString())
                         Toast.makeText(requireContext(), "Du er logget inn", Toast.LENGTH_LONG)
                             .show()
                         println(response.body()?.user?.id.toString())
-                        val user = response.body()?.user
 
+                        val user = response.body()?.user
                         userLocalStore?.storeUserData(user!!)
                         userLocalStore?.setUserLoggedIn(true)
+
                         findNavController().navigate(R.id.searchPageFragment)
                     } else {
                         Toast.makeText(
@@ -115,36 +136,36 @@ class LoginFragment : Fragment() {
         )
 
     }
-
-    object Pref {
-
-        private val PREF_FILE: String =
-            com.laanelitt.laanelittapp.BuildConfig.APPLICATION_ID.replace(
-                ".",
-                "_"
-            )
-        private var sharedPreferences: SharedPreferences? = null
-        private fun openPref(context: Context) {
-            sharedPreferences = context.getSharedPreferences(PREF_FILE, MODE_PRIVATE)
-        }
-
-
-        fun setUserId(context: Context, key: String?, value: String?) {
-            openPref(context)
-            val prefsPrivateEditor: SharedPreferences.Editor = sharedPreferences!!.edit()
-            prefsPrivateEditor.putString(key, value)
-            prefsPrivateEditor.apply()
-            sharedPreferences = null
-        }
-
-        fun getUserId(context: Context, key: String?, defaultValue: String?): String? {
-            openPref(context)
-            val result = sharedPreferences!!.getString(key, defaultValue)
-            sharedPreferences = null
-            return result
-        }
-
-    }
+//
+//    object Pref {
+//
+//        private val PREF_FILE: String =
+//            com.laanelitt.laanelittapp.BuildConfig.APPLICATION_ID.replace(
+//                ".",
+//                "_"
+//            )
+//        private var sharedPreferences: SharedPreferences? = null
+//        private fun openPref(context: Context) {
+//            sharedPreferences = context.getSharedPreferences(PREF_FILE, MODE_PRIVATE)
+//        }
+//
+//
+//        fun setUserId(context: Context, key: String?, value: String?) {
+//            openPref(context)
+//            val prefsPrivateEditor: SharedPreferences.Editor = sharedPreferences!!.edit()
+//            prefsPrivateEditor.putString(key, value)
+//            prefsPrivateEditor.apply()
+//            sharedPreferences = null
+//        }
+//
+//        fun getUserId(context: Context, key: String?, defaultValue: String?): String? {
+//            openPref(context)
+//            val result = sharedPreferences!!.getString(key, defaultValue)
+//            sharedPreferences = null
+//            return result
+//        }
+//
+//    }
 }
 
 

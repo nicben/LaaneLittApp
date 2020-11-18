@@ -84,6 +84,12 @@ class EditNameFragment : Fragment() {
                     println("Endre? "+response.body()?.code.toString())
                     if(response.body()?.code.toString()=="200"){
 
+                        user.firstname = firstname
+                        user.middlename = middlename
+                        user.lastname = lastname
+
+                        userLocalStore?.updateUser(user)
+
                         findNavController().navigate(R.id.settingsFragment)
                         //Toast.makeText(requireContext(), "Eiendelen er slettet", Toast.LENGTH_LONG).show()
                     } else {
