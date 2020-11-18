@@ -17,5 +17,6 @@
     <dimen name="description_size">17sp</dimen>
     <dimen name="margin_top_XL">32dp</dimen>
     <dimen name="text_size_btn">15sp</dimen>
+    <dimen name="margin_top_XS">3dp</dimen>
 
 </resources>

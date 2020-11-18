@@ -136,36 +136,7 @@ class LoginFragment : Fragment() {
         )
 
     }
-//
-//    object Pref {
-//
-//        private val PREF_FILE: String =
-//            com.laanelitt.laanelittapp.BuildConfig.APPLICATION_ID.replace(
-//                ".",
-//                "_"
-//            )
-//        private var sharedPreferences: SharedPreferences? = null
-//        private fun openPref(context: Context) {
-//            sharedPreferences = context.getSharedPreferences(PREF_FILE, MODE_PRIVATE)
-//        }
-//
-//
-//        fun setUserId(context: Context, key: String?, value: String?) {
-//            openPref(context)
-//            val prefsPrivateEditor: SharedPreferences.Editor = sharedPreferences!!.edit()
-//            prefsPrivateEditor.putString(key, value)
-//            prefsPrivateEditor.apply()
-//            sharedPreferences = null
-//        }
-//
-//        fun getUserId(context: Context, key: String?, defaultValue: String?): String? {
-//            openPref(context)
-//            val result = sharedPreferences!!.getString(key, defaultValue)
-//            sharedPreferences = null
-//            return result
-//        }
-//
-//    }
+
 }
 
 

@@ -148,7 +148,7 @@ class HomePageFragment : Fragment(){
        val loggedInUser = userLocalStore?.getLoggedInUser
         if (loggedInUser != null) {
             val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.profileImage
-            binding.idText.text = userInfo
+            binding.idText?.text = userInfo
 
         } else {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden

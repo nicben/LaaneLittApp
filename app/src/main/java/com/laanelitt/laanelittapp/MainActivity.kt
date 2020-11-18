@@ -1,6 +1,7 @@
 package com.laanelitt.laanelittapp
 
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         setupViews()
 
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

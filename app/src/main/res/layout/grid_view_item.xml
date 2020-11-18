@@ -40,7 +40,8 @@
             android:padding="2dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{property.assetImages.get(0).imageUrl}"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            tools:src="@tools:sample/backgrounds/scenic"
+            android:contentDescription="TODO" />
 
     </FrameLayout>
 </layout>
