@@ -8,19 +8,24 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentSettingsBinding
 import com.laanelitt.laanelittapp.login.LoginFragment
+import com.laanelitt.laanelittapp.objects.UserLocalStore
 
 
 class SettingsFragment : Fragment() {
-
+    private lateinit var auth: FirebaseAuth
+    var userLocalStore: UserLocalStore? = null
     private lateinit var binding: FragmentSettingsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        auth = FirebaseAuth.getInstance()
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_settings, container, false
@@ -32,6 +37,8 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        userLocalStore = UserLocalStore(requireContext())
+
         binding.settingNameButton.setOnClickListener {
 
             findNavController().navigate(R.id.editNameFragment)
@@ -42,18 +49,14 @@ class SettingsFragment : Fragment() {
             findNavController().navigate(R.id.editImageFragment)
         }
 
-//        binding.settingMailButton.setOnClickListener {
-//
-//            findNavController().navigate(R.id.editEmailFragment)
-//        }
-
         binding.settingPasswordButton.setOnClickListener {
 
             findNavController().navigate(R.id.editPasswordFragment)
         }
 
         binding.settingLogoutButton.setOnClickListener {
-            LoginFragment.Pref.setUserId(requireContext(), "ID", "")
+            userLocalStore!!.clearUserData()
+            auth.signOut()
             findNavController().navigate(R.id.loginFragment)
         }
 

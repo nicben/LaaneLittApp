@@ -11,10 +11,13 @@ import com.laanelitt.laanelittapp.ListViewModel
 import com.laanelitt.laanelittapp.PhotoGridAdapter
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentMyAssetsListBinding
-import com.laanelitt.laanelittapp.login.LoginFragment
+import com.laanelitt.laanelittapp.objects.UserLocalStore
+
 
 
 class MyAssetsListFragment : Fragment() {
+
+    var userLocalStore: UserLocalStore? = null
 
     private val viewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel()::class.java)
@@ -26,15 +29,12 @@ class MyAssetsListFragment : Fragment() {
         setHasOptionsMenu(true)
         val binding= FragmentMyAssetsListBinding.inflate(inflater)
 
+        userLocalStore = UserLocalStore(requireContext())
+        observeAuthenticationState()
+
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
-
-        val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
-        if (userId != null) {
-            viewModel.getMyAssets(userId)
-            println("*********************   my assts, userId: " + userId + " *******************")
-        }
 
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
             viewModel.displayPropertyDetails(it)
@@ -70,6 +70,19 @@ class MyAssetsListFragment : Fragment() {
             R.id.action_settings -> findNavController().navigate(R.id.settingsFragment)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun observeAuthenticationState() {
+
+        val loggedInUser = userLocalStore?.getLoggedInUser
+        if (loggedInUser != null) {
+            loggedInUser.id?.let { viewModel.getMyAssets(it) }
+            println("*********************   my assts, userId: " + loggedInUser.id + " *******************")
+
+        } else {
+            // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
+            findNavController().navigate(R.id.loginFragment)
+        }
     }
 }
 

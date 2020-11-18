@@ -10,18 +10,21 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentAddAssetBinding
-import com.laanelitt.laanelittapp.login.LoginFragment
+import com.laanelitt.laanelittapp.homepage.userLocalStore
+import com.laanelitt.laanelittapp.objects.UserLocalStore
 
 
 class AddAssetFragment : Fragment() {
-
+    //var userLocalStore: UserLocalStore? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (LoginFragment.Pref.getUserId(requireContext(), "ID", "null") == "") {
-            findNavController().navigate(R.id.loginFragment)}
+
+        userLocalStore = UserLocalStore(requireContext())
+        observeAuthenticationState()
+
        val binding = DataBindingUtil.inflate<FragmentAddAssetBinding>(inflater,R.layout.fragment_add_asset,container,false)
 
         binding.saveButton.setOnClickListener { view : View ->
@@ -30,6 +33,14 @@ class AddAssetFragment : Fragment() {
 
         return binding.root
 
+    }
+    fun observeAuthenticationState() {
+
+        val loggedInUser = userLocalStore?.getLoggedInUser
+        if (loggedInUser == null) {
+            // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
+            findNavController().navigate(R.id.loginFragment)
+        }
     }
 
 }

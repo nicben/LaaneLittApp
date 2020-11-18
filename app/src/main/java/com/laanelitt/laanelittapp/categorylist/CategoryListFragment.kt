@@ -54,13 +54,6 @@ class CategoryListFragment : Fragment() {
         println("****************************************viewCreated")
         super.onViewCreated(view, savedInstanceState)
 
-        /*val args = CategoryListFragmentArgs.fromBundle(requireArguments())
-        Toast.makeText(context, "catId: ${args.catId}", Toast.LENGTH_LONG).show()
-
-        // If the user presses the back button, bring them back to the home screen.
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack(R.id.searchPageFragment, false)
-        }*/
 
     }
 }

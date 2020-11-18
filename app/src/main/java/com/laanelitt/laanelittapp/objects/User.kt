@@ -5,5 +5,6 @@ data class User (
     var firstname: String?,
     var middlename: String?,
     var lastname: String?,
-    var usertype: String?
+    var usertype: String?,
+    var profileImage: String?
 )
