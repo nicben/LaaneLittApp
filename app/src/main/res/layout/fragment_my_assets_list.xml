@@ -18,8 +18,8 @@
             android:id="@+id/photos_grid"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:clipToPadding="false"
             android:padding="6dp"
+            android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -31,5 +31,4 @@
             tools:listitem="@layout/grid_view_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

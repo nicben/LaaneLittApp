@@ -54,7 +54,8 @@ interface ApiService {
     @POST("user/{iUserId}/edit")
     fun editUser(@Path ("iUserId") userId:Int, @Body user: User): Call<Code>
 
-
+    @GET("user/{iUserId}/loanRequest")
+    suspend fun getNotifications(@Path("iUserId") userId: String): List<Notification>
 
 /*
 

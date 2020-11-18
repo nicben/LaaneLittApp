@@ -24,9 +24,8 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="property"
-            type="com.laanelitt.laanelittapp.objects.Asset"/>
-
+            name="notification"
+            type="com.laanelitt.laanelittapp.objects.Notification"/>
     </data>
 
     <FrameLayout
@@ -34,13 +33,13 @@
         android:layout_height="170dp">
 
         <ImageView
-            android:id="@+id/mars_image"
+            android:id="@+id/notification_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:padding="2dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{property.assetImages.get(0).imageUrl}"
+            app:imageUrl="@{notification.assets.assetImages.get(0).imageUrl}"
             tools:src="@tools:sample/backgrounds/scenic"/>
 
         <TextView
@@ -50,9 +49,9 @@
             android:shadowColor="@color/colorPrimaryDark"
             android:shadowRadius="5"
             android:singleLine="true"
-            android:text="@{property.assetName}"
-            android:textColor="@color/colorPrimary"
-            android:background="@color/colorWhite"
+            android:text="@{notification.users.firstName}"
+            android:textColor="@color/colorLightGrey"
+            android:background="@color/colorPrimary"
             android:layout_margin="5dp"
 
             android:textSize="20sp" />

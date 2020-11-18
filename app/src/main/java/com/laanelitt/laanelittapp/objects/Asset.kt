@@ -7,10 +7,10 @@ data class Asset(
     var assetName: String,
     var description: String?,
     val assetImages: List<AssetImage>,
-    val users: AssetOwner,
+    val users: AssetOwner?,
     var assetType: AssetType?,
-    val assetCondition: Int,
-    val public: Boolean
+    val assetCondition: Int?,
+    val public: Boolean?
 ): Serializable
 
 

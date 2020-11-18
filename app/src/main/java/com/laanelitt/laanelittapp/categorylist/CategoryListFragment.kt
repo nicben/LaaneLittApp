@@ -26,6 +26,7 @@ class CategoryListFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+
         viewModel.getCatAssets(CategoryListFragmentArgs.fromBundle(requireArguments()).catId)
 
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {

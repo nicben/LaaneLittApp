@@ -137,6 +137,7 @@ class HomePageFragment : Fragment(){
 
         if (getUserId(requireContext(), "ID", "null") != "") {
             binding.idText.text = getUserId(requireContext(), "ID", "null")
+            //findNavController().navigate(R.id.notificationsFragment)
 
         } else {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden

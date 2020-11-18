@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.laanelitt.laanelittapp.ListViewModel" />
+            name="notificationViewModel"
+            type="com.laanelitt.laanelittapp.NotificationListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/photos_grid"
+            android:id="@+id/notification_photos_grid"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="6dp"
@@ -25,10 +25,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listData="@{viewModel.assets}"
+            app:notificationListData="@{notificationViewModel.notifications}"
             app:spanCount="2"
             tools:itemCount="16"
-            tools:listitem="@layout/grid_view_item" />
+            tools:listitem="@layout/notification_grid_view_item"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>
