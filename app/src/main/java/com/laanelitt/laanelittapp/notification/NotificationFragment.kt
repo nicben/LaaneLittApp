@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.laanelitt.laanelittapp.NotificationListViewModel
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentNotificationBinding
+import com.laanelitt.laanelittapp.homepage.userLocalStore
 import com.laanelitt.laanelittapp.login.LoginFragment
 
 class NotificationFragment : Fragment() {
@@ -27,7 +28,7 @@ class NotificationFragment : Fragment() {
         binding.lifecycleOwner=this
         binding.notificationViewModel=notificationViewModel
 
-        val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
+        val userId = userLocalStore?.getLoggedInUser?.id.toString()
         if(userId!=null) {
             notificationViewModel.getNotifications(userId)
         }

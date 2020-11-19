@@ -1,16 +1,26 @@
 package com.laanelitt.laanelittapp.profile
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentAddAssetBinding
-import com.laanelitt.laanelittapp.login.LoginFragment
+import com.laanelitt.laanelittapp.homepage.userLocalStore
 import com.laanelitt.laanelittapp.objects.AddAsset
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,16 +44,10 @@ class AddAssetFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val userId=LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
+        val userId= userLocalStore?.getLoggedInUser!!.id.toString()
         observeAuthenticationState()
-        if (allPermissionsGranted())  {
-            println("if**************")
-        }
-        else{
-            println("else**************")
-            requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-            //ActivityCompat.requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-        }
+
+
 
         if (userId == "") {
             findNavController().navigate(R.id.loginFragment)}
@@ -53,7 +57,15 @@ class AddAssetFragment : Fragment() {
             pickImageFromGallery()
         }
         binding.takePicture.setOnClickListener {
-            takePicture()
+            if (allPermissionsGranted())  {
+                println("if**************")
+                takePicture()
+            }
+            else{
+                println("else**************")
+                requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+                //ActivityCompat.requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+            }
         }
 
         binding.saveButton.setOnClickListener { view : View ->
@@ -76,19 +88,19 @@ class AddAssetFragment : Fragment() {
     }
 
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.run {
-            putString(STATE_IMAGE_PATH, pathTilBildeFil)
-        }
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        savedInstanceState?.run{
-            pathTilBildeFil= getString(STATE_IMAGE_PATH).toString()
-        }
-    }
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        outState.run {
+//            putString(STATE_IMAGE_PATH, pathTilBildeFil)
+//        }
+//        super.onSaveInstanceState(outState)
+//    }
+//
+//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+//        super.onViewStateRestored(savedInstanceState)
+//        savedInstanceState?.run{
+//            pathTilBildeFil= getString(STATE_IMAGE_PATH).toString()
+//        }
+//    }
 
     fun save(userId:String){
         if(file!=null){
@@ -124,7 +136,7 @@ class AddAssetFragment : Fragment() {
     }
 
     fun takePicture(){
-        val takePictureIntent=Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val takePictureIntent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if(takePictureIntent.resolveActivity(requireActivity().packageManager)!=null){
             try {
                 println("take picture try")
@@ -135,11 +147,11 @@ class AddAssetFragment : Fragment() {
             }
             if(file!=null){
                 println("take picture if1")
-                val fileUri=FileProvider.getUriForFile(requireContext(),
+                val fileUri= FileProvider.getUriForFile(requireContext(),
                     "com.laanelitt.laanelittapp.fileprovider", file!!)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
                 pathTilBildeFil=file!!.absolutePath
-                println("take picture if2")
+                println("take picture if2 "+ fileUri+" : "+pathTilBildeFil)
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
             }
         }
@@ -153,7 +165,7 @@ class AddAssetFragment : Fragment() {
         println("valg av bilde har skjedd")
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?){
-        println("Nå skal bilde komme opp")
+        println("Nå skal bilde komme opp: "+requestCode+" ")
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
 
@@ -163,7 +175,6 @@ class AddAssetFragment : Fragment() {
 //                binding.image.setImageBitmap(imageBitmap)
             }
             if (requestCode == REQUEST_PICK_IMAGE) {
-                println("Nå skal bilde komme opp")
                 file = File(returnIntent?.data?.path)
                 println(file?.name + " :::::: " + file?.path + " :::: " + file?.extension + ":::::")
                 println(returnIntent?.data)
@@ -182,7 +193,7 @@ class AddAssetFragment : Fragment() {
         var imageFile:File?=null
         val photoStorageDir=getPhotoDirectory()
         if (photoStorageDir!=null){
-            val timeStamp= SimpleDateFormat("YMD-HMS").format(Date())
+            val timeStamp= SimpleDateFormat("YMMdd-HHmss").format(Date())
             val imageFileName=photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpg"
             imageFile= File(imageFileName)
             println(imageFileName)
@@ -216,13 +227,14 @@ class AddAssetFragment : Fragment() {
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>,
+        permissions: Array<String>,
         grantResults: IntArray
     ) {
         if(requestCode== REQUEST_CODE_PERMISSIONS){
             if(allPermissionsGranted()){
                 println("Permisjons granted")
                 Toast.makeText(context, "Permisjons granted", Toast.LENGTH_LONG)
+                takePicture()
             }else{
                 println("Permisjons not granted")
                 Toast.makeText(context, "Permisjons not granted", Toast.LENGTH_LONG)
