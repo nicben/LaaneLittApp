@@ -11,11 +11,17 @@ import com.laanelitt.laanelittapp.PhotoGridAdapter
 import com.laanelitt.laanelittapp.categorylist.CategoryListFragmentArgs
 import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
 import com.laanelitt.laanelittapp.databinding.FragmentSearchListBinding
-import com.laanelitt.laanelittapp.login.LoginFragment
+import com.laanelitt.laanelittapp.objects.UserLocalStore
 
 //liste etter kategori
+
+
+
 class SearchListFragment : Fragment() {
     /**/
+
+    var userLocalStore: UserLocalStore? = null
+
     private val viewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel()::class.java)
     }
@@ -29,12 +35,12 @@ class SearchListFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        userLocalStore = UserLocalStore(requireContext())
 
-
-        val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
-        if (userId != null) {
-            viewModel.getAssetSearch(userId, SearchListFragmentArgs.fromBundle(requireArguments()).searchtext)
-            println("*********************   searchlist, userId: " + userId + " *******************")
+        val loggedInUser = userLocalStore?.getLoggedInUser
+        if (loggedInUser != null) {
+            loggedInUser.id?.let { viewModel.getAssetSearch(it, SearchListFragmentArgs.fromBundle(requireArguments()).searchtext) }
+            println("*********************   searchlist, userId: " + loggedInUser.id + " *******************")
         }
 
 
@@ -63,13 +69,6 @@ class SearchListFragment : Fragment() {
         println("************************ SearchList viewCreated *************************")
         super.onViewCreated(view, savedInstanceState)
 
-        /*val args = CategoryListFragmentArgs.fromBundle(requireArguments())
-        Toast.makeText(context, "catId: ${args.catId}", Toast.LENGTH_LONG).show()
-
-        // If the user presses the back button, bring them back to the home screen.
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack(R.id.searchPageFragment, false)
-        }*/
 
     }
 }

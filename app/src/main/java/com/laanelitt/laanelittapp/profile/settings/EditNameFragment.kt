@@ -1,5 +1,6 @@
 package com.laanelitt.laanelittapp.profile.settings
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,15 @@ class EditNameFragment : Fragment() {
         return binding.root
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(requireContext(), "Landscape Mode edit name", Toast.LENGTH_SHORT).show()
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Toast.makeText(requireContext(), "Portrait Mode edit name", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,7 +57,6 @@ class EditNameFragment : Fragment() {
         loggedInUser = userLocalStore?.getLoggedInUser
 
         displayUserDetails()
-
 
         binding.editNameBtn.setOnClickListener {
             val firstnameInput = edit_firstname.getEditText()?.getText()
@@ -83,6 +92,12 @@ class EditNameFragment : Fragment() {
                 override fun onResponse(call: Call<Code>, response: Response<Code>) {
                     println("Endre? "+response.body()?.code.toString())
                     if(response.body()?.code.toString()=="200"){
+
+                        user.firstname = firstname
+                        user.middlename = middlename
+                        user.lastname = lastname
+
+                        userLocalStore?.updateUser(user)
 
                         findNavController().navigate(R.id.settingsFragment)
                         //Toast.makeText(requireContext(), "Eiendelen er slettet", Toast.LENGTH_LONG).show()

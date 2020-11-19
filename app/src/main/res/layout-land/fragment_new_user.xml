@@ -4,21 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".profile.settings.EditPasswordFragment">
+        tools:context=".login.NewUserFragment">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_password_current"
+            android:id="@+id/new_username"
             android:layout_width="@dimen/width_0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/start_end_margin"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="@dimen/margin_top_XS"
             android:layout_marginEnd="@dimen/start_end_margin"
-            android:hint="@string/password"
-            app:endIconMode="password_toggle"
+            android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,22 +27,22 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_password_new"
+            android:id="@+id/new_password_1"
             android:layout_width="@dimen/width_0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/start_end_margin"
             android:layout_marginTop="@dimen/margin_top_small"
             android:layout_marginEnd="@dimen/start_end_margin"
-            android:hint="@string/new_password"
+            android:hint="@string/password"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_password_current"
+            app:layout_constraintTop_toBottomOf="@+id/new_username"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -53,7 +53,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_password_confirm"
+            android:id="@+id/new_password_2"
             android:layout_width="@dimen/width_0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/start_end_margin"
@@ -63,7 +63,7 @@
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_password_new"
+            app:layout_constraintTop_toBottomOf="@+id/new_password_1"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -75,17 +75,17 @@
 
 
         <Button
-            android:id="@+id/edit_password_btn"
+            android:id="@+id/new_user_btn"
             android:layout_width="@dimen/width_0dp"
             android:layout_height="@dimen/height_btn"
             android:layout_marginStart="@dimen/start_end_margin"
             android:layout_marginTop="@dimen/margin_top_small"
             android:layout_marginEnd="@dimen/start_end_margin"
-            android:text="@string/update"
-            android:textSize="@dimen/text_size_btn"
+            android:text="@string/new_user"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_password_confirm" />
+            app:layout_constraintTop_toBottomOf="@+id/new_password_2" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

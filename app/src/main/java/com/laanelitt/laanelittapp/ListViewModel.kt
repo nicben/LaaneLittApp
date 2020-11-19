@@ -45,10 +45,10 @@ class ListViewModel: ViewModel(){
     }
 
 
-    fun getMyAssets(userId:String) {
+    fun getMyAssets(userId:Int) {
         viewModelScope.launch {
             try {
-                println(userId + "Test1***********************************************************")
+                println("" + userId + "Test1***********************************************************")
                 val listResult = LaneLittApi.retrofitService.getMyAssets(userId)
                 println("Test2******************************************************")
                 _response.value = "Success: ${listResult.size}  assets retrieved"
@@ -62,10 +62,10 @@ class ListViewModel: ViewModel(){
 
     }
 
-    fun getAssetSearch(userId:String, search:String) {
+    fun getAssetSearch(userId:Int, search:String) {
         viewModelScope.launch {
             try {
-                println(userId + "Test1******************************************************")
+                println("" +userId + "Test1******************************************************")
                 val listResult = LaneLittApi.retrofitService.getAssetSearch(userId, search)
                 println("Test2***********" + userId + " " + search + "****************************")
                 _response.value = "Success: ${listResult.size}  assets retrieved"
@@ -78,17 +78,17 @@ class ListViewModel: ViewModel(){
         }
     }
 
-    /**
-     * When the property is clicked, set the [_navigateToSelectedProperty] [MutableLiveData]
-     * @param Asset The [Asset] that was clicked on.
-     */
+//    /**
+//     * When the property is clicked, set the [_navigateToSelectedProperty] [MutableLiveData]
+//     * @param Asset The [Asset] that was clicked on.
+//     */
     fun displayPropertyDetails(asset: Asset) {
         _navigateToSelectedProperty.value = asset
     }
 
-    /**
-     * After the navigation has taken place, make sure navigateToSelectedProperty is set to null
-     */
+//    /**
+//     * After the navigation has taken place, make sure navigateToSelectedProperty is set to null
+//     */
     fun displayPropertyDetailsComplete() {
         _navigateToSelectedProperty.value = null
     }

@@ -14,10 +14,11 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.databinding.FragmentAssetBinding
-import com.laanelitt.laanelittapp.login.LoginFragment
+import com.laanelitt.laanelittapp.homepage.userLocalStore
 import com.laanelitt.laanelittapp.objects.Loan
 import com.laanelitt.laanelittapp.objects.Notification
 import com.laanelitt.laanelittapp.objects.RequestStatus
+import com.laanelitt.laanelittapp.objects.UserLocalStore
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,8 +30,11 @@ import java.util.*
 
 class AssetFragment : Fragment(){
 
+    //var userLocalStore: UserLocalStore? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        userLocalStore = UserLocalStore(requireContext())
+        val userId = userLocalStore?.getLoggedInUser?.id
 
         val application = requireNotNull(activity).application
         val binding = FragmentAssetBinding.inflate(inflater)
@@ -39,13 +43,13 @@ class AssetFragment : Fragment(){
         val asset = AssetFragmentArgs.fromBundle(requireArguments()).selectedProperty
         val viewModelFactory = AssetViewModelFactory(asset, application)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(AssetViewModel::class.java)
-
+        val assetId = asset.id
 
 //        // Material Date Picker  -->
 //        // https://brandonlehr.com/android/learn-to-code/2018/08/19/callling-android-datepicker-fragment-from-a-fragment-and-getting-the-date
 
-        val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
-        val assetId = asset.id
+        //val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
+
 
         val fm = (activity as AppCompatActivity?)!!.supportFragmentManager
         val builder : MaterialDatePicker.Builder<Pair<Long, Long>> = MaterialDatePicker.Builder.dateRangePicker()
@@ -85,7 +89,7 @@ class AssetFragment : Fragment(){
 
     }
 
-    private fun sendLoanRequest(userId: String, assetId: Int, startDate: String, endDate: String, dates: String) {
+    private fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String, dates: String) {
         val statusSendt = RequestStatus (null, null )
 
         val newLoan = Loan(startDate, endDate)

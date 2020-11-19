@@ -16,9 +16,8 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.asset.AssetViewModel
 import com.laanelitt.laanelittapp.asset.AssetViewModelFactory
 import com.laanelitt.laanelittapp.databinding.FragmentMyAssetBinding
-import com.laanelitt.laanelittapp.login.LoginFragment
+import com.laanelitt.laanelittapp.homepage.userLocalStore
 import com.laanelitt.laanelittapp.objects.*
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_my_asset.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,8 +26,10 @@ import retrofit2.Response
 
 //profil til item - info
 
-class MyAssetFragment : Fragment(){
 
+
+class MyAssetFragment : Fragment(){
+    //var userLocalStore: UserLocalStore? = null
     private lateinit var binding: FragmentMyAssetBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,7 +46,7 @@ class MyAssetFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("******************************my asset viewCreated")
         super.onViewCreated(view, savedInstanceState)
-
+        userLocalStore = UserLocalStore(requireContext())
         //Henter det valgte eiendel-objektet
         val application = requireNotNull(activity).application
         val asset = MyAssetFragmentArgs.fromBundle(requireArguments()).selectedProperty
@@ -53,16 +54,16 @@ class MyAssetFragment : Fragment(){
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(AssetViewModel::class.java)
 
         //Henter brukerID'en
-        val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")?.toInt()
+        //val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")?.toInt()
+
+        var loggedInUser = userLocalStore?.getLoggedInUser
+
+
 
         //TextView
         val assetNameTextView = view.findViewById<TextView>(R.id.assetName)
         val assetDescriptionTextView = view.findViewById<TextView>(R.id.assetDescription)
 
-
-
-//        val assetNameEditText = view.findViewById<EditText>(R.id.editAssetName)
-//        val assetDescriptionEditText = view.findViewById<EditText>(R.id.editAssetDescription)
 
 
         binding.editAssetButton.setOnClickListener {
@@ -77,14 +78,9 @@ class MyAssetFragment : Fragment(){
             saveAssetButton.setVisibility(View.VISIBLE)
             deleteAssetButton.setVisibility(View.VISIBLE)
 
-//            assetNameEditText.setVisibility(View.VISIBLE)
-//            assetDescriptionEditText.setVisibility(View.VISIBLE)
-
 //            Henter teksten fra TextView'ene og viser det i TextFieldene
             editAssetName.getEditText()?.setText(assetNameTextView.text)
             editAssetDescription.getEditText()?.setText(assetDescriptionTextView.text)
-//            assetNameEditText.setText(assetNameTextView.text)
-//            assetDescriptionEditText.setText(assetDescriptionTextView.text)
         }
 
         binding.saveAssetButton.setOnClickListener {
@@ -103,19 +99,15 @@ class MyAssetFragment : Fragment(){
             saveAssetButton.setVisibility(View.INVISIBLE)
             deleteAssetButton.setVisibility(View.INVISIBLE)
 
-
-//            assetNameEditText.setVisibility(View.INVISIBLE)
-//            assetDescriptionEditText.setVisibility(View.INVISIBLE)
-
             //Henter teksten fra TextFieldene og viser det i TextView'ene
             assetNameTextView.setText(assetNameInput.toString())
             assetDescriptionTextView.setText(assetDescriptionInput.toString())
 
-//            assetNameTextView.setText(assetNameEditText.text)
-//            assetDescriptionTextView.setText(assetDescriptionEditText.text)
-
-            if (userId != null ) {
-                editAsset(userId, assetNameTextView.text.toString(), assetDescriptionTextView.text.toString(), asset)
+            if (loggedInUser != null) {
+                var userId = loggedInUser.id
+                if (userId != null) {
+                    editAsset(userId, assetNameTextView.text.toString(), assetDescriptionTextView.text.toString(), asset)
+                }
             }
         }
 
@@ -137,9 +129,9 @@ class MyAssetFragment : Fragment(){
                 override fun onResponse(call: Call<Asset>, response: Response<Asset>) {
                     println("Endring? "+response.body()?.toString())
                     if (response.body()?.id!=null) {
-                       Toast.makeText(requireContext(), "Lagret", Toast.LENGTH_LONG).show()
+                      // Toast.makeText(requireContext(), "Lagret", Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(requireContext(), "Ikke lagret", Toast.LENGTH_LONG).show()
+                       // Toast.makeText(requireContext(), "Ikke lagret", Toast.LENGTH_LONG).show()
                     }
                 }
 

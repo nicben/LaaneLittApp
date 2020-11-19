@@ -15,17 +15,14 @@
             android:orientation="vertical"
             tools:context=".homepage.HomePageFragment">
 
-            <TextView
-                android:id="@+id/id_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/not_signed_in" />
 
             <SearchView
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/search_border" />
 
             <TableLayout
@@ -41,7 +38,6 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
                         android:layout_height="@dimen/height_btn"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="2"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/verktoy"
@@ -54,7 +50,6 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
                         android:layout_height="@dimen/height_btn"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="2"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/el"
@@ -67,7 +62,6 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
                         android:layout_height="@dimen/height_btn"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="2"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/instrument"
@@ -83,7 +77,6 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
                         android:layout_height="@dimen/height_btn"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="2"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/kler"
@@ -96,7 +89,6 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
                         android:layout_height="@dimen/height_btn"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="2"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/sko"
@@ -109,7 +101,6 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
                         android:layout_height="@dimen/height_btn"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="2"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/boker"
@@ -125,7 +116,6 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
                         android:layout_height="@dimen/height_btn"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="2"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/sport"
@@ -138,7 +128,6 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
                         android:layout_height="@dimen/height_btn"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="2"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/multi"
@@ -151,7 +140,6 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
                         android:layout_height="@dimen/height_btn"
-                        android:layout_marginTop="15dp"
                         android:layout_weight="2"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="@string/div"

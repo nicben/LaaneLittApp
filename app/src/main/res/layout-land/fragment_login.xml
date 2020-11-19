@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,17 +9,17 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".profile.settings.EditPasswordFragment">
+        tools:context="login.LoginFragment">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_password_current"
+            android:id="@+id/username"
             android:layout_width="@dimen/width_0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/start_end_margin"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="@dimen/margin_top_XS"
             android:layout_marginEnd="@dimen/start_end_margin"
-            android:hint="@string/password"
-            app:endIconMode="password_toggle"
+            android:hint="@string/email"
+            app:errorEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,43 +28,24 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_password_new"
+            android:id="@+id/password"
             android:layout_width="@dimen/width_0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/start_end_margin"
             android:layout_marginTop="@dimen/margin_top_small"
             android:layout_marginEnd="@dimen/start_end_margin"
-            android:hint="@string/new_password"
+            android:hint="@string/password"
+            app:errorEnabled="false"
+            app:errorContentDescription="kkkkkk"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_password_current"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_password_confirm"
-            android:layout_width="@dimen/width_0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/start_end_margin"
-            android:layout_marginTop="@dimen/margin_top_small"
-            android:layout_marginEnd="@dimen/start_end_margin"
-            android:hint="@string/confirm_password"
-            app:endIconMode="password_toggle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_password_new"
+            app:layout_constraintTop_toBottomOf="@+id/username"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -75,17 +57,50 @@
 
 
         <Button
-            android:id="@+id/edit_password_btn"
+            android:id="@+id/login_btn"
             android:layout_width="@dimen/width_0dp"
             android:layout_height="@dimen/height_btn"
             android:layout_marginStart="@dimen/start_end_margin"
             android:layout_marginTop="@dimen/margin_top_small"
             android:layout_marginEnd="@dimen/start_end_margin"
-            android:text="@string/update"
+            android:text="@string/login"
             android:textSize="@dimen/text_size_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_password_confirm" />
+            app:layout_constraintTop_toBottomOf="@+id/password" />
+
+        <Button
+            android:id="@+id/registerButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="@dimen/width_0dp"
+            android:layout_height="@dimen/height_btn"
+            android:layout_marginStart="@dimen/start_end_margin"
+            android:layout_marginTop="@dimen/margin_top_small"
+            android:layout_marginEnd="@dimen/start_end_margin"
+            android:text="@string/register"
+            android:textSize="@dimen/text_size_btn"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+
+       <!--
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="64dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/password"
+            app:layout_constraintStart_toStartOf="@+id/password"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" /> -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

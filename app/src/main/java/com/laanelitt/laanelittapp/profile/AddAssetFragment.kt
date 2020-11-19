@@ -1,26 +1,13 @@
 package com.laanelitt.laanelittapp.profile
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentAddAssetBinding
 import com.laanelitt.laanelittapp.login.LoginFragment
@@ -48,7 +35,7 @@ class AddAssetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val userId=LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
-
+        observeAuthenticationState()
         if (allPermissionsGranted())  {
             println("if**************")
         }
@@ -79,8 +66,16 @@ class AddAssetFragment : Fragment() {
         return binding.root
 
     }
+    fun observeAuthenticationState() {
 
-    
+        val loggedInUser = userLocalStore?.getLoggedInUser
+        if (loggedInUser == null) {
+            // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
+            findNavController().navigate(R.id.loginFragment)
+        }
+    }
+
+
     override fun onSaveInstanceState(outState: Bundle) {
         outState.run {
             putString(STATE_IMAGE_PATH, pathTilBildeFil)

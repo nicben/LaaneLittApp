@@ -5,11 +5,21 @@ import android.content.SharedPreferences
 
 
 class UserLocalStore(context: Context) {
-    var userLocalDatabase: SharedPreferences
+    private var userLocalDatabase: SharedPreferences = context.getSharedPreferences("userDetails", 0)
 
     fun storeUserData(user: User) {
         val userLocalDatabaseEditor = userLocalDatabase.edit()
-        user?.id?.let { userLocalDatabaseEditor.putInt("id", it) }
+        user.id?.let { userLocalDatabaseEditor.putInt("id", it) }
+        userLocalDatabaseEditor.putString("firstname", user.firstname)
+        userLocalDatabaseEditor.putString("middlename", user.middlename)
+        userLocalDatabaseEditor.putString("lastname", user.lastname)
+        userLocalDatabaseEditor.putString("profileImage", user.profileImage)
+        userLocalDatabaseEditor.apply()
+    }
+
+    fun updateUser(user: User) {
+        val userLocalDatabaseEditor = userLocalDatabase.edit()
+        user.id?.let { userLocalDatabaseEditor.putInt("id", it) }
         userLocalDatabaseEditor.putString("firstname", user.firstname)
         userLocalDatabaseEditor.putString("middlename", user.middlename)
         userLocalDatabaseEditor.putString("lastname", user.lastname)
@@ -30,7 +40,7 @@ class UserLocalStore(context: Context) {
 
     val getLoggedInUser: User?
         get() {
-            if (userLocalDatabase.getBoolean("loggedIn", false) == false) {
+            if (!userLocalDatabase.getBoolean("loggedIn", false)) {
                 return null
             }
             val id = userLocalDatabase.getInt("id", 0)
@@ -38,18 +48,11 @@ class UserLocalStore(context: Context) {
             val middlename = userLocalDatabase.getString("middlename", "")
             val lastname = userLocalDatabase.getString("lastname", "")
             val usertype = userLocalDatabase.getString("usertype", "")
+            val profileImage = userLocalDatabase.getString("profileImage", "")
 //            val password = userLocalDatabase.getString("password", "")
 //            val email = userLocalDatabase.getString("email", "")
-            return User(id, firstname, middlename, lastname, usertype)
+            return User(id, firstname, middlename, lastname, usertype, profileImage)
         }
 
-    companion object {
-        const val SP_NAME = "userDetails"
-    }
 
-
-
-    init {
-        userLocalDatabase = context.getSharedPreferences(SP_NAME, 0)
-    }
 }
