@@ -5,6 +5,11 @@
         android:title="@string/home"
         android:icon="@drawable/ic_baseline_home_24"/>
 
+    <item
+        android:id="@+id/notificationsFragment"
+        android:title="Notifikasjoner"
+        android:icon="@drawable/ic_baseline_notifications_24"/>
+
     <item android:id="@+id/addAssetFragment"
         android:title="@string/add_asset"
         android:icon="@drawable/ic_add"/>

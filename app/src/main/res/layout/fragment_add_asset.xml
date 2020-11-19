@@ -3,47 +3,99 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context=".profile.AddAssetFragment">
+            android:layout_height="match_parent">
 
-
-            <EditText
-                android:id="@+id/name"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:autofillHints=""
-                android:hint="@string/name"
-                android:inputType="text"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <EditText
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/name"
-                android:autofillHints=""
-                android:gravity="top"
-                android:hint="@string/description"
-                android:inputType="textMultiLine"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/saveButton"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_save" />
+                tools:context=".profile.AddAssetFragment">
 
-        </RelativeLayout>
-    </ScrollView>
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:autofillHints=""
+                    android:hint="@string/name"
+                    android:inputType="text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_below="@id/buttons"
+
+                    android:contentDescription="@string/asset_img"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/default_asset_image" />
+
+                <LinearLayout
+                    android:id="@+id/buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/name">
+
+                    <ImageButton
+                        android:id="@+id/addImage"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/addimage"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_baseline_image_24"
+                        android:tint="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/takePicture"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/takepicture"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_baseline_camera_alt_24"
+                        android:tint="@color/colorPrimary" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autofillHints=""
+                    android:gravity="top"
+                    android:layout_below="@id/image"
+                    android:hint="@string/description"
+                    android:inputType="textMultiLine"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_save" />
+    </RelativeLayout>
 </layout>

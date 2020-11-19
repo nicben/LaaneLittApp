@@ -68,6 +68,8 @@
     <string name="home">Hjem</string>
     <string name="add_asset">Legg til</string>
     <string name="profile">Profil</string>
+    <string name="addimage">addImage</string>
+    <string name="takepicture">takePicture</string>
 
 
 </resources>

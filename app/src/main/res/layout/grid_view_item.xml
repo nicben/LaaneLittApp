@@ -26,6 +26,7 @@
         <variable
             name="property"
             type="com.laanelitt.laanelittapp.objects.Asset"/>
+
     </data>
 
     <FrameLayout
@@ -42,6 +43,20 @@
             app:imageUrl="@{property.assetImages.get(0).imageUrl}"
             tools:src="@tools:sample/backgrounds/scenic"
             android:contentDescription="TODO" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:shadowRadius="5"
+            android:singleLine="true"
+            android:text="@{property.assetName}"
+            android:textColor="@color/colorPrimary"
+            android:background="@color/colorWhite"
+            android:layout_margin="5dp"
+
+            android:textSize="20sp" />
 
     </FrameLayout>
 </layout>

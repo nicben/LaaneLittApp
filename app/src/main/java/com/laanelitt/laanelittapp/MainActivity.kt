@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         //var appBarConfiguration = AppBarConfiguration(navHostFragment.navController.graph)
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.searchPageFragment, R.id.addAssetFragment, R.id.myAssetsListFragment))
+            R.id.searchPageFragment, R.id.notificationsFragment, R.id.addAssetFragment, R.id.myAssetsListFragment))
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
 

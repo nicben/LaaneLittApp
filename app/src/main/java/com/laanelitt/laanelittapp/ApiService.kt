@@ -3,10 +3,12 @@ package com.laanelitt.laanelittapp
 import com.laanelitt.laanelittapp.objects.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
+import java.io.File
 
 private const val BASE_URL="https://lanelitt.no/public/"
 
@@ -54,8 +56,18 @@ interface ApiService {
     @POST("user/{iUserId}/edit")
     fun editUser(@Path ("iUserId") userId:Int, @Body user: User): Call<Code>
 
+    @GET("user/{iUserId}/loanRequest")
+    suspend fun getNotifications(@Path("iUserId") userId: String): List<Notification>
 
 
+    @POST("profileimageUpload")
+    fun uploadProfileImage(@Body profilePicture: ProfilePicture): Call<Code>
+
+    @POST("assets/addAsset")
+    fun addAsset(@Body NewAsset: AddAsset): Call<String>
+
+    @POST("user/{iUserId}/loanRequest/{iLoanId}/{iStatus}")
+    fun replyRequest(@Part("iUserId") userId: String,@Part("iLoanId") loanId: String,@Part("iStatus") status: String)
 /*
 
 

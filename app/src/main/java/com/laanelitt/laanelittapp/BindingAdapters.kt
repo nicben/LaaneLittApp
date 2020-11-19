@@ -6,12 +6,21 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.laanelitt.laanelittapp.notification.NotificationAdapter
 import com.laanelitt.laanelittapp.objects.Asset
+import com.laanelitt.laanelittapp.objects.Notification
 
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asset>?) {
     println("****************BindingAdapter************************")
     val adapter = recyclerView.adapter as PhotoGridAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("notificationListData")
+fun bindNotificationRecyclerView(recyclerView: RecyclerView, data: List<Notification>?) {
+    println("****************BindingAdapter************************")
+    val adapter = recyclerView.adapter as NotificationAdapter
     adapter.submitList(data)
 }
 

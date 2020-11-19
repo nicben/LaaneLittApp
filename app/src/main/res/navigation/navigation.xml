@@ -183,5 +183,11 @@
             android:id="@+id/action_editPasswordFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.laanelitt.laanelittapp.notification.NotificationFragment"
+        android:label="Notifikasjoner"
+        tools:layout="@layout/fragment_notification"
+        />
 
 </navigation>

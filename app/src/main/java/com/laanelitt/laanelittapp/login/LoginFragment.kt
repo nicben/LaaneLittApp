@@ -115,6 +115,8 @@ class LoginFragment : Fragment() {
                         userLocalStore?.setUserLoggedIn(true)
 
                         findNavController().navigate(R.id.searchPageFragment)
+
+
                     } else {
                         Toast.makeText(
                             requireContext(),

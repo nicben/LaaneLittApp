@@ -16,6 +16,7 @@ import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.databinding.FragmentAssetBinding
 import com.laanelitt.laanelittapp.homepage.userLocalStore
 import com.laanelitt.laanelittapp.objects.Loan
+import com.laanelitt.laanelittapp.objects.Notification
 import com.laanelitt.laanelittapp.objects.RequestStatus
 import com.laanelitt.laanelittapp.objects.UserLocalStore
 import retrofit2.Call
@@ -90,7 +91,25 @@ class AssetFragment : Fragment(){
 
     private fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String, dates: String) {
         val statusSendt = RequestStatus (null, null )
-        val newLoan = Loan(null, null, null, startDate, endDate, statusSendt)
+
+        val newLoan = Loan(startDate, endDate)
+
+//        LaneLittApi.retrofitService.getNotifications("26").enqueue(
+//            object: Callback<List<Notification>>{
+//                override fun onResponse(
+//                    call: Call<List<Notification>>,
+//                    response: Response<List<Notification>>
+//                ) {
+//                    println(""+response.body()?.get(0).toString()+"??????????????????????????????????")
+//                }
+//
+//                override fun onFailure(call: Call<List<Notification>>, t: Throwable) {
+//                    println(t.message+" "+call.toString()+" OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+//                }
+//
+//            }
+//        )
+
 
         LaneLittApi.retrofitService.sendLoanRequest(userId, assetId, newLoan).enqueue(
             object : Callback<String> {

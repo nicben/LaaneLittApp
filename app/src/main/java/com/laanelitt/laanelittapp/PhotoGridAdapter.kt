@@ -39,8 +39,6 @@ class PhotoGridAdapter( private val onClickListener: OnClickListener) :
             binding.executePendingBindings()
         }
     }
-
-
     companion object DiffCallback : DiffUtil.ItemCallback<Asset>() {
         override fun areItemsTheSame(oldItem: Asset, newItem: Asset): Boolean {
             return oldItem === newItem
@@ -55,9 +53,14 @@ class PhotoGridAdapter( private val onClickListener: OnClickListener) :
      */
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): AssetViewHolder {
-        return AssetViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
+        return AssetViewHolder(
+            GridViewItemBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                )
+            )
+        )
     }
-
     /**
      * Replaces the contents of a view (invoked by the layout manager)
      */
