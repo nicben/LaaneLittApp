@@ -3,6 +3,7 @@ package com.laanelitt.laanelittapp.profile
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Environment
@@ -42,6 +43,7 @@ class AddAssetFragment : Fragment() {
     private var file:File?=null
 
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -78,6 +80,7 @@ class AddAssetFragment : Fragment() {
 
     }
 
+    
     override fun onSaveInstanceState(outState: Bundle) {
         outState.run {
             putString(STATE_IMAGE_PATH, pathTilBildeFil)

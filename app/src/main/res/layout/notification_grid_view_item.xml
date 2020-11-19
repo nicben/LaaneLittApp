@@ -31,30 +31,58 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="170dp">
-
-        <ImageView
-            android:id="@+id/notification_image"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:padding="2dp"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{notification.assets.assetImages.get(0).imageUrl}"
-            tools:src="@tools:sample/backgrounds/scenic"/>
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:shadowColor="@color/colorPrimaryDark"
-            android:shadowRadius="5"
-            android:singleLine="true"
-            android:text="@{notification.users.firstName}"
-            android:textColor="@color/colorLightGrey"
-            android:background="@color/colorPrimary"
-            android:layout_margin="5dp"
+            android:layout_margin="20dp"
+            android:background="@color/colorLightGrey">
 
-            android:textSize="20sp" />
+            <ImageView
+                android:id="@+id/notification_image"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:adjustViewBounds="true"
+                android:background="@color/colorPrimaryDark"
+                android:contentDescription="@string/asset_img"
+                android:padding="2dp"
+                android:scaleType="fitCenter"
+                app:imageUrl="@{notification.assets.assetImages.get(0).imageUrl}"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/notification_image"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{notification.users.firstName + ' ' +notification.users.lastName}" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ønsker å låne" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{notification.assets.assetName}" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{`fra `+notification.dateStart+` til `+notification.dateEnd}" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
 
     </FrameLayout>
 </layout>

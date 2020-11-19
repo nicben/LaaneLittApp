@@ -65,6 +65,9 @@ interface ApiService {
 
     @POST("assets/addAsset")
     fun addAsset(@Body NewAsset: AddAsset): Call<String>
+
+    @POST("user/{iUserId}/loanRequest/{iLoanId}/{iStatus}")
+    fun replyRequest(@Part("iUserId") userId: String,@Part("iLoanId") loanId: String,@Part("iStatus") status: String)
 /*
 
 
