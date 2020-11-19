@@ -4,6 +4,7 @@ import com.laanelitt.laanelittapp.objects.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -59,9 +60,21 @@ interface ApiService {
     @GET("user/{iUserId}/loanRequest")
     suspend fun getNotifications(@Path("iUserId") userId: String): List<Notification>
 
-
+    @Multipart
     @POST("profileimageUpload")
-    fun uploadProfileImage(@Body profilePicture: ProfilePicture): Call<Code>
+    fun uploadProfileImage(
+        @Part ("userId") userId: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Call<Code>
+//    @POST("profileimageUpload")
+//    fun uploadProfileImage(@Body profilePicture: ProfilePicture): Call<Code>
+
+//    @Multipart
+//    @POST("assets/addAsset")
+//    fun addAsset(
+//        @Part file:MultipartBody.Part,
+//        @Part newAsset: MultipartBody.Part
+//    ): Call<String>
 
     @POST("assets/addAsset")
     fun addAsset(@Body NewAsset: AddAsset): Call<String>
