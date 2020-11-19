@@ -22,6 +22,11 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentAddAssetBinding
 import com.laanelitt.laanelittapp.homepage.userLocalStore
 import com.laanelitt.laanelittapp.objects.AddAsset
+import com.laanelitt.laanelittapp.objects.Code
+import com.laanelitt.laanelittapp.objects.ProfilePicture
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +42,7 @@ class AddAssetFragment : Fragment() {
     //private val vievModel: AddAssetViewModel()
     private lateinit var binding:FragmentAddAssetBinding
     private var pathTilBildeFil=""
-    private var file:File?=null
+    private var ogFile:File?=null
 
     override fun onCreateView(
 
@@ -103,8 +108,10 @@ class AddAssetFragment : Fragment() {
 //    }
 
     fun save(userId:String){
-        if(file!=null){
+        if(ogFile!=null){
             val newAsset= AddAsset(userId, binding.name.toString(), binding.description.toString(), 1)
+
+
             LaneLittApi.retrofitService.addAsset(newAsset).enqueue(
                 object: Callback<String>{
                     override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -117,8 +124,24 @@ class AddAssetFragment : Fragment() {
 
                 }
             )
-/*            val profilePicture=ProfilePicture(userId, file)
-            LaneLittApi.retrofitService.uploadProfileImage(profilePicture).enqueue(
+            val profilePicture= ProfilePicture(userId, ogFile)
+            var fileExtension:String?= null
+            if(ogFile!!.extension!="") {
+                println("extension != null")
+                fileExtension=ogFile!!.extension
+            } else {
+                println("extension == null")
+                fileExtension="jpg"
+            }
+
+            println(fileExtension+"          ....  ")
+            val textPart=RequestBody.create(MultipartBody.FORM, userId)
+            val filePart=RequestBody.create(MediaType.parse(fileExtension), ogFile)
+
+            val file=MultipartBody.Part.createFormData("file", ogFile!!.name, filePart)
+
+            val uploadFile=MultipartBody.Part.createFormData("file", ogFile!!.name)
+            LaneLittApi.retrofitService.uploadProfileImage(textPart, file).enqueue(
                 object : Callback<Code>{
                     override fun onResponse(call: Call<Code>, response: Response<Code>) {
 
@@ -129,7 +152,7 @@ class AddAssetFragment : Fragment() {
                         println(t.message+":::::::::::::::::::::::::")
                     }
                 }
-            )*/
+            )
         }else{
             Toast.makeText(requireContext(), "velg ett bilde", Toast.LENGTH_LONG).show()
         }
@@ -140,17 +163,17 @@ class AddAssetFragment : Fragment() {
         if(takePictureIntent.resolveActivity(requireActivity().packageManager)!=null){
             try {
                 println("take picture try")
-                file=createImageFile()
+                ogFile=createImageFile()
                 println("take picture try2")
             }catch (e:IOException){
                 println(e.message+"loLoLOLOLOLO")
             }
-            if(file!=null){
+            if(ogFile!=null){
                 println("take picture if1")
                 val fileUri= FileProvider.getUriForFile(requireContext(),
-                    "com.laanelitt.laanelittapp.fileprovider", file!!)
+                    "com.laanelitt.laanelittapp.fileprovider", ogFile!!)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
-                pathTilBildeFil=file!!.absolutePath
+                pathTilBildeFil=ogFile!!.absolutePath
                 println("take picture if2 "+ fileUri+" : "+pathTilBildeFil)
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
             }
@@ -175,11 +198,11 @@ class AddAssetFragment : Fragment() {
 //                binding.image.setImageBitmap(imageBitmap)
             }
             if (requestCode == REQUEST_PICK_IMAGE) {
-                file = File(returnIntent?.data?.path)
-                println(file?.name + " :::::: " + file?.path + " :::: " + file?.extension + ":::::")
+                ogFile = File(returnIntent?.data?.path)
+                println(ogFile?.name + " :::::: " + ogFile?.path + " :::: " + ogFile?.extension + ":::::")
                 println(returnIntent?.data)
 
-                //            val image=BitmapFactory.decodeFile(returnIntent?.dataString)
+                //            val image=BitmapFactory.  decodeFile(returnIntent?.dataString)
                 //            println(image)
                 //            binding.image.setImageBitmap(image)
 
@@ -194,7 +217,7 @@ class AddAssetFragment : Fragment() {
         val photoStorageDir=getPhotoDirectory()
         if (photoStorageDir!=null){
             val timeStamp= SimpleDateFormat("YMMdd-HHmss").format(Date())
-            val imageFileName=photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpg"
+            val imageFileName=photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
             imageFile= File(imageFileName)
             println(imageFileName)
         }
