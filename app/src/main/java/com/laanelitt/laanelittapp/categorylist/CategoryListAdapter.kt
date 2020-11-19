@@ -21,7 +21,7 @@ class CategoryListAdapter() : ListAdapter<Asset, CategoryListAdapter.CategoryVie
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val assets=getItem(position)
-        val imgUri="https://lanelitt.no/AssetImages/"+assets.assetImages[0].imageUrl
+        val imgUri="https://lanelitt.no/AssetImages/"+ assets.assetImages!![0].imageUrl
         val uri=imgUri.toUri().buildUpon().scheme("https").build()
         holder.itemView.setOnClickListener {
         }

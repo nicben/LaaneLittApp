@@ -25,15 +25,49 @@
                     android:inputType="text"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-                <ImageButton
-                    android:id="@+id/addImage"
+
+                <ImageView
+                    android:id="@+id/image"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_below="@id/name"
+                    android:layout_below="@id/buttons"
 
                     android:contentDescription="@string/asset_img"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/default_asset_image" />
+
+                <LinearLayout
+                    android:id="@+id/buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/name">
+
+                    <ImageButton
+                        android:id="@+id/addImage"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/addimage"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_baseline_image_24"
+                        android:tint="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/takePicture"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/takepicture"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_baseline_camera_alt_24"
+                        android:tint="@color/colorPrimary" />
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/description"
@@ -41,7 +75,7 @@
                     android:layout_height="match_parent"
                     android:autofillHints=""
                     android:gravity="top"
-                    android:layout_below="@id/addImage"
+                    android:layout_below="@id/image"
                     android:hint="@string/description"
                     android:inputType="textMultiLine"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
