@@ -1,4 +1,15 @@
 <resources>
+    <string-array name="categories">
+        <item>Verktøy</item>
+        <item>Elektronik</item>
+        <item>Instrument</item>
+        <item>Klær</item>
+        <item>Sko</item>
+        <item>Bøker</item>
+        <item>Spot og Vilmark</item>
+        <item>Multimedia</item>
+        <item>Diverse</item>
+    </string-array>
     <string name="app_name">LåneLitt</string>
     <string name="my_assets">Mine Eiendeler</string>
 

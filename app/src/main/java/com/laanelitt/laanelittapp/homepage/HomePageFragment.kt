@@ -144,7 +144,7 @@ class HomePageFragment : Fragment(){
 
     fun observeAuthenticationState() {
 
-       val loggedInUser = userLocalStore?.getLoggedInUser
+        val loggedInUser = userLocalStore?.getLoggedInUser
         if (loggedInUser != null) {
             val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.profileImage
             binding.idText?.text = userInfo

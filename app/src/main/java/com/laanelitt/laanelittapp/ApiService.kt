@@ -66,18 +66,23 @@ interface ApiService {
         @Part ("userId") userId: RequestBody,
         @Part file: MultipartBody.Part
     ): Call<Code>
-//    @POST("profileimageUpload")
-//    fun uploadProfileImage(@Body profilePicture: ProfilePicture): Call<Code>
 
-//    @Multipart
-//    @POST("assets/addAsset")
-//    fun addAsset(
-//        @Part file:MultipartBody.Part,
-//        @Part newAsset: MultipartBody.Part
-//    ): Call<String>
-
+    @Multipart
     @POST("assets/addAsset")
-    fun addAsset(@Body NewAsset: AddAsset): Call<String>
+    fun addAsset(
+        @Part ("userId") userId: RequestBody,
+        @Part ("typeId") typeId: RequestBody,
+        @Part ("condition") condition: RequestBody,
+        @Part ("assetName") assetName: RequestBody,
+        @Part ("public") public: RequestBody,
+        @Part ("description") description: RequestBody,
+        @Part ("mainImage") mainImage: RequestBody,
+        @Part file:MultipartBody.Part
+    ): Call<Int>
+
+    @POST("setPublished/{userId}/{assetId}/1")
+    fun publishAsset(@Path("userId")userId:Int, @Path("assetId")assetId:Int): Call<String>
+
 
     @POST("user/{iUserId}/loanRequest/{iLoanId}/{iStatus}")
     fun replyRequest(@Part("iUserId") userId: String,@Part("iLoanId") loanId: String,@Part("iStatus") status: String)
