@@ -76,7 +76,9 @@ class MyAssetsListFragment : Fragment() {
 
         val loggedInUser = userLocalStore?.getLoggedInUser
         if (loggedInUser != null) {
-            loggedInUser.id?.let { viewModel.getMyAssets(it) }
+            loggedInUser.id?.let {
+                viewModel.getMyAssets(it)
+            }
             println("*********************   my assts, userId: " + loggedInUser.id + " *******************")
 
         } else {

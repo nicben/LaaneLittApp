@@ -85,7 +85,7 @@ interface ApiService {
 
 
     @POST("user/{iUserId}/loanRequest/{iLoanId}/{iStatus}")
-    fun replyRequest(@Part("iUserId") userId: String,@Part("iLoanId") loanId: String,@Part("iStatus") status: String)
+    fun replyRequest(@Path("iUserId") userId: String,@Path("iLoanId") loanId: String,@Path("iStatus") status: String): Call<String>
 /*
 
 

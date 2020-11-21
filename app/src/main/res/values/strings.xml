@@ -81,6 +81,8 @@
     <string name="profile">Profil</string>
     <string name="addimage">addImage</string>
     <string name="takepicture">takePicture</string>
+    <string name="deny">deny</string>
+    <string name="accept">accept</string>
 
 
 </resources>
