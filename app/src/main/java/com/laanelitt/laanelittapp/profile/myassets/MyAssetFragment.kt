@@ -39,7 +39,7 @@ class MyAssetFragment : Fragment(){
         )
         binding.lifecycleOwner = this
 
-    return binding.root
+        return binding.root
 
    }
 
@@ -150,10 +150,11 @@ class MyAssetFragment : Fragment(){
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     println("Slett? " + response.body())
                     if (response.body() == "Eiendel slettet") {
-                        //Toast.makeText(requireContext(), "Eiendelen er slettet", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Eiendelen er slettet", Toast.LENGTH_LONG).show()
+                        findNavController().navigate(R.id.myAssetsListFragment)
+
                     } else {
                         Toast.makeText(requireContext(), "Eiendelen ble ikke slettet", Toast.LENGTH_LONG).show()
-                        findNavController().navigate(R.id.myAssetsListFragment)
                     }
                 }
 

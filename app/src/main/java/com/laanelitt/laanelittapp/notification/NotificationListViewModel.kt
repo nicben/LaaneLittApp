@@ -1,16 +1,17 @@
-package com.laanelitt.laanelittapp
+package com.laanelitt.laanelittapp.notification
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.laanelitt.laanelittapp.LaneLittApi
 import kotlinx.coroutines.launch
 import com.laanelitt.laanelittapp.objects.Notification
 
 class NotificationListViewModel: ViewModel(){
 
     private val _response=MutableLiveData<String>()
-    private val _notifications=MutableLiveData<List<Notification>>()
+    private var _notifications=MutableLiveData<List<Notification>>()
 
     val response: LiveData<String>
         get() = _response
@@ -25,8 +26,7 @@ class NotificationListViewModel: ViewModel(){
     fun getNotifications(userId: String){
         viewModelScope.launch {
             try {
-
-                val listResult=LaneLittApi.retrofitService.getNotifications(userId)
+                val listResult= LaneLittApi.retrofitService.getNotifications(userId)
                 _response.value = "Success: ${listResult.size}  requests retrieved ******"
                 _notifications.value = listResult
                 println(_response.value)
@@ -37,6 +37,7 @@ class NotificationListViewModel: ViewModel(){
 
         }
     }
+
     fun displayPropertyDetails(notification: Notification) {
         _navigateToSelectedProperty.value = notification
     }

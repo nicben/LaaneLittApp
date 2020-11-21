@@ -43,14 +43,13 @@ class AddAssetFragment : Fragment() {
     private lateinit var binding:FragmentAddAssetBinding
     private var pathTilBildeFil=""
     private var ogFile:File?=null
+    private var userId:String?=null
 
     override fun onCreateView(
 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val userId= userLocalStore?.getLoggedInUser!!.id.toString()
-        observeAuthenticationState()
 
         if (userId == "") {
             findNavController().navigate(R.id.loginFragment)
@@ -85,12 +84,17 @@ class AddAssetFragment : Fragment() {
         }
 
         binding.saveButton.setOnClickListener { view : View ->
-            save(userId)
+            save(userId!!)
             //view.findNavController().navigate(R.id.action_addAssetFragment_to_myAssetsListFragment)
         }
 
         return binding.root
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        observeAuthenticationState()
+        super.onViewCreated(view, savedInstanceState)
     }
     fun observeAuthenticationState() {
 
@@ -98,6 +102,8 @@ class AddAssetFragment : Fragment() {
         if (loggedInUser == null) {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
             findNavController().navigate(R.id.loginFragment)
+        }else{
+            userId= userLocalStore?.getLoggedInUser!!.id.toString()
         }
     }
 

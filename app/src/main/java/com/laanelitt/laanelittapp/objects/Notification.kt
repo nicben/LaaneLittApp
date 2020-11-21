@@ -1,5 +1,6 @@
 package com.laanelitt.laanelittapp.objects
 
+import java.io.Serializable
 import java.util.*
 
 data class Notification(
@@ -8,4 +9,4 @@ data class Notification(
     val users: AssetOwner?,
     val dateStart: String,
     val dateEnd: String
-)
+): Serializable

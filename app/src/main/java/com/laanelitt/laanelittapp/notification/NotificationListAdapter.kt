@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.laanelitt.laanelittapp.databinding.NotificationGridViewItemBinding
 import com.laanelitt.laanelittapp.objects.Notification
 
-class NotificationAdapter(private val onClickListener: OnClickListener):
+class NotificationListAdapter(private val onClickListener: OnClickListener):
     ListAdapter<Notification,
-            NotificationAdapter.NotificationViewHolder>(DiffCallback) {
+            NotificationListAdapter.NotificationViewHolder>(DiffCallback) {
 
     class NotificationViewHolder(private var binding: NotificationGridViewItemBinding):
         RecyclerView.ViewHolder(binding.root) {

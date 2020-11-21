@@ -22,7 +22,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.laanelitt.laanelittapp.objects.Asset
 
 /**
- * Simple ViewModel factory that provides the MarsProperty and context to the ViewModel.
+ * Simple ViewModel factory that provides one Asset and context to the ViewModel.
  */
 class AssetViewModelFactory(
     private val asset: Asset,

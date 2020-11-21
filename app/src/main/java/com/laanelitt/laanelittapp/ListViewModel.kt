@@ -1,5 +1,7 @@
 package com.laanelitt.laanelittapp
 
+import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,6 +41,7 @@ class ListViewModel: ViewModel(){
                 println(_response.value)
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
+                //TODO Trenger å gå til home page fragment
                 println(e.message + " cat assets api-kall feilet *********************************")
             }
         }
@@ -56,6 +59,7 @@ class ListViewModel: ViewModel(){
                 println(_response.value)
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
+                //TODO Trenger å gå til home page fragment
                 println(e.message + " My assets api-kall feilet **********************************")
             }
         }
@@ -73,6 +77,7 @@ class ListViewModel: ViewModel(){
                 println(_response.value)
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
+                //TODO Trenger å gå til home page fragment
                 println(e.message + " Asset search api-kall feilet *******************************")
             }
         }

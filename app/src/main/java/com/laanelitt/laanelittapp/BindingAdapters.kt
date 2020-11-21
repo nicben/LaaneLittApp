@@ -6,7 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.laanelitt.laanelittapp.notification.NotificationAdapter
+import com.laanelitt.laanelittapp.notification.NotificationListAdapter
 import com.laanelitt.laanelittapp.objects.Asset
 import com.laanelitt.laanelittapp.objects.Notification
 
@@ -20,7 +20,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asset>?) {
 @BindingAdapter("notificationListData")
 fun bindNotificationRecyclerView(recyclerView: RecyclerView, data: List<Notification>?) {
     println("****************BindingAdapter************************")
-    val adapter = recyclerView.adapter as NotificationAdapter
+    val adapter = recyclerView.adapter as NotificationListAdapter
     adapter.submitList(data)
 }
 
