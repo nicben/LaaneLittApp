@@ -1,7 +1,6 @@
 package com.laanelitt.laanelittapp.objects
 
 import java.io.Serializable
-import java.util.*
 
 data class Notification(
     val id: Int?,
