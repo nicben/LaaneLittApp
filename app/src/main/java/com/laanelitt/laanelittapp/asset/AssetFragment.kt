@@ -16,8 +16,6 @@ import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.databinding.FragmentAssetBinding
 import com.laanelitt.laanelittapp.homepage.userLocalStore
 import com.laanelitt.laanelittapp.objects.Loan
-import com.laanelitt.laanelittapp.objects.Notification
-import com.laanelitt.laanelittapp.objects.RequestStatus
 import com.laanelitt.laanelittapp.objects.UserLocalStore
 import retrofit2.Call
 import retrofit2.Callback
@@ -90,7 +88,7 @@ class AssetFragment : Fragment(){
     }
 
     private fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String, dates: String) {
-        val statusSendt = RequestStatus (null, null )
+        //val statusSendt = RequestStatus (null, null )
 
         val newLoan = Loan(startDate, endDate)
 

@@ -22,7 +22,6 @@ import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentAddAssetBinding
 import com.laanelitt.laanelittapp.homepage.userLocalStore
-import com.laanelitt.laanelittapp.objects.AddAsset
 import com.laanelitt.laanelittapp.objects.Code
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -109,7 +108,7 @@ class AddAssetFragment : Fragment() {
 
     fun save(userId:String){
         if(ogFile!=null && binding.name.text.toString()!="" && binding.description.text.toString()!=""){
-            val newAsset= AddAsset(userId, binding.name.toString(), binding.description.toString(), 1)
+
             var categoryId=11
             if(binding.category.selectedItemPosition<3){
                 categoryId=binding.category.selectedItemPosition+1
