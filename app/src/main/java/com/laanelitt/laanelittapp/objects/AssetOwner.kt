@@ -7,7 +7,8 @@ data class AssetOwner(
     var lastName: String?,
     var profileImage: String?,
     var password: String?,
-    var email: String?
+    var email: String?,
+    var terms: Boolean?
 ){
     //Trenges av APIet for å oprette ny bruker
     var firstname: String? = ""
@@ -16,7 +17,6 @@ data class AssetOwner(
     var birthdate: String = "0.0.0"
     var phone: String? = ""
     var newsletter = false
-    var terms = false
     val usertype: String = ""
     val nickname: String? = ""
 }

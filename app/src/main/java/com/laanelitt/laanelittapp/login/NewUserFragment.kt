@@ -53,6 +53,7 @@ class NewUserFragment : Fragment() {
         new_username.getEditText()?.setText(args.newUsername)
         new_password_1.getEditText()?.setText(args.newPassword)
 
+
         binding.newUserBtn.setOnClickListener {
             //Brukernavn og passord fra tekstfeltene
             usernameInput = new_username.getEditText()?.getText()!!
@@ -67,21 +68,24 @@ class NewUserFragment : Fragment() {
         new_username.error = null
         new_password_1.error = null
         new_password_2.error = null
+        terms_checkbox.error = null
 
         if (usernameInput.isEmpty()) {
             new_username.error = "Fyll inn epost"
             new_username.requestFocus()
             return
         }
+
         if (passwordInput1.isEmpty()) {
             new_password_1.error = "Fyll inn passord"
             new_password_1.requestFocus()
             return
         }
+
         if (!Patterns.EMAIL_ADDRESS.matcher(usernameInput)
                 .matches()
         ) {
-            new_username.error = "Fyll inn epost"
+            new_username.error = "Ikke gyldig"
             new_username.requestFocus()
             return
         }
@@ -100,9 +104,12 @@ class NewUserFragment : Fragment() {
             new_password_2.requestFocus()
             return
         }
+        if(!terms_checkbox.isChecked){
+            terms_checkbox.error = "Må aksepteres"
+            return
+        }
         //Oppretter ny bruker i firebase
         firebaseSignIn(usernameInput.toString(), passwordInput1.toString())
-
     }
 
     private fun firebaseSignIn(username: String, password: String) {
@@ -132,7 +139,7 @@ class NewUserFragment : Fragment() {
 
     private fun register(username: String, password1: String) {
         //Oppretter et nytt bruker-objekt
-        val newUser = AssetOwner(null, null, null, null, null, password1, username)
+        val newUser = AssetOwner(null, null, null, null, null, password1, username, true)
         println("" + newUser.email + " " + password1)
         //API-kallet
         LaneLittApi.retrofitService.registerUser(newUser).enqueue(
