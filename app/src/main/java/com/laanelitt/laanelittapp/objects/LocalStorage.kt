@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 
-class UserLocalStore(context: Context) {
+class LocalStorage(context: Context) {
     private var userLocalDatabase: SharedPreferences = context.getSharedPreferences("userDetails", 0)
 
     fun storeUserData(user: User) {

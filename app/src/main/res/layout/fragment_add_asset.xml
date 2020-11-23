@@ -14,7 +14,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context=".profile.AddAssetFragment">
+                tools:context=".profile.addasset.AddAssetFragment">
 
                 <EditText
                     android:id="@+id/name"

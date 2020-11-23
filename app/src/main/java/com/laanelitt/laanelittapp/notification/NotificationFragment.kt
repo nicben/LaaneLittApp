@@ -11,8 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.databinding.FragmentNotificationBinding
-import com.laanelitt.laanelittapp.homepage.userLocalStore
-import com.laanelitt.laanelittapp.profile.myassets.MyAssetFragmentArgs
+import com.laanelitt.laanelittapp.homepage.localStorage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,10 +38,10 @@ class NotificationFragment : Fragment() {
         binding.popupWindowText.text=notification.users?.firstName+" "+notification.users?.lastName+" vil gjerne låne "+notification.assets?.assetName
 
         binding.accept.setOnClickListener {
-            reply(notification.id!!, userLocalStore?.getLoggedInUser!!.id!!, 1)
+            reply(notification.id!!, localStorage?.getLoggedInUser!!.id!!, 1)
         }
         binding.deny.setOnClickListener {
-            reply(notification.id!!, userLocalStore?.getLoggedInUser!!.id!!, 2)
+            reply(notification.id!!, localStorage?.getLoggedInUser!!.id!!, 2)
         }
     }
     fun reply(id:Int, userId: Int, reply: Int){

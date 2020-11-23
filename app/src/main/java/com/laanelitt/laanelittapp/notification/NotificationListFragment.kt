@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentNotificationListBinding
-import com.laanelitt.laanelittapp.homepage.userLocalStore
+import com.laanelitt.laanelittapp.homepage.localStorage
 
 class NotificationListFragment : Fragment() {
 
@@ -28,7 +28,7 @@ class NotificationListFragment : Fragment() {
         binding.lifecycleOwner=this
         binding.notificationViewModel=notificationViewModel
 
-        val userId = userLocalStore?.getLoggedInUser?.id.toString()
+        val userId = localStorage?.getLoggedInUser?.id.toString()
 
         notificationViewModel.getNotifications(userId)
 
@@ -66,9 +66,9 @@ class NotificationListFragment : Fragment() {
     }
     fun observeAuthenticationState() {
 
-        val loggedInUser = userLocalStore?.getLoggedInUser
+        val loggedInUser = localStorage?.getLoggedInUser
         if (loggedInUser != null) {
-            val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.profileImage
+          //  val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.profileImage
 
 
         } else {

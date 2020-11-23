@@ -18,6 +18,8 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.android.material.snackbar.Snackbar
+import com.laanelitt.laanelittapp.login.LoginFragmentArgs
+import com.laanelitt.laanelittapp.login.LoginFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -71,3 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
+
