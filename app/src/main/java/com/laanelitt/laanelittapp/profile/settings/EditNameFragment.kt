@@ -1,7 +1,7 @@
 package com.laanelitt.laanelittapp.profile.settings
 
-import android.content.res.Configuration
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentEditNameBinding
 import com.laanelitt.laanelittapp.objects.Code
 import com.laanelitt.laanelittapp.objects.User
-import com.laanelitt.laanelittapp.objects.UserLocalStore
+import com.laanelitt.laanelittapp.objects.LocalStorage
 import kotlinx.android.synthetic.main.fragment_edit_name.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,11 +22,13 @@ import retrofit2.Response
 
 
 class EditNameFragment : Fragment() {
-    var loggedInUser: User? = null
 
     private lateinit var binding: FragmentEditNameBinding
-
-    var userLocalStore: UserLocalStore? = null
+    lateinit var firstnameInput: Editable
+    lateinit var middlenameInput: Editable
+    lateinit var lastnameInput: Editable
+    private var loggedInUser: User? = null
+    private var localStorage: LocalStorage? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,33 +38,34 @@ class EditNameFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_edit_name, container, false
         )
-
         return binding.root
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Toast.makeText(requireContext(), "Landscape Mode edit name", Toast.LENGTH_SHORT).show()
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Toast.makeText(requireContext(), "Portrait Mode edit name", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            Toast.makeText(requireContext(), "Landscape Mode edit name", Toast.LENGTH_SHORT).show()
+//        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+//            Toast.makeText(requireContext(), "Portrait Mode edit name", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userLocalStore = UserLocalStore(requireContext())
+        //Henter bruker-objektet som er lagret
+        localStorage = LocalStorage(requireContext())
+        loggedInUser = localStorage?.getLoggedInUser
 
-        loggedInUser = userLocalStore?.getLoggedInUser
-
-        displayUserDetails()
+        //Viser fornavnet, mellomnavnet og etternavnet til brukeren i tekstfeltene
+        displayUsersName()
 
         binding.editNameBtn.setOnClickListener {
-            val firstnameInput = edit_firstname.getEditText()?.getText()
-            val middlenameInput = edit_middlename.getEditText()?.getText()
-            val lastnameInput = edit_lastname.getEditText()?.getText()
-
+            //Henter tekstene far tekstfeltene
+            firstnameInput = edit_firstname.getEditText()?.getText()!!
+            middlenameInput = edit_middlename.getEditText()?.getText()!!
+            lastnameInput = edit_lastname.getEditText()?.getText()!!
+            //Funsksjonen for å kalle på editUser-APIet
             editUser(
                 loggedInUser!!.id!!,
                 firstnameInput.toString(),
@@ -80,6 +83,7 @@ class EditNameFragment : Fragment() {
     }
 
     private fun editUser(userId: Int, firstname: String, middlename: String, lastname: String, user: User) {
+        //Legger til de oppdaterte navnene til bruker-objektet som skal sendes med API'et
         user.firstname = firstname
         user.middlename = middlename
         user.lastname = lastname
@@ -87,18 +91,18 @@ class EditNameFragment : Fragment() {
         println(user.usertype + user.firstname + user.lastname)
 
         println("**" + "editUser" + "**")
+        //API-kallet
         LaneLittApi.retrofitService.editUser(userId, user).enqueue(
             object : Callback<Code> {
                 override fun onResponse(call: Call<Code>, response: Response<Code>) {
                     println("Endre? "+response.body()?.code.toString())
-                    if(response.body()?.code.toString()=="200"){
-
+                    if(response.body()?.code.toString()=="200"){ //Godkjent
+                        //Legger til de oppdaterte navnene og oppdaterer bruker-objektet som er lagret
                         user.firstname = firstname
                         user.middlename = middlename
                         user.lastname = lastname
-
-                        userLocalStore?.updateUser(user)
-
+                        localStorage?.updateUser(user)
+                        //Sendes videre til innstillinger-siden
                         findNavController().navigate(R.id.settingsFragment)
                         //Toast.makeText(requireContext(), "Eiendelen er slettet", Toast.LENGTH_LONG).show()
                     } else {
@@ -120,10 +124,9 @@ class EditNameFragment : Fragment() {
     }
 
 
-    private fun displayUserDetails() {
+    private fun displayUsersName() {
         edit_firstname.getEditText()?.setText(loggedInUser?.firstname)
         edit_middlename.getEditText()?.setText(loggedInUser?.middlename)
         edit_lastname.getEditText()?.setText(loggedInUser?.lastname)
     }
-
 }

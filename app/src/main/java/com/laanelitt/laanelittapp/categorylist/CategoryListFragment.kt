@@ -21,12 +21,8 @@ class CategoryListFragment : Fragment() {
 
         val binding=FragmentCategoryListBinding.inflate(inflater)
         println("****************************************AHHHH  ")
-
         binding.lifecycleOwner = this
-
         binding.viewModel = viewModel
-
-
         viewModel.getCatAssets(CategoryListFragmentArgs.fromBundle(requireArguments()).catId)
 
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
@@ -44,17 +40,12 @@ class CategoryListFragment : Fragment() {
                 viewModel.displayPropertyDetailsComplete()
             }
         })
-
-
         println("****************************************AHHHH2  ")
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("****************************************viewCreated")
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 }

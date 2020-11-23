@@ -1,10 +1,10 @@
 package com.laanelitt.laanelittapp.profile.myassets
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -16,7 +16,7 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.asset.AssetViewModel
 import com.laanelitt.laanelittapp.asset.AssetViewModelFactory
 import com.laanelitt.laanelittapp.databinding.FragmentMyAssetBinding
-import com.laanelitt.laanelittapp.homepage.userLocalStore
+import com.laanelitt.laanelittapp.homepage.localStorage
 import com.laanelitt.laanelittapp.objects.*
 import kotlinx.android.synthetic.main.fragment_my_asset.*
 import retrofit2.Call
@@ -29,8 +29,14 @@ import retrofit2.Response
 
 
 class MyAssetFragment : Fragment(){
-    //var userLocalStore: UserLocalStore? = null
+
     private lateinit var binding: FragmentMyAssetBinding
+    var userId: Int? = null
+    lateinit var loggedInUser: User
+    lateinit var assetNameTextView: TextView
+    lateinit var assetDescriptionTextView: TextView
+    lateinit var  assetNameInput: Editable
+    lateinit var  assetDescriptionInput: Editable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -46,85 +52,46 @@ class MyAssetFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("******************************my asset viewCreated")
         super.onViewCreated(view, savedInstanceState)
-        userLocalStore = UserLocalStore(requireContext())
+        localStorage = LocalStorage(requireContext())
         //Henter det valgte eiendel-objektet
         val application = requireNotNull(activity).application
         val asset = MyAssetFragmentArgs.fromBundle(requireArguments()).selectedProperty
         val viewModelFactory = AssetViewModelFactory(asset, application)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(AssetViewModel::class.java)
 
-        //Henter brukerID'en
-        //val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")?.toInt()
-
-        var loggedInUser = userLocalStore?.getLoggedInUser
-
-
+        //Bruker-objektet som er lagret
+        loggedInUser = localStorage?.getLoggedInUser!!
 
         //TextView
-        val assetNameTextView = view.findViewById<TextView>(R.id.assetName)
-        val assetDescriptionTextView = view.findViewById<TextView>(R.id.assetDescription)
-
-
+        assetNameTextView = view.findViewById(R.id.assetName)
+        assetDescriptionTextView = view.findViewById(R.id.assetDescription)
 
         binding.editAssetButton.setOnClickListener {
-            //Skjuler TextView'ene og endre-knappen
-            assetNameTextView.setVisibility(View.INVISIBLE)
-            assetDescriptionTextView.setVisibility(View.INVISIBLE)
-            editAssetButton.setVisibility(View.INVISIBLE)
-
-            //Viser TextField'ene, lagre- og slett-knappene
-            editAssetName.visibility = View.VISIBLE
-            editAssetDescription.visibility = View.VISIBLE
-            saveAssetButton.setVisibility(View.VISIBLE)
-            deleteAssetButton.setVisibility(View.VISIBLE)
-
-//            Henter teksten fra TextView'ene og viser det i TextFieldene
-            editAssetName.getEditText()?.setText(assetNameTextView.text)
-            editAssetDescription.getEditText()?.setText(assetDescriptionTextView.text)
+            //Viser endringssiden
+            showEditSite()
         }
 
         binding.saveAssetButton.setOnClickListener {
-            //Material textfield
-            val assetNameInput = editAssetName.getEditText()?.getText()
-            val assetDescriptionInput = editAssetDescription.getEditText()?.getText()
-
-            //Viser TextView'ene og endre-knappen
-            assetNameTextView.setVisibility(View.VISIBLE)
-            assetDescriptionTextView.setVisibility(View.VISIBLE)
-            editAssetButton.setVisibility(View.VISIBLE)
-
-            //Skjuler TextField'ene, lagre- og slett-knappene
-            editAssetName.visibility = View.INVISIBLE
-            editAssetDescription.visibility = View.INVISIBLE
-            saveAssetButton.setVisibility(View.INVISIBLE)
-            deleteAssetButton.setVisibility(View.INVISIBLE)
-
-            //Henter teksten fra TextFieldene og viser det i TextView'ene
-            assetNameTextView.setText(assetNameInput.toString())
-            assetDescriptionTextView.setText(assetDescriptionInput.toString())
-
-            if (loggedInUser != null) {
-                var userId = loggedInUser.id
-                if (userId != null) {
-                    editAsset(userId, assetNameTextView.text.toString(), assetDescriptionTextView.text.toString(), asset)
-                }
-            }
+            //Henter brukerId'en
+            userId = loggedInUser.id!!
+            //Endrer eiendelen
+            editAsset(userId!!, assetNameTextView.text.toString(), assetDescriptionTextView.text.toString(), asset)
+            //Viser eiendelprofilen
+            showfinalSite()
         }
 
         binding.deleteAssetButton.setOnClickListener {
             deleteAsset(asset.id)
-
         }
     }
 
     private fun editAsset(userId: Int, assetName: String, assetDescription: String,  editAsset: Asset) {
-
         editAsset.assetName = assetName
         editAsset.description = assetDescription
 
         println("" + userId + " " + editAsset.id + " " + editAsset.toString() + " " + editAsset.assetCondition + " " + editAsset.public)
+        //API-kallet
         LaneLittApi.retrofitService.editAsset(userId, editAsset.id, editAsset).enqueue(
-
             object : Callback<Asset> {
                 override fun onResponse(call: Call<Asset>, response: Response<Asset>) {
                     println("Endring? "+response.body()?.toString())
@@ -144,15 +111,12 @@ class MyAssetFragment : Fragment(){
     }
 
     private fun deleteAsset(assetId: Int) {
-
         LaneLittApi.retrofitService.deleteAsset(assetId).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     println("Slett? " + response.body())
                     if (response.body() == "Eiendel slettet") {
-                        Toast.makeText(requireContext(), "Eiendelen er slettet", Toast.LENGTH_LONG).show()
                         findNavController().navigate(R.id.myAssetsListFragment)
-
                     } else {
                         Toast.makeText(requireContext(), "Eiendelen ble ikke slettet", Toast.LENGTH_LONG).show()
                     }
@@ -164,6 +128,45 @@ class MyAssetFragment : Fragment(){
                 }
             }
         )
+    }
+
+    private fun showEditSite(){
+        //Skjuler TextView'ene og endre-knappen
+        assetNameTextView.setVisibility(View.INVISIBLE)
+        assetDescriptionTextView.setVisibility(View.INVISIBLE)
+        editAssetButton.setVisibility(View.INVISIBLE)
+
+        //Viser TextField'ene, lagre- og slett-knappene
+        editAssetName.visibility = View.VISIBLE
+        editAssetDescription.visibility = View.VISIBLE
+        saveAssetButton.setVisibility(View.VISIBLE)
+        deleteAssetButton.setVisibility(View.VISIBLE)
+
+        //Henter teksten fra TextView'ene og viser det i TextFieldene
+        editAssetName.getEditText()?.setText(assetNameTextView.text)
+        editAssetDescription.getEditText()?.setText(assetDescriptionTextView.text)
+    }
+
+
+    private fun showfinalSite(){
+        //Material textfield
+        assetNameInput = editAssetName.getEditText()?.getText()!!
+        assetDescriptionInput = editAssetDescription.getEditText()?.getText()!!
+
+        //Viser TextView'ene og endre-knappen
+        assetNameTextView.setVisibility(View.VISIBLE)
+        assetDescriptionTextView.setVisibility(View.VISIBLE)
+        editAssetButton.setVisibility(View.VISIBLE)
+
+        //Skjuler TextField'ene, lagre- og slett-knappene
+        editAssetName.visibility = View.INVISIBLE
+        editAssetDescription.visibility = View.INVISIBLE
+        saveAssetButton.setVisibility(View.INVISIBLE)
+        deleteAssetButton.setVisibility(View.INVISIBLE)
+
+        //Henter teksten fra TextFieldene og viser det i TextView'ene
+        assetNameTextView.setText(assetNameInput.toString())
+        assetDescriptionTextView.setText(assetDescriptionInput.toString())
     }
 }
 

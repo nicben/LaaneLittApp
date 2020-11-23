@@ -11,42 +11,34 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentHomePageBinding
-import com.laanelitt.laanelittapp.objects.UserLocalStore
+import com.laanelitt.laanelittapp.objects.LocalStorage
 
 
-var userLocalStore: UserLocalStore? = null
-
+var localStorage: LocalStorage? = null
 
 class HomePageFragment : Fragment(){
 
-//    var userLocalStore: UserLocalStore? = null
     private lateinit var binding: FragmentHomePageBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        localStorage = LocalStorage(requireContext())
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_home_page, container, false
-        )
-
-        userLocalStore = UserLocalStore(requireContext())
+            inflater, R.layout.fragment_home_page, container, false)
 
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
-
             override fun onQueryTextSubmit(query: String): Boolean {
                 findNavController().navigate(
                     HomePageFragmentDirections.actionSearchPageFragmentToSearchListFragment(
                         query
                     )
                 )
-                //Toast.makeText(context, query, Toast.LENGTH_LONG).show()
                 return false
             }
 
@@ -144,7 +136,7 @@ class HomePageFragment : Fragment(){
 
     fun observeAuthenticationState() {
 
-        val loggedInUser = userLocalStore?.getLoggedInUser
+        val loggedInUser = localStorage?.getLoggedInUser
         if (loggedInUser != null) {
             val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.profileImage
             binding.idText?.text = userInfo

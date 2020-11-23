@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.profile
+package com.laanelitt.laanelittapp.profile.addasset
 
 import android.Manifest
 import android.content.Intent
@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentAddAssetBinding
-import com.laanelitt.laanelittapp.homepage.userLocalStore
+import com.laanelitt.laanelittapp.homepage.localStorage
 import com.laanelitt.laanelittapp.objects.Code
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -97,12 +97,12 @@ class AddAssetFragment : Fragment() {
     }
     fun observeAuthenticationState() {
 
-        val loggedInUser = userLocalStore?.getLoggedInUser
+        val loggedInUser = localStorage?.getLoggedInUser
         if (loggedInUser == null) {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
             findNavController().navigate(R.id.loginFragment)
         }else{
-            userId= userLocalStore?.getLoggedInUser!!.id.toString()
+            userId= localStorage?.getLoggedInUser!!.id.toString()
         }
     }
 
@@ -231,7 +231,7 @@ class AddAssetFragment : Fragment() {
 
     private fun getPhotoDirectory() : File? {
         // Finner / lager undermappe for mine bilder under Pictures mappen som er felles for alle apper
-        val mediaStorageDirectory = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), MY_PHOTO_FOLDER);
+        val mediaStorageDirectory = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), MY_PHOTO_FOLDER)
         // Sjekk om mappen finnes
         if (!mediaStorageDirectory.exists()) {
             // Hvis ikke: Lag mappen
@@ -239,8 +239,8 @@ class AddAssetFragment : Fragment() {
                 println("Laanelitt: " + "Klarte ikke å lage mappen: " +
                         mediaStorageDirectory.getAbsolutePath())
                 Toast.makeText(requireContext(), "Klarte ikke å lage mappen: " +
-                        mediaStorageDirectory.getAbsolutePath(), Toast.LENGTH_LONG).show();
-                return null;
+                        mediaStorageDirectory.getAbsolutePath(), Toast.LENGTH_LONG).show()
+                return null
             }
         }
         return mediaStorageDirectory

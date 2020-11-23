@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/addAssetFragment"
-        android:name="com.laanelitt.laanelittapp.profile.AddAssetFragment"
+        android:name="com.laanelitt.laanelittapp.profile.addasset.AddAssetFragment"
         android:label="@string/new_asset"
         tools:layout="@layout/fragment_add_asset">
         <action

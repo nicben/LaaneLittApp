@@ -80,9 +80,6 @@
                     android:layout_height="wrap_content"
                     android:text="@{`fra `+notification.dateStart+` til `+notification.dateEnd}" />
             </LinearLayout>
-
         </RelativeLayout>
-
-
     </FrameLayout>
 </layout>
