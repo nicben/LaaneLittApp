@@ -19,8 +19,8 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginTop="96dp"
                 android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginTop="96dp"
                 android:hint="@string/firstname"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
                 android:layout_marginTop="@dimen/margin_top_S"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/update"
-                android:textSize="@dimen/text_size_btn"
+                android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_lastname" />

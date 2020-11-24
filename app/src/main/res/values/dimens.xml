@@ -3,7 +3,6 @@
 <resources>
     <dimen name="text_margin">20dp</dimen>
     <dimen name="text_padding">10dp</dimen>
-    <dimen name="button_text_size">20sp</dimen>
     <dimen name="fragment_horizontal_margin">16dp</dimen>
     <dimen name="fragment_vertical_margin">16dp</dimen>
 
@@ -16,7 +15,7 @@
     <dimen name="title_size">25sp</dimen>
     <dimen name="description_size">17sp</dimen>
     <dimen name="margin_top_XL">32dp</dimen>
-    <dimen name="text_size_btn">15sp</dimen>
+    <dimen name="button_text_size">15sp</dimen>
     <dimen name="margin_top_XS">3dp</dimen>
     <dimen name="buttonHeight">75dp</dimen>
 

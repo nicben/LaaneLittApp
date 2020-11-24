@@ -61,10 +61,10 @@
             android:layout_height="@dimen/height_btn"
             android:layout_gravity="start"
             android:layout_marginStart="@dimen/start_end_margin"
-            android:layout_marginTop="@dimen/margin_top_small"
+            android:layout_marginTop="@dimen/margin_top_S"
             android:layout_marginEnd="@dimen/start_end_margin"
             android:text="@string/save"
-            android:textSize="@dimen/text_size_btn"
+            android:textSize="@dimen/button_text_size"
             android:layout_below="@id/buttons"
             />
 
