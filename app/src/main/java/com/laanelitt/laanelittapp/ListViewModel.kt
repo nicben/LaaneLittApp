@@ -40,6 +40,7 @@ class ListViewModel: ViewModel(){
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
                 //TODO Trenger å gå til home page fragment
+                getCatAssets(catNr)
                 println(e.message + " cat assets api-kall feilet *********************************")
             }
         }
@@ -59,6 +60,8 @@ class ListViewModel: ViewModel(){
                 _response.value = "Failure: ${e.message}"
                 //TODO Trenger å gå til home page fragment
                 println(e.message + " My assets api-kall feilet **********************************")
+
+                getMyAssets(userId)
             }
         }
     }
