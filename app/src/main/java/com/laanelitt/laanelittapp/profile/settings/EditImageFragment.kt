@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
@@ -137,6 +138,7 @@ class EditImageFragment : Fragment() {
                     override fun onResponse(call: Call<Code>, response: Response<Code>) {
                         Toast.makeText(context, "Bilde opplastning gikk bra", Toast.LENGTH_LONG).show()
                         Pref.setNewPicture(requireContext(),"ID", ogFile!!.toUri().toString())
+                        findNavController().navigate(R.id.myAssetsListFragment)
                     }
 
                     override fun onFailure(call: Call<Code>, t: Throwable) {

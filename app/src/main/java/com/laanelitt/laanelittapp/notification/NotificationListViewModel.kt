@@ -33,6 +33,7 @@ class NotificationListViewModel: ViewModel(){
             }catch (e: Exception){
                 _response.value="Failiure: ${e.message}"
                 println(_response.value)
+                getNotifications(userId)
             }
 
         }
