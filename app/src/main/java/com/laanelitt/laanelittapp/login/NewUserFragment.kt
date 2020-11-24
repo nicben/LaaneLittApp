@@ -18,6 +18,7 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentNewUserBinding
 import com.laanelitt.laanelittapp.objects.AssetOwner
 import com.laanelitt.laanelittapp.objects.Code
+import com.laanelitt.laanelittapp.objects.User
 import kotlinx.android.synthetic.main.fragment_new_user.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +29,9 @@ class NewUserFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentNewUserBinding
+    lateinit var firstnameInput: Editable
+    lateinit var lastnameInput: Editable
+    lateinit var zipcodeInput: Editable
     lateinit var usernameInput: Editable
     lateinit var passwordInput1: Editable
     lateinit var passwordInput2: Editable
@@ -55,7 +59,10 @@ class NewUserFragment : Fragment() {
 
 
         binding.newUserBtn.setOnClickListener {
-            //Brukernavn og passord fra tekstfeltene
+            //Navn, postnr, brukernavn og passord fra tekstfeltene
+            firstnameInput = new_firstname.getEditText()?.getText()!!
+            lastnameInput = new_lastname.getEditText()?.getText()!!
+            zipcodeInput = new_zip.getEditText()?.getText()!!
             usernameInput = new_username.getEditText()?.getText()!!
             passwordInput1 = new_password_1.getEditText()?.getText()!!
             passwordInput2 = new_password_2.getEditText()?.getText()!!
@@ -65,11 +72,35 @@ class NewUserFragment : Fragment() {
     }
 
     private fun registerUser() {
+        new_firstname.error = null
+        new_lastname.error = null
+        new_zip.error = null
         new_username.error = null
         new_password_1.error = null
         new_password_2.error = null
         terms_checkbox.error = null
 
+        if (firstnameInput.isEmpty()) {
+            new_firstname.error = "Fyll inn fornavn"
+            new_firstname.requestFocus()
+            return
+        }
+
+        if (lastnameInput.isEmpty()) {
+            new_lastname.error = "Fyll inn etternavn"
+            new_lastname.requestFocus()
+            return
+        }
+        if (zipcodeInput.isEmpty()) {
+            new_zip.error = "Fyll inn postnummer"
+            new_zip.requestFocus()
+            return
+        }
+        if (zipcodeInput.toString().length != 4) {
+            new_zip.error = "Ugyldig postnummer"
+            new_zip.requestFocus()
+            return
+        }
         if (usernameInput.isEmpty()) {
             new_username.error = "Fyll inn epost"
             new_username.requestFocus()
@@ -85,7 +116,7 @@ class NewUserFragment : Fragment() {
         if (!Patterns.EMAIL_ADDRESS.matcher(usernameInput)
                 .matches()
         ) {
-            new_username.error = "Ikke gyldig"
+            new_username.error = "Uyldig"
             new_username.requestFocus()
             return
         }
@@ -105,14 +136,14 @@ class NewUserFragment : Fragment() {
             return
         }
         if(!terms_checkbox.isChecked){
-            terms_checkbox.error = "Må aksepteres"
+            terms_checkbox.error = ""
             return
         }
         //Oppretter ny bruker i firebase
-        firebaseSignIn(usernameInput.toString(), passwordInput1.toString())
+        firebaseSignIn(firstnameInput.toString(), lastnameInput.toString(), zipcodeInput.toString(), usernameInput.toString(), passwordInput1.toString())
     }
 
-    private fun firebaseSignIn(username: String, password: String) {
+    private fun firebaseSignIn(firstname: String, lastname: String, zipcode: String, username: String, password: String) {
         //Firebase
         auth.createUserWithEmailAndPassword(username, password)
             .addOnCompleteListener(requireActivity()) { task ->
@@ -123,6 +154,9 @@ class NewUserFragment : Fragment() {
                     println("funka")
                     //Funsksjonen for å kallet på register-APIet
                     register(
+                        firstname,
+                        lastname,
+                        zipcode,
                         username,
                         password,
                     )
@@ -137,10 +171,10 @@ class NewUserFragment : Fragment() {
             }
     }
 
-    private fun register(username: String, password1: String) {
+    private fun register(firstname: String, lastname: String, zipcode: String, username: String, password1: String) {
         //Oppretter et nytt bruker-objekt
-        val newUser = AssetOwner(null, null, null, null, null, password1, username, true)
-        println("" + newUser.email + " " + password1)
+        val newUser = User(null, firstname, "", lastname,"user", null,  username, password1, zipcode, true)
+        println(" "+ newUser.firstname + " " +newUser.email + " " + password1)
         //API-kallet
         LaneLittApi.retrofitService.registerUser(newUser).enqueue(
             object : Callback<Code> {
@@ -155,6 +189,7 @@ class NewUserFragment : Fragment() {
                             )
                         )
                     } else {
+                        println("lagd ny bruker? " + response.body()?.toString())
                         Toast.makeText(
                             requireContext(),
                             "Epost ikke gyldig/eksisterer allerede",

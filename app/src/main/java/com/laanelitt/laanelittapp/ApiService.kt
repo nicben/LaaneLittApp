@@ -40,7 +40,7 @@ interface ApiService {
     fun login(@Path("uName") userName:String, @Path("pWord") password:String): Call<LoggedInUser>
 
     @POST("api/register")
-    fun registerUser(@Body newUser: AssetOwner): Call<Code>
+    fun registerUser(@Body newUser: User): Call<Code>
 
     @POST("user/{iUserId}/asset/{iAssetId}/request")
     fun sendLoanRequest(@Path ("iUserId") userId:Int, @Path("iAssetId") assetId:Int, @Body newLoan: Loan): Call<String>

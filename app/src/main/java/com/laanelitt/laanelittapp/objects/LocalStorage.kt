@@ -11,8 +11,8 @@ class LocalStorage(context: Context) {
         val userLocalDatabaseEditor = userLocalDatabase.edit()
         user.id?.let { userLocalDatabaseEditor.putInt("id", it) }
         userLocalDatabaseEditor.putString("firstname", user.firstname)
-        userLocalDatabaseEditor.putString("middlename", user.middlename)
         userLocalDatabaseEditor.putString("lastname", user.lastname)
+        userLocalDatabaseEditor.putString("zipcode", user.zipcode)
         userLocalDatabaseEditor.putString("profileImage", user.profileImage)
         userLocalDatabaseEditor.apply()
     }
@@ -49,9 +49,11 @@ class LocalStorage(context: Context) {
             val lastname = userLocalDatabase.getString("lastname", "")
             val usertype = userLocalDatabase.getString("usertype", "")
             val profileImage = userLocalDatabase.getString("profileImage", "")
-//            val password = userLocalDatabase.getString("password", "")
-//            val email = userLocalDatabase.getString("email", "")
-            return User(id, firstname, middlename, lastname, usertype, profileImage)
+            val zipcode = userLocalDatabase.getString("zipcode", "")
+            val password = userLocalDatabase.getString("password", "")
+            val email = userLocalDatabase.getString("email", "")
+            val terms = userLocalDatabase.getBoolean("terms", false)
+            return User(id, firstname, middlename, lastname, usertype, profileImage, email, password, zipcode, terms)
         }
 
 

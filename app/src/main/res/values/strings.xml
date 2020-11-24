@@ -89,5 +89,6 @@
     <string name="alert_title">Låneforespørsel</string>
     <string name="alert_text">Text</string>
     <string name="notifications">Varsler</string>
+    <string name="zipcode">Postnummer</string>
 
 </resources>
