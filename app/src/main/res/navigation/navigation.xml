@@ -186,17 +186,13 @@
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.laanelitt.laanelittapp.notification.NotificationListFragment"
-        android:label="Notifikasjoner"
+        android:label="Låneforespørsler"
         tools:layout="@layout/fragment_notification_list"
-        >
-        <action
-            android:id="@+id/action_notificationsFragment_to_notificationFragment"
-            app:destination="@id/notificationFragment" />
-    </fragment>
+        />
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.laanelitt.laanelittapp.notification.NotificationFragment"
-        android:label="fragment_notification"
+        android:label="@string/notifications"
         tools:layout="@layout/fragment_notification" >
         <argument
             android:name="notification"

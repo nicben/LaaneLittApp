@@ -73,7 +73,7 @@
                 android:layout_marginTop="@dimen/margin_top_XL"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/send_loan_request_pop"
-                android:textSize="@dimen/text_size_btn"
+                android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
