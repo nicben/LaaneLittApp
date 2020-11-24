@@ -16,8 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/assetImage"
@@ -34,7 +33,7 @@
                 android:id="@+id/assetName"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_big"
+                android:layout_marginTop="@dimen/margin_top_L"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_gravity="start"
@@ -50,7 +49,7 @@
                 android:id="@+id/assetDescription"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_small"
+                android:layout_marginTop="@dimen/margin_top_S"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_gravity="start"

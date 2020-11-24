@@ -35,6 +35,39 @@
                 android:orientation="vertical">
 
                 <TableRow>
+<!--                    <com.google.android.material.card.MaterialCardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:cardBackgroundColor="@android:color/white"-->
+<!--                        app:cardElevation="2dp"-->
+<!--                        app:cardPreventCornerOverlap="true">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <ImageView-->
+<!--                                android:id="@+id/product_image"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="60dp"-->
+<!--                                android:background="#ffffff"-->
+<!--                                android:scaleType="centerCrop"-->
+<!--                                android:layout_margin="15dp"-->
+<!--                                android:src="@drawable/ic_outline_build_24"/>-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/product_title"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Verktøy"-->
+<!--                                android:textSize="16sp"-->
+<!--                                android:layout_margin="10dp"-->
+<!--                                android:textAppearance="?attr/textAppearanceHeadline6" />-->
+
+<!--                        </LinearLayout>-->
+<!--                    </com.google.android.material.card.MaterialCardView>-->
+
 
                     <Button
                         android:id="@+id/verktoyKnapp"

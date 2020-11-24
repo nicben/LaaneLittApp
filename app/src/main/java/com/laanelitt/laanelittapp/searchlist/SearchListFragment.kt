@@ -8,19 +8,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.Observer
 import com.laanelitt.laanelittapp.ListViewModel
 import com.laanelitt.laanelittapp.PhotoGridAdapter
-import com.laanelitt.laanelittapp.categorylist.CategoryListFragmentArgs
-import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
 import com.laanelitt.laanelittapp.databinding.FragmentSearchListBinding
-import com.laanelitt.laanelittapp.objects.UserLocalStore
-
-//liste etter kategori
-
-
+import com.laanelitt.laanelittapp.objects.LocalStorage
 
 class SearchListFragment : Fragment() {
-    /**/
-
-    var userLocalStore: UserLocalStore? = null
+    var localStorage: LocalStorage? = null
 
     private val viewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel()::class.java)
@@ -29,20 +21,15 @@ class SearchListFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         val binding= FragmentSearchListBinding.inflate(inflater)
-        println("****************************************AHHHH  ")
-
         binding.lifecycleOwner = this
-
         binding.viewModel = viewModel
+        localStorage = LocalStorage(requireContext())
 
-        userLocalStore = UserLocalStore(requireContext())
-
-        val loggedInUser = userLocalStore?.getLoggedInUser
+        val loggedInUser = localStorage?.getLoggedInUser
         if (loggedInUser != null) {
             loggedInUser.id?.let { viewModel.getAssetSearch(it, SearchListFragmentArgs.fromBundle(requireArguments()).searchtext) }
             println("*********************   searchlist, userId: " + loggedInUser.id + " *******************")
         }
-
 
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
             viewModel.displayPropertyDetails(it)
@@ -60,7 +47,6 @@ class SearchListFragment : Fragment() {
             }
         })
 
-        println("****************************************AHHHH2  ")
 
         return binding.root
     }
@@ -68,7 +54,5 @@ class SearchListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("************************ SearchList viewCreated *************************")
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 }

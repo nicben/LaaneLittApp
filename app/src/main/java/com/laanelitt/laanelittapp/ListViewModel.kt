@@ -12,13 +12,11 @@ import com.laanelitt.laanelittapp.objects.Asset
 class ListViewModel: ViewModel(){
 
     // Interne MutableLiveData som lagrer responsen fra APIet
-
     private val _response = MutableLiveData<String>()
 
     private val _assets = MutableLiveData<List<Asset>>()
 
     // Public immutable LiveData som kan brukes av UI
-
     val response: LiveData<String>
         get() = _response
     val assets: LiveData<List<Asset>>
@@ -66,7 +64,6 @@ class ListViewModel: ViewModel(){
                 getMyAssets(userId)
             }
         }
-
     }
 
     fun getAssetSearch(userId:Int, search:String) {

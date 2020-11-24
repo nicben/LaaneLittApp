@@ -83,6 +83,7 @@
     <string name="takepicture">takePicture</string>
     <string name="deny">deny</string>
     <string name="accept">accept</string>
+    <string name="accept_terms">Jeg aksepterer brukervilkårene</string>
 
 
 </resources>

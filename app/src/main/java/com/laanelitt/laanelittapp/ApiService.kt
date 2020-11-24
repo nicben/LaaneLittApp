@@ -51,9 +51,6 @@ interface ApiService {
     @DELETE("assets/removeAsset/{assetId}")
     fun deleteAsset(@Path("assetId") assetId:Int): Call<String>
 
-    @POST("updatePassword")
-    fun updatePassword(@Body user: AssetOwner): Call<String>
-
     @POST("user/{iUserId}/edit")
     fun editUser(@Path ("iUserId") userId:Int, @Body user: User): Call<Code>
 

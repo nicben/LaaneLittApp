@@ -14,9 +14,9 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.databinding.FragmentAssetBinding
-import com.laanelitt.laanelittapp.homepage.userLocalStore
+import com.laanelitt.laanelittapp.homepage.localStorage
 import com.laanelitt.laanelittapp.objects.Loan
-import com.laanelitt.laanelittapp.objects.UserLocalStore
+import com.laanelitt.laanelittapp.objects.LocalStorage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,15 +24,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-//profil til item - info
 
 class AssetFragment : Fragment(){
 
-    //var userLocalStore: UserLocalStore? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        userLocalStore = UserLocalStore(requireContext())
-        val userId = userLocalStore?.getLoggedInUser?.id
+        localStorage = LocalStorage(requireContext())
+        val userId = localStorage?.getLoggedInUser?.id
 
         val application = requireNotNull(activity).application
         val binding = FragmentAssetBinding.inflate(inflater)
@@ -45,9 +42,6 @@ class AssetFragment : Fragment(){
 
 //        // Material Date Picker  -->
 //        // https://brandonlehr.com/android/learn-to-code/2018/08/19/callling-android-datepicker-fragment-from-a-fragment-and-getting-the-date
-
-        //val userId = LoginFragment.Pref.getUserId(requireContext(), "ID", "null")
-
 
         val fm = (activity as AppCompatActivity?)!!.supportFragmentManager
         val builder : MaterialDatePicker.Builder<Pair<Long, Long>> = MaterialDatePicker.Builder.dateRangePicker()
@@ -84,31 +78,12 @@ class AssetFragment : Fragment(){
         })
 
     return binding.root
-
     }
 
     private fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String, dates: String) {
-        //val statusSendt = RequestStatus (null, null )
 
         val newLoan = Loan(startDate, endDate)
-
-//        LaneLittApi.retrofitService.getNotifications("26").enqueue(
-//            object: Callback<List<Notification>>{
-//                override fun onResponse(
-//                    call: Call<List<Notification>>,
-//                    response: Response<List<Notification>>
-//                ) {
-//                    println(""+response.body()?.get(0).toString()+"??????????????????????????????????")
-//                }
-//
-//                override fun onFailure(call: Call<List<Notification>>, t: Throwable) {
-//                    println(t.message+" "+call.toString()+" OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
-//                }
-//
-//            }
-//        )
-
-
+        //API-kallet
         LaneLittApi.retrofitService.sendLoanRequest(userId, assetId, newLoan).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {

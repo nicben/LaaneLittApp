@@ -24,7 +24,7 @@ import com.bumptech.glide.Glide
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentEditImageBinding
-import com.laanelitt.laanelittapp.homepage.userLocalStore
+import com.laanelitt.laanelittapp.homepage.localStorage
 import com.laanelitt.laanelittapp.objects.Code
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -49,7 +49,7 @@ class EditImageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val userId= userLocalStore?.getLoggedInUser!!.id.toString()
+        val userId= localStorage?.getLoggedInUser!!.id.toString()
 
 
         binding = DataBindingUtil.inflate(
@@ -81,7 +81,7 @@ class EditImageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var profilePicture= "https://lanelitt.no/profileImages/"+userLocalStore?.getLoggedInUser!!.profileImage.toString()
+        var profilePicture= "https://lanelitt.no/profileImages/"+localStorage?.getLoggedInUser!!.profileImage.toString()
         var  imageUri=profilePicture.toUri().buildUpon().scheme("https").build()
         if(Pref.getNewPicture(requireContext(), "ID", "null").toString()!="null"){
             profilePicture= Pref.getNewPicture(requireContext(), "ID", "null")!!
@@ -150,20 +150,28 @@ class EditImageFragment : Fragment() {
             Toast.makeText(requireContext(), "velg ett bilde før du lagrer", Toast.LENGTH_LONG).show()
         }
     }
+
     fun takePicture(){
+        println("take---------------------------------")
         val takePictureIntent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if(takePictureIntent.resolveActivity(requireActivity().packageManager)!=null){
             try {
+                println("try---------------------------------")
                 ogFile=createImageFile()
             }catch (e:IOException){
+                println("catch---------------------------------")
             }
             if(ogFile!=null){
+                println("if---------------------------------")
                 val fileUri= FileProvider.getUriForFile(requireContext(),
                     "com.laanelitt.laanelittapp.fileprovider", ogFile!!)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
                 pathTilBildeFil=ogFile!!.absolutePath
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
             }
+        }
+        else{
+            println("else---------------------------------")
         }
     }
     fun pickImageFromGallery(){
@@ -172,7 +180,7 @@ class EditImageFragment : Fragment() {
         startActivityForResult(intent, REQUEST_PICK_IMAGE)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?){
-
+        println("result---------------------------------")
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
 
@@ -201,7 +209,7 @@ class EditImageFragment : Fragment() {
 
     private fun getPhotoDirectory() : File? {
         // Finner / lager undermappe for mine bilder under Pictures mappen som er felles for alle apper
-        val mediaStorageDirectory = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), MY_PHOTO_FOLDER);
+        val mediaStorageDirectory = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), MY_PHOTO_FOLDER)
         // Sjekk om mappen finnes
         if (!mediaStorageDirectory.exists()) {
             // Hvis ikke: Lag mappen
@@ -209,8 +217,8 @@ class EditImageFragment : Fragment() {
                 println("Laanelitt: " + "Klarte ikke å lage mappen: " +
                         mediaStorageDirectory.getAbsolutePath())
                 Toast.makeText(requireContext(), "Klarte ikke å lage mappen: " +
-                        mediaStorageDirectory.getAbsolutePath(), Toast.LENGTH_LONG).show();
-                return null;
+                        mediaStorageDirectory.getAbsolutePath(), Toast.LENGTH_LONG).show()
+                return null
             }
         }
         return mediaStorageDirectory

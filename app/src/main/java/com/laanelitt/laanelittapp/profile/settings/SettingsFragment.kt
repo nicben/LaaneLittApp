@@ -5,19 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentSettingsBinding
-import com.laanelitt.laanelittapp.login.LoginFragment
-import com.laanelitt.laanelittapp.objects.UserLocalStore
+import com.laanelitt.laanelittapp.objects.LocalStorage
 
 
 class SettingsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
-    var userLocalStore: UserLocalStore? = null
+    var localStorage: LocalStorage? = null
     private lateinit var binding: FragmentSettingsBinding
 
     override fun onCreateView(
@@ -37,7 +35,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userLocalStore = UserLocalStore(requireContext())
+        localStorage = LocalStorage(requireContext())
 
         binding.settingNameButton.setOnClickListener {
 
@@ -55,7 +53,7 @@ class SettingsFragment : Fragment() {
         }
 
         binding.settingLogoutButton.setOnClickListener {
-            userLocalStore!!.clearUserData()
+            localStorage!!.clearUserData()
             auth.signOut()
             findNavController().navigate(R.id.loginFragment)
         }
