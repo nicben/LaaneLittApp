@@ -25,7 +25,6 @@ class EditNameFragment : Fragment() {
 
     private lateinit var binding: FragmentEditNameBinding
     lateinit var firstnameInput: Editable
-    lateinit var middlenameInput: Editable
     lateinit var lastnameInput: Editable
     private var loggedInUser: User? = null
     private var localStorage: LocalStorage? = null
@@ -63,29 +62,26 @@ class EditNameFragment : Fragment() {
         binding.editNameBtn.setOnClickListener {
             //Henter tekstene far tekstfeltene
             firstnameInput = edit_firstname.getEditText()?.getText()!!
-            middlenameInput = edit_middlename.getEditText()?.getText()!!
             lastnameInput = edit_lastname.getEditText()?.getText()!!
             //Funsksjonen for å kalle på editUser-APIet
             editUser(
                 loggedInUser!!.id!!,
                 firstnameInput.toString(),
-                middlenameInput.toString(),
                 lastnameInput.toString(),
                 loggedInUser!!
             )
 
             Toast.makeText(
                 requireContext(),
-                "" + firstnameInput.toString() + " " + middlenameInput.toString() + " " + lastnameInput.toString(),
+                "" + firstnameInput.toString() + " " + lastnameInput.toString(),
                 Toast.LENGTH_LONG
             ).show()
         }
     }
 
-    private fun editUser(userId: Int, firstname: String, middlename: String, lastname: String, user: User) {
+    private fun editUser(userId: Int, firstname: String, lastname: String, user: User) {
         //Legger til de oppdaterte navnene til bruker-objektet som skal sendes med API'et
         user.firstname = firstname
-        user.middlename = middlename
         user.lastname = lastname
 
         println(user.usertype + user.firstname + user.lastname)
@@ -99,7 +95,6 @@ class EditNameFragment : Fragment() {
                     if(response.body()?.code.toString()=="200"){ //Godkjent
                         //Legger til de oppdaterte navnene og oppdaterer bruker-objektet som er lagret
                         user.firstname = firstname
-                        user.middlename = middlename
                         user.lastname = lastname
                         localStorage?.updateUser(user)
                         //Sendes videre til innstillinger-siden
@@ -126,7 +121,6 @@ class EditNameFragment : Fragment() {
 
     private fun displayUsersName() {
         edit_firstname.getEditText()?.setText(loggedInUser?.firstname)
-        edit_middlename.getEditText()?.setText(loggedInUser?.middlename)
         edit_lastname.getEditText()?.setText(loggedInUser?.lastname)
     }
 }

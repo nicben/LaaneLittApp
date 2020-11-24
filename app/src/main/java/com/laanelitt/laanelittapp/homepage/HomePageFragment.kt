@@ -138,7 +138,7 @@ class HomePageFragment : Fragment(){
 
         val loggedInUser = localStorage?.getLoggedInUser
         if (loggedInUser != null) {
-            val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.profileImage
+            val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.zipcode + " " + loggedInUser.profileImage
             binding.idText?.text = userInfo
 
         } else {
