@@ -38,5 +38,19 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .into(imgView)
     }
 }
+@BindingAdapter("ownerImageUrl")
+fun bindOwnerImage(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        val image = "https://lanelitt.no/profileImages/" + imgUrl
+        val imgUri = image.toUri().buildUpon().scheme("https").build()
+        Glide.with(imgView.context)
+            .load(imgUri)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image))
+            .into(imgView)
+    }
+}
 
 

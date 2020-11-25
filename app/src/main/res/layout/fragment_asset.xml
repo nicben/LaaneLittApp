@@ -60,7 +60,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/assetName"
                 tools:text="Beskrivelse" />
-
             <Button
                 android:id="@+id/pickDateButton"
                 android:layout_width="@dimen/width_0dp"
@@ -71,9 +70,52 @@
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/send_loan_request_pop"
                 android:textSize="@dimen/button_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/assetDescription"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
+
+            <ImageView
+                android:id="@+id/ownerImage"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="100dp"
+                app:ownerImageUrl="@{viewModel.selectedProperty.users.profileImage}"
+                android:layout_marginTop="@dimen/margin_top_XL"
+                app:layout_constraintEnd_toStartOf="@id/ownerName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pickDateButton"
+                tools:src="@tools:sample/backgrounds/scenic"
+                android:contentDescription="TODO"
+                android:layout_marginBottom="@dimen/margin_top_XL"/>
+            <TextView
+                android:id="@+id/ownerName"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_XL"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_gravity="start"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/description_size"
+                android:text="@{`Navn:\n`+viewModel.selectedProperty.users.firstName+' '+viewModel.selectedProperty.users.lastName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ownerImage"
+                app:layout_constraintTop_toBottomOf="@+id/pickDateButton"
+                tools:text="Lokasjon" />
+            <TextView
+                android:id="@+id/ownerLocation"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_S"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_gravity="start"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/description_size"
+                android:text="@{`Lokasjon:\n`+viewModel.selectedProperty.users.zipCode.id+' '+viewModel.selectedProperty.users.zipCode.city}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ownerImage"
+                app:layout_constraintTop_toBottomOf="@+id/ownerName"
+                tools:text="Lokasjon" />
 
             <TextView
                 android:id="@+id/datePickerView"

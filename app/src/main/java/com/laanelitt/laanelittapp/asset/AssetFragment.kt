@@ -39,6 +39,10 @@ class AssetFragment : Fragment(){
         val viewModelFactory = AssetViewModelFactory(asset, application)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(AssetViewModel::class.java)
         val assetId = asset.id
+        if(asset.users?.zipCode?.id==null){
+            println("??")
+            binding.ownerLocation?.visibility=View.INVISIBLE
+        }
 
 //        // Material Date Picker  -->
 //        // https://brandonlehr.com/android/learn-to-code/2018/08/19/callling-android-datepicker-fragment-from-a-fragment-and-getting-the-date
