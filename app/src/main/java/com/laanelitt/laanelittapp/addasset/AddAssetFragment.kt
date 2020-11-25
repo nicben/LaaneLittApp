@@ -104,9 +104,7 @@ class AddAssetFragment : Fragment() {
         binding.cancelButton.setOnClickListener {
             findNavController().navigate(R.id.myAssetsListFragment)
         }
-
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -261,12 +259,12 @@ class AddAssetFragment : Fragment() {
     }
     @Throws(IOException::class)
     private fun createImageFile():File?{
-        var imageFile:File?=null
-        val photoStorageDir=getPhotoDirectory()
-        if (photoStorageDir!=null){
-            val timeStamp= SimpleDateFormat("YMMdd-HHmss").format(Date())
-            val imageFileName=photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
-            imageFile= File(imageFileName)
+        var imageFile:File? = null
+        val photoStorageDir = getPhotoDirectory()
+        if (photoStorageDir != null){
+            val timeStamp = SimpleDateFormat("YMMdd-HHmss").format(Date())
+            val imageFileName = photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
+            imageFile = File(imageFileName)
             println(imageFileName)
         }
         return imageFile
