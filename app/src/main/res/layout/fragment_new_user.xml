@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/start_end_margin"
             android:layout_marginEnd="@dimen/start_end_margin"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:hint="@string/firstname"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,24 +50,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_zip"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="@dimen/width_0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/start_end_margin"
-            android:layout_marginTop="@dimen/margin_top_S"
-            android:layout_marginEnd="@dimen/start_end_margin"
-            android:hint="@string/zipcode"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_lastname">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/new_username"
@@ -79,7 +62,7 @@
             android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_zip"
+            app:layout_constraintTop_toBottomOf="@+id/new_lastname"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText

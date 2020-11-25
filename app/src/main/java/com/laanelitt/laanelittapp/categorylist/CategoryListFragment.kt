@@ -12,12 +12,12 @@ import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
 
 //liste etter kategori
 class CategoryListFragment : Fragment() {
-    /**/
+
     private val viewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel()::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         val binding=FragmentCategoryListBinding.inflate(inflater)
         println("****************************************AHHHH  ")
@@ -32,7 +32,7 @@ class CategoryListFragment : Fragment() {
         // Observe the navigateToSelectedProperty LiveData and Navigate when it isn't null
         // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready
         // for another navigation event.
-        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, {
             if ( null != it ) {
                 // Must find the NavController from the Fragment
                 this.findNavController().navigate(CategoryListFragmentDirections.actionShowDetail(it))

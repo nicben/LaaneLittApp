@@ -10,13 +10,14 @@
     <dimen name="margin_top_S">8dp</dimen>
     <dimen name="margin_top_L">16dp</dimen>
     <dimen name="height_btn">60dp</dimen>
-    <dimen name="start_end_margin">20dp</dimen>
+    <dimen name="start_end_margin">26dp</dimen>
     <dimen name="width_0dp">0dp</dimen>
     <dimen name="title_size">25sp</dimen>
     <dimen name="description_size">17sp</dimen>
     <dimen name="margin_top_XL">32dp</dimen>
     <dimen name="button_text_size">15sp</dimen>
     <dimen name="margin_top_XS">3dp</dimen>
-    <dimen name="buttonHeight">75dp</dimen>
-
+    <dimen name="button_img_height">50dp</dimen>
+    <dimen name="full_img">350dp</dimen>
+    <dimen name="start_end_landscap">50dp</dimen>
 </resources>

@@ -24,8 +24,8 @@ import com.bumptech.glide.Glide
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentEditImageBinding
-import com.laanelitt.laanelittapp.homepage.localStorage
 import com.laanelitt.laanelittapp.objects.Code
+import com.laanelitt.laanelittapp.objects.LocalStorage
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -39,18 +39,20 @@ import java.util.*
 import kotlin.jvm.Throws
 
 class EditImageFragment : Fragment() {
-
-
     private lateinit var binding: FragmentEditImageBinding
+    private lateinit var localStorage: LocalStorage
     private var pathTilBildeFil=""
     private var ogFile:File?=null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val userId= localStorage?.getLoggedInUser!!.id.toString()
+    ): View {
 
+        localStorage = LocalStorage(requireContext())
+
+        val userId= localStorage.getLoggedInUser!!.id.toString()
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_edit_image, container, false
@@ -81,7 +83,7 @@ class EditImageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var profilePicture= "https://lanelitt.no/profileImages/"+localStorage?.getLoggedInUser!!.profileImage.toString()
+        var profilePicture= "https://lanelitt.no/profileImages/"+localStorage.getLoggedInUser!!.profileImage.toString()
         var  imageUri=profilePicture.toUri().buildUpon().scheme("https").build()
         if(Pref.getNewPicture(requireContext(), "ID", "null").toString()!="null"){
             profilePicture= Pref.getNewPicture(requireContext(), "ID", "null")!!
@@ -187,9 +189,9 @@ class EditImageFragment : Fragment() {
                 Glide.with(this).load(pathTilBildeFil).into(binding.image)
             }
             if (requestCode == REQUEST_PICK_IMAGE) {
-                ogFile = File(returnIntent?.data?.path)
+                ogFile = File(returnIntent?.data?.path!!)
 
-                binding.image.setImageURI(returnIntent?.data)
+                binding.image.setImageURI(returnIntent.data)
 
             }
         }

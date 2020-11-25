@@ -10,7 +10,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/start_end_landscap"
+            android:layout_marginEnd="@dimen/start_end_landscap">
 
         <ImageView
             android:id="@+id/image"
@@ -65,9 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_btn"
             android:layout_gravity="start"
-            android:layout_marginStart="@dimen/start_end_margin"
             android:layout_marginTop="@dimen/margin_top_XL"
-            android:layout_marginEnd="@dimen/start_end_margin"
             android:text="@string/save"
             android:textSize="@dimen/button_text_size"
             app:layout_constraintEnd_toEndOf="parent"

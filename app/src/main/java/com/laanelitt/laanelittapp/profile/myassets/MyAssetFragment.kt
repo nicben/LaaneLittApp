@@ -16,7 +16,6 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.asset.AssetViewModel
 import com.laanelitt.laanelittapp.asset.AssetViewModelFactory
 import com.laanelitt.laanelittapp.databinding.FragmentMyAssetBinding
-import com.laanelitt.laanelittapp.homepage.localStorage
 import com.laanelitt.laanelittapp.objects.*
 import kotlinx.android.synthetic.main.fragment_my_asset.*
 import retrofit2.Call
@@ -24,21 +23,18 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-//profil til item - info
-
-
-
 class MyAssetFragment : Fragment(){
 
     private lateinit var binding: FragmentMyAssetBinding
-    var userId: Int? = null
+    private lateinit var localStorage: LocalStorage
     lateinit var loggedInUser: User
     lateinit var assetNameTextView: TextView
     lateinit var assetDescriptionTextView: TextView
     lateinit var  assetNameInput: Editable
     lateinit var  assetDescriptionInput: Editable
+    var userId: Int? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_my_asset, container, false
@@ -53,6 +49,7 @@ class MyAssetFragment : Fragment(){
         println("******************************my asset viewCreated")
         super.onViewCreated(view, savedInstanceState)
         localStorage = LocalStorage(requireContext())
+
         //Henter det valgte eiendel-objektet
         val application = requireNotNull(activity).application
         val asset = MyAssetFragmentArgs.fromBundle(requireArguments()).selectedProperty
@@ -60,7 +57,7 @@ class MyAssetFragment : Fragment(){
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(AssetViewModel::class.java)
 
         //Bruker-objektet som er lagret
-        loggedInUser = localStorage?.getLoggedInUser!!
+        loggedInUser = localStorage.getLoggedInUser!!
 
         //TextView
         assetNameTextView = view.findViewById(R.id.assetName)
