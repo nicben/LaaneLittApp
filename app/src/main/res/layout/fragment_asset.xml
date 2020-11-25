@@ -22,13 +22,13 @@
                 android:id="@+id/assetImage"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="@dimen/full_img"
+                android:contentDescription="@string/image"
+                android:scaleType="fitCenter"
                 app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
-                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/backgrounds/scenic"
-                android:contentDescription="@string/image" />
+                tools:src="@tools:sample/backgrounds/scenic" />
 
             <TextView
                 android:id="@+id/assetName"
@@ -70,7 +70,7 @@
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/send_loan_request_pop"
                 android:textSize="@dimen/button_text_size"
-                app:layout_constraintEnd_toEndOf="@id/assetDescription"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
 
@@ -84,6 +84,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pickDateButton"
                 tools:src="@tools:sample/backgrounds/scenic"
+                android:scaleType="fitCenter"
                 android:contentDescription="TODO"
                 android:layout_marginBottom="@dimen/margin_top_XL"/>
             <TextView
