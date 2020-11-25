@@ -93,5 +93,6 @@
     <string name="change_zipcode">Endre postnummer</string>
     <string name="cancel">Kanseller</string>
     <string name="image">Bilde</string>
+    <string name="image_of_the_asset_owner">Image of the asset owner</string>
 
 </resources>

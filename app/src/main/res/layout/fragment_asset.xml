@@ -85,7 +85,7 @@
                 app:layout_constraintTop_toBottomOf="@id/pickDateButton"
                 tools:src="@tools:sample/backgrounds/scenic"
                 android:scaleType="fitCenter"
-                android:contentDescription="TODO"
+                android:contentDescription="@string/image_of_the_asset_owner"
                 android:layout_marginBottom="@dimen/margin_top_XL"/>
             <TextView
                 android:id="@+id/ownerName"

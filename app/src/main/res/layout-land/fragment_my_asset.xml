@@ -25,10 +25,10 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/full_img"
                 app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/assetDescriptionScroll"
                 tools:src="@tools:sample/backgrounds/scenic"
                 android:contentDescription="@string/image" />
 
@@ -41,10 +41,30 @@
                 android:textSize="@dimen/title_size"
                 android:text="@{viewModel.selectedProperty.assetName}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mainImage"
+                app:layout_constraintStart_toEndOf="@id/mainImage"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Navn" />
 
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/assetDescriptionScroll"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="300dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mainImage"
+                app:layout_constraintTop_toBottomOf="@+id/assetName"
+                app:layout_constraintBottom_toBottomOf="@id/mainImage">
+
+                <TextView
+                    android:id="@+id/assetDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_top_S"
+                    android:layout_gravity="start"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/description_size"
+                    android:text="@{viewModel.selectedProperty.description}"
+                    tools:text="Beskrivelse" />
+            </androidx.core.widget.NestedScrollView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editAssetName"
@@ -54,13 +74,14 @@
                 android:hint="@string/title"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mainImage"
+                app:layout_constraintStart_toEndOf="@id/mainImage"
+                app:layout_constraintTop_toBottomOf="@+id/assetName"
                 app:counterEnabled="true"
                 app:counterMaxLength="25"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editAssetNameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
@@ -69,19 +90,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <TextView
-                android:id="@+id/assetDescription"
-                android:layout_width="@dimen/width_0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_S"
-                android:layout_gravity="start"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/description_size"
-                android:text="@{viewModel.selectedProperty.description}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetName"
-                tools:text="Beskrivelse" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -92,13 +100,14 @@
                 android:hint="@string/description"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mainImage"
                 app:layout_constraintTop_toBottomOf="@+id/editAssetName"
                 app:counterEnabled="true"
                 app:counterMaxLength="300"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editAssetDescriptionText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
@@ -120,7 +129,7 @@
                 android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/mainImage" />
 
             <Button
                 android:id="@+id/saveAssetButton"

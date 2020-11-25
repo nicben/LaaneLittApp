@@ -72,7 +72,8 @@ class MyAssetFragment : Fragment(){
             //Henter brukerId'en
             userId = loggedInUser.id!!
             //Endrer eiendelen
-            editAsset(userId!!, assetNameTextView.text.toString(), assetDescriptionTextView.text.toString(), asset)
+            editAsset(userId!!, editAssetNameText.text.toString(), editAssetDescriptionText.text.toString(), asset)
+            println("????"+assetDescriptionTextView.text.toString())
             //Viser eiendelprofilen
             showfinalSite()
         }
@@ -93,9 +94,9 @@ class MyAssetFragment : Fragment(){
                 override fun onResponse(call: Call<Asset>, response: Response<Asset>) {
                     println("Endring? "+response.body()?.toString())
                     if (response.body()?.id!=null) {
-                      // Toast.makeText(requireContext(), "Lagret", Toast.LENGTH_LONG).show()
+                        //Toast.makeText(requireContext(), "Lagret ", Toast.LENGTH_LONG).show()
                     } else {
-                       // Toast.makeText(requireContext(), "Ikke lagret", Toast.LENGTH_LONG).show()
+                       //Toast.makeText(requireContext(), "Ikke lagret", Toast.LENGTH_LONG).show()
                     }
                 }
 
