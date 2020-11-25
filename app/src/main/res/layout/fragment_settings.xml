@@ -21,8 +21,9 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/profile_"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 tools:layout_editor_absoluteX="4dp"
                 tools:layout_editor_absoluteY="16dp" />
 
@@ -36,25 +37,9 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:gravity="start"
                 android:text="@string/name"
-                android:textColor="@color/colorDarkGrey"
-                app:icon="@drawable/ic_next_24"
-                app:iconGravity="end"
-                app:iconTint="@color/colorLightGrey" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLightGrey" />
-
-            <Button
-                android:id="@+id/settingImageButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:text="@string/profileImg"
                 android:textColor="@color/colorDarkGrey"
                 app:icon="@drawable/ic_next_24"
                 app:iconGravity="end"
@@ -70,6 +55,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:gravity="start"
                 android:text="@string/password"
                 android:textColor="@color/colorDarkGrey"
@@ -77,6 +63,41 @@
                 app:iconGravity="end"
                 app:iconTint="@color/colorLightGrey" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLightGrey" />
+
+            <Button
+                android:id="@+id/settingZipcodeButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:gravity="start"
+                android:text="@string/zipcode"
+                android:textColor="@color/colorDarkGrey"
+                app:icon="@drawable/ic_next_24"
+                app:iconGravity="end"
+                app:iconTint="@color/colorLightGrey" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLightGrey" />
+
+            <Button
+                android:id="@+id/settingImageButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:gravity="start"
+                android:text="@string/profileImg"
+                android:textColor="@color/colorDarkGrey"
+                app:icon="@drawable/ic_next_24"
+                app:iconGravity="end"
+                app:iconTint="@color/colorLightGrey" />
 
             <View
                 android:layout_width="match_parent"
@@ -91,8 +112,9 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/about_"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 tools:layout_editor_absoluteX="4dp"
                 tools:layout_editor_absoluteY="16dp" />
 
@@ -106,6 +128,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:gravity="start"
                 android:text="@string/about_us"
                 android:textColor="@color/colorDarkGrey"
@@ -141,6 +164,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:gravity="start"
                 android:text="@string/logout_"
                 android:textColor="@color/colorRed" />
@@ -149,7 +173,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLightGrey" />
-
         </LinearLayout>
     </ScrollView>
 </layout>

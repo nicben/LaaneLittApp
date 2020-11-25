@@ -12,19 +12,22 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/start_end_landscap"
+        android:layout_marginEnd="@dimen/start_end_landscap">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_marginStart="@dimen/start_end_landscap"
+            android:layout_marginEnd="@dimen/start_end_landscap">
 
             <ImageView
                 android:id="@+id/assetImage"
                 android:layout_width="@dimen/width_0dp"
-                android:layout_height="266dp"
+                android:layout_height="@dimen/full_img"
                 android:layout_marginTop="@dimen/margin_top_XS"
-                android:contentDescription="TODO"
+                android:contentDescription="Bilde"
                 app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
                 app:layout_constraintEnd_toStartOf="@id/assetName"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -37,8 +40,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_L"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/title_size"
@@ -77,9 +78,7 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="@dimen/height_btn"
                 android:layout_gravity="start"
-                android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginTop="@dimen/margin_top_XL"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/send_loan_request_pop"
                 android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"

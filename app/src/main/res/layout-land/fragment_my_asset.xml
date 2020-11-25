@@ -16,7 +16,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/start_end_landscap"
+            android:layout_marginEnd="@dimen/start_end_landscap">
 
             <ImageView
                 android:id="@+id/mainImage"
@@ -35,8 +37,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_L"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/title_size"
                 android:text="@{viewModel.selectedProperty.assetName}"
@@ -51,8 +51,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_L"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:hint="@string/title"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,8 +74,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_S"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/description_size"
@@ -93,8 +89,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:hint="@string/description"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -121,8 +115,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="@dimen/height_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginTop="@dimen/margin_top_XL"
                 android:text="@string/edit"
                 android:textSize="@dimen/button_text_size"
@@ -135,8 +127,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="@dimen/height_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginTop="@dimen/margin_top_XL"
                 android:text="@string/save"
                 android:textSize="@dimen/button_text_size"
@@ -151,8 +141,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="@dimen/height_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginTop="@dimen/margin_top_S"
                 android:text="@string/delete"
                 android:textSize="@dimen/button_text_size"

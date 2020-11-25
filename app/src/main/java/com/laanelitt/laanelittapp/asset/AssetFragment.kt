@@ -14,7 +14,6 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.databinding.FragmentAssetBinding
-import com.laanelitt.laanelittapp.homepage.localStorage
 import com.laanelitt.laanelittapp.objects.Loan
 import com.laanelitt.laanelittapp.objects.LocalStorage
 import retrofit2.Call
@@ -26,8 +25,9 @@ import java.util.*
 
 
 class AssetFragment : Fragment(){
+    private var localStorage: LocalStorage? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         localStorage = LocalStorage(requireContext())
         val userId = localStorage?.getLoggedInUser?.id
 
@@ -65,7 +65,7 @@ class AssetFragment : Fragment(){
             picker.show(fm, picker.toString())
         }
 
-        picker.addOnPositiveButtonClickListener(MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>> { selection ->
+        picker.addOnPositiveButtonClickListener { selection ->
             val start = selection.first
             val end = selection.second
 
@@ -75,13 +75,13 @@ class AssetFragment : Fragment(){
             val startDateStr = sdf.format(start)
             val endDateStr = sdf.format(end)
 
-            if (userId != null  && startDateStr != null && endDateStr != null) {
+            if (userId != null && startDateStr != null && endDateStr != null) {
                 sendLoanRequest(userId, assetId, startDateStr, endDateStr, picker.headerText)
             }
 
-        })
+        }
 
-    return binding.root
+        return binding.root
     }
 
     private fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String, dates: String) {

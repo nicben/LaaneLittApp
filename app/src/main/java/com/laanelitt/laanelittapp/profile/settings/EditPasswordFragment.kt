@@ -17,6 +17,7 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentEditPasswordBinding
 import com.laanelitt.laanelittapp.objects.LocalStorage
 import kotlinx.android.synthetic.main.fragment_edit_password.*
+import kotlinx.android.synthetic.main.fragment_new_user.*
 
 class EditPasswordFragment : Fragment() {
 
@@ -30,7 +31,7 @@ class EditPasswordFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         auth = FirebaseAuth.getInstance()
 
@@ -53,12 +54,41 @@ class EditPasswordFragment : Fragment() {
     }
 
     private fun updatePassword() {
+        edit_password_current.error = null
+        edit_password_new.error = null
+        edit_password_confirm.error = null
+
         //Validerer passord
-        if (passwordCurrent.toString().isNotEmpty() &&
-            passwordNew.toString().isNotEmpty() &&
-            passwordConfirm.toString().isNotEmpty()) {
-            edit_password_current.error = null
-            if (passwordNew.toString().equals(passwordConfirm.toString())) {
+        if (passwordCurrent.isEmpty()) {
+            edit_password_current.error = "Alle feltene må fylles"
+            edit_password_current.requestFocus()
+            return
+        }
+        if (passwordNew.isEmpty()) {
+            edit_password_new.error = "Alle feltene må fylles"
+            edit_password_new.requestFocus()
+            return
+        }
+        if (passwordConfirm.isEmpty()) {
+            edit_password_confirm.error = "Alle feltene må fylles"
+            edit_password_confirm.requestFocus()
+            return
+        }
+        if (passwordNew.toString().length < 6) {
+            edit_password_new.error = "Minimum 6 tegn"
+            edit_password_new.requestFocus()
+            return
+        }
+        if (passwordNew.toString() != passwordConfirm.toString()) {
+            edit_password_new.error = "Ulike passord"
+            edit_password_new.requestFocus()
+            return
+        }
+//        if (passwordCurrent.toString().isNotEmpty() &&
+//            passwordNew.toString().isNotEmpty() &&
+//            passwordConfirm.toString().isNotEmpty()) {
+//
+//            if (passwordNew.toString().equals(passwordConfirm.toString())) {
                 val newPassword = passwordNew.toString()
                 //Henter bruker-objektet fra firebase
                 val currentUser = auth.currentUser
@@ -80,9 +110,9 @@ class EditPasswordFragment : Fragment() {
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         Log.d(TAG, "User password updated.")
-                                        localStorage!!.clearUserData()
-                                        auth.signOut()
-                                        findNavController().navigate(R.id.loginFragment)
+//                                        localStorage!!.clearUserData()
+//                                        auth.signOut()
+//                                        findNavController().navigate(R.id.loginFragment)
                                     } else {
                                         Log.d(TAG, "User password is not updated.")
                                     }
@@ -95,12 +125,13 @@ class EditPasswordFragment : Fragment() {
                     }
                 }
 
-            } else {
-                Toast.makeText(requireContext(), "Ulike passord", Toast.LENGTH_SHORT).show()
-            }
-        }else {
-            Toast.makeText(requireContext(), "Alle feltene må fylles", Toast.LENGTH_SHORT).show()
-        }
+//            } else {
+//                Toast.makeText(requireContext(), "Ulike passord", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    else {
+//            Toast.makeText(requireContext(), "Alle feltene må fylles", Toast.LENGTH_SHORT).show()
+//        }
     }
 
 }

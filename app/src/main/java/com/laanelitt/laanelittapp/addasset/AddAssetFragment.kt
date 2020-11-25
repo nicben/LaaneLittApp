@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.profile.addasset
+package com.laanelitt.laanelittapp.addasset
 
 import android.Manifest
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +22,9 @@ import com.bumptech.glide.Glide
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentAddAssetBinding
-import com.laanelitt.laanelittapp.homepage.localStorage
 import com.laanelitt.laanelittapp.objects.Code
+import com.laanelitt.laanelittapp.objects.LocalStorage
+import kotlinx.android.synthetic.main.fragment_add_asset.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -40,33 +42,42 @@ class AddAssetFragment : Fragment() {
 
     //private val vievModel: AddAssetViewModel()
     private lateinit var binding:FragmentAddAssetBinding
+    private lateinit var localStorage: LocalStorage
+    lateinit var titleInput: Editable
+    lateinit var descriptionInput: Editable
     private var pathTilBildeFil=""
     private var ogFile:File?=null
     private var userId:String?=null
+
 
     override fun onCreateView(
 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         if (userId == "") {
             findNavController().navigate(R.id.loginFragment)
         }
 
+        localStorage = LocalStorage(requireContext())
+
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_asset,container,false)
 
+        // Create an ArrayAdapter using the string array and a default spinner layout
         context?.let {
             ArrayAdapter.createFromResource(
                 it,
                 R.array.categories,
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
+                // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.category.adapter=adapter
+                // Apply the adapter to the spinner
+                binding.category.adapter = adapter
             }
         }
-        binding.category.setSelection(8)
+        binding.category.setSelection(0)
         binding.addImage.setOnClickListener {
             pickImageFromGallery()
         }
@@ -82,49 +93,79 @@ class AddAssetFragment : Fragment() {
             }
         }
 
-        binding.saveButton.setOnClickListener { view : View ->
-            save(userId!!)
+        binding.saveButton.setOnClickListener {
+            titleInput = title.editText?.text!!
+            descriptionInput = description.editText?.text!!
+            addAsset()
+            //save(userId!!)
             //view.findNavController().navigate(R.id.action_addAssetFragment_to_myAssetsListFragment)
         }
 
+        binding.cancelButton.setOnClickListener {
+            findNavController().navigate(R.id.myAssetsListFragment)
+        }
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observeAuthenticationState()
         super.onViewCreated(view, savedInstanceState)
+        observeAuthenticationState()
     }
-    fun observeAuthenticationState() {
 
-        val loggedInUser = localStorage?.getLoggedInUser
+    private fun observeAuthenticationState() {
+        val loggedInUser = localStorage.getLoggedInUser
         if (loggedInUser == null) {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
             findNavController().navigate(R.id.loginFragment)
         }else{
-            userId= localStorage?.getLoggedInUser!!.id.toString()
+            userId = localStorage.getLoggedInUser!!.id.toString()
         }
     }
 
-    fun save(userId:String){
-        if(ogFile!=null && binding.name.text.toString()!="" && binding.description.text.toString()!=""){
+    private fun addAsset() {
+        title.error = null
+        description.error = null
+        if (ogFile == null) {
+            Toast.makeText(
+                requireContext(),
+                "Velg et bilde",
+                Toast.LENGTH_LONG
+            ).show()
+            category.requestFocus()
+            return
+        }
+        if (titleInput.isEmpty()) {
+            title.error = "Fyll inn fornavn"
+            title.requestFocus()
+            return
+        }
+        if (descriptionInput.isEmpty()) {
+            description.error = "Fyll inn fornavn"
+            description.requestFocus()
+            return
+        }
+        save(userId!!, titleInput.toString(), descriptionInput.toString())
+    }
 
-            var categoryId=11
+    private fun save(userId:String, title: String, description: String){
+//        if(ogFile != null && binding.name.toString() != "" && binding.description.toString() != ""){
+
+            var categoryId: Int
             if(binding.category.selectedItemPosition<3){
-                categoryId=binding.category.selectedItemPosition+1
+                categoryId = binding.category.selectedItemPosition+1
             }else{
-                categoryId=binding.category.selectedItemPosition+3
+                categoryId = binding.category.selectedItemPosition+3
             }
             println("CATEGORY ID "+categoryId)
 
             //Verdier som skal sendest med API kallet
-            val userIdPart=RequestBody.create(MultipartBody.FORM, userId)
-            val typeIdPart=RequestBody.create(MultipartBody.FORM, ""+categoryId)
-            val conditionPart=RequestBody.create(MultipartBody.FORM, "0")
-            val namePart=RequestBody.create(MultipartBody.FORM, binding.name.text.toString())
-            val publicPart=RequestBody.create(MultipartBody.FORM, "true")
-            val descriptionPart=RequestBody.create(MultipartBody.FORM, binding.description.text.toString())
-            val mainImagePart=RequestBody.create(MultipartBody.FORM, "1")
+            val userIdPart= RequestBody.create(MultipartBody.FORM, userId)
+            val typeIdPart= RequestBody.create(MultipartBody.FORM, ""+categoryId)
+            val conditionPart= RequestBody.create(MultipartBody.FORM, "0")
+            val namePart = RequestBody.create(MultipartBody.FORM, title)
+            val publicPart= RequestBody.create(MultipartBody.FORM, "true")
+            val descriptionPart = RequestBody.create(MultipartBody.FORM, description)
+            val mainImagePart= RequestBody.create(MultipartBody.FORM, "1")
 
             //Bilde som skal sendest med API kallet
             val filePart=RequestBody.create(MediaType.parse("image/*"), ogFile!!)
@@ -174,12 +215,12 @@ class AddAssetFragment : Fragment() {
                     }
                 }
             )
-        }else{
-            Toast.makeText(requireContext(), "velg ett bilde og/eller fyll in teksten", Toast.LENGTH_LONG).show()
-        }
+//        }else{
+//            Toast.makeText(requireContext(), "velg ett bilde og/eller fyll in teksten", Toast.LENGTH_LONG).show()
+//        }
     }
 
-    fun takePicture(){
+    private fun takePicture(){
         val takePictureIntent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if(takePictureIntent.resolveActivity(requireActivity().packageManager)!=null){
             try {
@@ -196,7 +237,7 @@ class AddAssetFragment : Fragment() {
         }
     }
 
-    fun pickImageFromGallery(){
+    private fun pickImageFromGallery(){
         val intent=Intent(Intent.ACTION_PICK)
         intent.type="image/*"
         startActivityForResult(intent, REQUEST_PICK_IMAGE)
@@ -209,21 +250,21 @@ class AddAssetFragment : Fragment() {
                 Glide.with(this).load(pathTilBildeFil).into(binding.image)
             }
             if (requestCode == REQUEST_PICK_IMAGE) {
-                ogFile = File(returnIntent?.data?.path)
+                ogFile = File(returnIntent?.data?.path!!)
 
-                binding.image.setImageURI(returnIntent?.data)
+                binding.image.setImageURI(returnIntent.data)
 
             }
         }
     }
     @Throws(IOException::class)
     private fun createImageFile():File?{
-        var imageFile:File?=null
-        val photoStorageDir=getPhotoDirectory()
-        if (photoStorageDir!=null){
-            val timeStamp= SimpleDateFormat("YMMdd-HHmss").format(Date())
-            val imageFileName=photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
-            imageFile= File(imageFileName)
+        var imageFile:File? = null
+        val photoStorageDir = getPhotoDirectory()
+        if (photoStorageDir != null){
+            val timeStamp = SimpleDateFormat("YMMdd-HHmss").format(Date())
+            val imageFileName = photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
+            imageFile = File(imageFileName)
             println(imageFileName)
         }
         return imageFile

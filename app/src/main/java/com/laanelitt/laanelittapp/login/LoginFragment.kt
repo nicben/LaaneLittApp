@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentLoginBinding
-import com.laanelitt.laanelittapp.homepage.localStorage
 import com.laanelitt.laanelittapp.objects.LoggedInUser
 import com.laanelitt.laanelittapp.objects.LocalStorage
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -23,12 +23,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginFragment : Fragment() {
 
+
+class LoginFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentLoginBinding
     lateinit var usernameInput: Editable
     lateinit var passwordInput: Editable
+    private var localStorage: LocalStorage? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,9 +59,7 @@ class LoginFragment : Fragment() {
             //Brukernavn og passord fra tekstfeltene
             usernameInput = username.getEditText()?.getText()!!
             passwordInput = password.getEditText()?.getText()!!
-
-            //Firebase autentisering
-            firebaseAuth(usernameInput.toString(), passwordInput.toString())
+            authUser()
         }
 
         binding.registerButton.setOnClickListener {
@@ -74,6 +74,29 @@ class LoginFragment : Fragment() {
                 )
             )
         }
+    }
+    private fun authUser() {
+        username.error = null
+        password.error = null
+        if (usernameInput.isEmpty()) {
+            username.error = "Fyll inn epost"
+            username.requestFocus()
+            return
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(usernameInput)
+                .matches()
+        ) {
+            username.error = "Uyldig"
+            username.requestFocus()
+            return
+        }
+        if (passwordInput.isEmpty()) {
+            password.error = "Fyll inn passord"
+            password.requestFocus()
+            return
+        }
+        //Firebase autentisering
+        firebaseAuth(usernameInput.toString(), passwordInput.toString())
     }
 
     private fun firebaseAuth(username: String, password: String){
@@ -118,8 +141,7 @@ class LoginFragment : Fragment() {
                         localStorage?.storeUserData(user!!)
                         localStorage?.setUserLoggedIn(true)
                         //Sendes videre til hovedsiden
-                        findNavController().navigate(R.id.searchPageFragment)
-
+                        findNavController().navigate(R.id.homePageFragment)
 
                     } else {
                         Toast.makeText(

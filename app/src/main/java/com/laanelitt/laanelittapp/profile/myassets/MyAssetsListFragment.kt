@@ -14,10 +14,9 @@ import com.laanelitt.laanelittapp.databinding.FragmentMyAssetsListBinding
 import com.laanelitt.laanelittapp.objects.LocalStorage
 
 
-
 class MyAssetsListFragment : Fragment() {
 
-    var localStorage: LocalStorage? = null
+    private var localStorage: LocalStorage? = null
 
     private val viewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel()::class.java)
@@ -25,7 +24,7 @@ class MyAssetsListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
         val binding= FragmentMyAssetsListBinding.inflate(inflater)
 
@@ -42,7 +41,7 @@ class MyAssetsListFragment : Fragment() {
         // Observe the navigateToSelectedProperty LiveData and Navigate when it isn't null
         // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready
         // for another navigation event.
-        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, {
             if (null != it) {
                 // Must find the NavController from the Fragment
                 this.findNavController().navigate(MyAssetsListFragmentDirections.actionShowDetail(it))

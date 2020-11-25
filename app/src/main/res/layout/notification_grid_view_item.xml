@@ -55,6 +55,7 @@
                 android:contentDescription="@string/asset_img"
                 android:padding="2dp"
                 android:scaleType="centerCrop"
+                tools:src="@tools:sample/backgrounds/scenic"
                 app:imageUrl="@{notification.assets.assetImages.get(0).imageUrl}"/>
 
             <LinearLayout
@@ -62,7 +63,8 @@
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@id/notification_image"
                 android:orientation="vertical"
-                android:layout_marginStart="20dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
                 <TextView
                     android:id="@+id/textView"

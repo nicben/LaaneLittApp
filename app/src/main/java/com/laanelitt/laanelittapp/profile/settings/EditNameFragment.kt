@@ -16,23 +16,23 @@ import com.laanelitt.laanelittapp.objects.Code
 import com.laanelitt.laanelittapp.objects.User
 import com.laanelitt.laanelittapp.objects.LocalStorage
 import kotlinx.android.synthetic.main.fragment_edit_name.*
+import kotlinx.android.synthetic.main.fragment_edit_zipcode.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class EditNameFragment : Fragment() {
 
     private lateinit var binding: FragmentEditNameBinding
     lateinit var firstnameInput: Editable
     lateinit var lastnameInput: Editable
-    private var loggedInUser: User? = null
     private var localStorage: LocalStorage? = null
+    private var loggedInUser: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_edit_name, container, false
@@ -64,22 +64,33 @@ class EditNameFragment : Fragment() {
             firstnameInput = edit_firstname.getEditText()?.getText()!!
             lastnameInput = edit_lastname.getEditText()?.getText()!!
             //Funsksjonen for å kalle på editUser-APIet
-            editUser(
-                loggedInUser!!.id!!,
-                firstnameInput.toString(),
-                lastnameInput.toString(),
-                loggedInUser!!
-            )
-
-            Toast.makeText(
-                requireContext(),
-                "" + firstnameInput.toString() + " " + lastnameInput.toString(),
-                Toast.LENGTH_LONG
-            ).show()
+            editName()
         }
     }
 
-    private fun editUser(userId: Int, firstname: String, lastname: String, user: User) {
+    private fun editName() {
+        edit_firstname.error = null
+        edit_lastname.error = null
+        if (firstnameInput.isEmpty()) {
+            edit_firstname.error = "Fyll inn fornavn"
+            edit_firstname.requestFocus()
+            return
+        }
+        if (lastnameInput.isEmpty()) {
+            edit_lastname.error = "Fyll inn etternavn"
+            edit_lastname.requestFocus()
+            return
+        }
+        //
+        updateUser(
+            loggedInUser!!.id!!,
+            firstnameInput.toString(),
+            lastnameInput.toString(),
+            loggedInUser!!
+        )
+    }
+
+    private fun updateUser(userId: Int, firstname: String, lastname: String, user: User) {
         //Legger til de oppdaterte navnene til bruker-objektet som skal sendes med API'et
         user.firstname = firstname
         user.lastname = lastname
