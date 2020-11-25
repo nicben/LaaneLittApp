@@ -26,7 +26,7 @@
                 android:layout_marginTop="@dimen/margin_top_XS"
                 android:contentDescription="TODO"
                 app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/assetName"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -44,25 +44,33 @@
                 android:textSize="@dimen/title_size"
                 android:text="@{viewModel.selectedProperty.assetName}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetImage"
+                app:layout_constraintStart_toEndOf="@id/assetImage"
+                app:layout_constraintTop_toTopOf="@+id/assetImage"
                 tools:text="Navn" />
 
-            <TextView
+            <androidx.core.widget.NestedScrollView
                 android:id="@+id/assetDescription"
                 android:layout_width="@dimen/width_0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_S"
+                android:layout_height="150dp"
+                android:layout_gravity="start"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
-                android:layout_gravity="start"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/description_size"
-                android:text="@{viewModel.selectedProperty.description}"
+                app:layout_constraintBottom_toTopOf="@+id/pickDateButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetName"
-                tools:text="Beskrivelse" />
+                app:layout_constraintStart_toEndOf="@id/assetImage"
+                app:layout_constraintTop_toBottomOf="@+id/assetName">
+
+                <TextView
+                    android:id="@+id/assetDescriptionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@{viewModel.selectedProperty.description}"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/description_size"
+                    tools:text="Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse " />
+
+            </androidx.core.widget.NestedScrollView>
 
             <Button
                 android:id="@+id/pickDateButton"
@@ -75,8 +83,52 @@
                 android:text="@string/send_loan_request_pop"
                 android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
+                app:layout_constraintStart_toEndOf="@id/assetImage"
+                app:layout_constraintBottom_toBottomOf="@+id/assetImage" />
+
+            <ImageView
+                android:id="@+id/ownerImage"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="100dp"
+                app:ownerImageUrl="@{viewModel.selectedProperty.users.profileImage}"
+                android:layout_marginTop="@dimen/margin_top_XL"
+                android:layout_marginStart="@dimen/start_end_margin"
+                app:layout_constraintEnd_toStartOf="@id/ownerName"
+                app:layout_constraintStart_toStartOf="@id/assetImage"
+                app:layout_constraintTop_toBottomOf="@id/pickDateButton"
+                tools:src="@tools:sample/backgrounds/scenic"
+                android:contentDescription="TODO"
+                android:layout_marginBottom="@dimen/margin_top_XL"/>
+            <TextView
+                android:id="@+id/ownerName"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_XL"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_gravity="start"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/description_size"
+                android:text="@{`Navn:\n`+viewModel.selectedProperty.users.firstName+' '+viewModel.selectedProperty.users.lastName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ownerImage"
+                app:layout_constraintTop_toBottomOf="@+id/pickDateButton"
+                tools:text="Navn" />
+            <TextView
+                android:id="@+id/ownerLocation"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_S"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_gravity="start"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/description_size"
+                android:text="@{`Lokasjon:\n`+viewModel.selectedProperty.users.zipCode.id+' '+viewModel.selectedProperty.users.zipCode.city}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ownerImage"
+                app:layout_constraintTop_toBottomOf="@+id/ownerName"
+                tools:text="Lokasjon" />
 
             <TextView
                 android:id="@+id/datePickerView"

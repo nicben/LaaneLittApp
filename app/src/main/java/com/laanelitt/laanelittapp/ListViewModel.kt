@@ -39,9 +39,9 @@ class ListViewModel: ViewModel(){
                 println(_response.value)
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
-                //TODO Trenger å gå til home page fragment
-                getCatAssets(catNr)
                 println(e.message + " cat assets api-kall feilet *********************************")
+                //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
+                getCatAssets(catNr)
             }
         }
     }
@@ -58,9 +58,8 @@ class ListViewModel: ViewModel(){
                 println(_response.value)
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
-                //TODO Trenger å gå til home page fragment
                 println(e.message + " My assets api-kall feilet **********************************")
-
+                //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
                 getMyAssets(userId)
             }
         }
@@ -77,8 +76,8 @@ class ListViewModel: ViewModel(){
                 println(_response.value)
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
-                //TODO Trenger å gå til home page fragment
-                println(e.message + " Asset search api-kall feilet *******************************")
+                //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
+                getAssetSearch(userId, search)
             }
         }
     }
