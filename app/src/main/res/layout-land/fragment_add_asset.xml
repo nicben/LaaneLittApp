@@ -105,7 +105,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/start_end_landscap"
+            android:layout_marginEnd="@dimen/start_end_landscap">
 
             <ImageView
                 android:id="@+id/image"
@@ -123,8 +125,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -173,8 +173,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_S"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:hint="@string/title"
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -199,8 +197,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:hint="@string/description"
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -227,8 +223,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="@dimen/height_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginTop="@dimen/margin_top_XL"
                 android:text="@string/save"
                 android:textSize="@dimen/button_text_size"
@@ -242,8 +236,6 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="@dimen/height_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginTop="@dimen/margin_top_S"
                 android:text="@string/cancel"
                 android:textSize="@dimen/button_text_size"

@@ -11,15 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.databinding.FragmentNotificationBinding
-import com.laanelitt.laanelittapp.homepage.localStorage
+import com.laanelitt.laanelittapp.objects.LocalStorage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class NotificationFragment : Fragment() {
     private lateinit var binding: FragmentNotificationBinding
+    private var localStorage: LocalStorage? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.inflate(

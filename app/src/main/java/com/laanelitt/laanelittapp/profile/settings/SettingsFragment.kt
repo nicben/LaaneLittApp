@@ -15,15 +15,13 @@ import com.laanelitt.laanelittapp.objects.LocalStorage
 
 class SettingsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
-    var localStorage: LocalStorage? = null
     private lateinit var binding: FragmentSettingsBinding
+    private var localStorage: LocalStorage? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        auth = FirebaseAuth.getInstance()
+    ): View {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_settings, container, false
@@ -35,20 +33,21 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        auth = FirebaseAuth.getInstance()
         localStorage = LocalStorage(requireContext())
 
         binding.settingNameButton.setOnClickListener {
-
             findNavController().navigate(R.id.editNameFragment)
         }
 
         binding.settingImageButton.setOnClickListener {
-
             findNavController().navigate(R.id.editImageFragment)
         }
 
+        binding.settingZipcodeButton?.setOnClickListener {
+            findNavController().navigate(R.id.editZipcodeFragment)
+        }
         binding.settingPasswordButton.setOnClickListener {
-
             findNavController().navigate(R.id.editPasswordFragment)
         }
 

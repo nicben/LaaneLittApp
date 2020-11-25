@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/searchPageFragment">
+    app:startDestination="@id/homePageFragment">
 
     <fragment
         android:id="@+id/assetFragment"
@@ -17,7 +17,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/searchPageFragment"
+        android:id="@+id/homePageFragment"
         android:name="com.laanelitt.laanelittapp.homepage.HomePageFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_home_page" >
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/addAssetFragment"
-        android:name="com.laanelitt.laanelittapp.profile.addasset.AddAssetFragment"
+        android:name="com.laanelitt.laanelittapp.addasset.AddAssetFragment"
         android:label="@string/new_asset"
         tools:layout="@layout/fragment_add_asset">
         <action
@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_editImageFragment"
             app:destination="@id/editImageFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_editEmailFragment"
+            app:destination="@id/editZipcodeFragment" />
     </fragment>
 
     <fragment
@@ -161,10 +164,14 @@
             app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/editEmailFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.EditEmailFragment"
-        android:label="@string/change_email"
-        tools:layout="@layout/fragment_edit_email"/>
+        android:id="@+id/editZipcodeFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.EditZipcodeFragment"
+        android:label="@string/change_zipcode"
+        tools:layout="@layout/fragment_edit_zipcode">
+        <action
+            android:id="@+id/action_editZipcodeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editImageFragment"
         android:name="com.laanelitt.laanelittapp.profile.settings.EditImageFragment"

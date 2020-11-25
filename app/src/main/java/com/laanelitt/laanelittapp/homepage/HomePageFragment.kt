@@ -14,18 +14,18 @@ import com.laanelitt.laanelittapp.databinding.FragmentHomePageBinding
 import com.laanelitt.laanelittapp.objects.LocalStorage
 
 
-var localStorage: LocalStorage? = null
 
 class HomePageFragment : Fragment(){
-
+    private lateinit var localStorage: LocalStorage
     private lateinit var binding: FragmentHomePageBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         localStorage = LocalStorage(requireContext())
+
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_home_page, container, false)
 
@@ -134,9 +134,9 @@ class HomePageFragment : Fragment(){
         observeAuthenticationState()
     }
 
-    fun observeAuthenticationState() {
+    private fun observeAuthenticationState() {
 
-        val loggedInUser = localStorage?.getLoggedInUser
+        val loggedInUser = localStorage.getLoggedInUser
         if (loggedInUser != null) {
             val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.zipcode + " " + loggedInUser.profileImage
             binding.idText?.text = userInfo

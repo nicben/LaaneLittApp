@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentNotificationListBinding
-import com.laanelitt.laanelittapp.homepage.localStorage
+import com.laanelitt.laanelittapp.objects.LocalStorage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,15 +23,21 @@ class NotificationListFragment : Fragment() {
         ViewModelProvider(this).get(NotificationListViewModel()::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    private lateinit var localStorage: LocalStorage
+    private lateinit var binding: FragmentNotificationListBinding
 
-        val binding= FragmentNotificationListBinding.inflate(inflater)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View {
+
+        localStorage = LocalStorage(requireContext())
+
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_notification_list, container, false)
 
         binding.lifecycleOwner=this
         binding.notificationViewModel=notificationViewModel
 
-        val userId = localStorage?.getLoggedInUser?.id.toString()
+        val userId = localStorage.getLoggedInUser?.id.toString()
 
         notificationViewModel.getNotifications(userId)
 
@@ -56,14 +61,14 @@ class NotificationListFragment : Fragment() {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.alert_title))
                 .setMessage(it.users?.firstName+ " "+it.users?.lastName+" ønsker å låne "+it.assets?.assetName +"\n"+ it.dateStart + " - " + it.dateEnd)
-                .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
+                .setNeutralButton(resources.getString(R.string.close)) { _, _ ->
                     // Respond to neutral button press
                 }
-                .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
-                    reply(it.id!!, localStorage?.getLoggedInUser!!.id!!, 2)// Respond to negative button press
+                .setNegativeButton(resources.getString(R.string.decline)) { _, _ ->
+                    reply(it.id!!, localStorage.getLoggedInUser!!.id!!, 2)// Respond to negative button press
                 }
-                .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
-                    reply(it.id!!, localStorage?.getLoggedInUser!!.id!!, 1)
+                .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
+                    reply(it.id!!, localStorage.getLoggedInUser!!.id!!, 1)
                 }
                 .show()
             println(it.dateStart)
@@ -80,11 +85,10 @@ class NotificationListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        println("lol")
         super.onViewCreated(view, savedInstanceState)
         observeAuthenticationState()
     }
-    fun reply(id:Int, userId: Int, reply: Int){
+    private fun reply(id:Int, userId: Int, reply: Int){
         LaneLittApi.retrofitService.replyRequest(userId.toString(), id.toString(), reply.toString()).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -95,18 +99,14 @@ class NotificationListFragment : Fragment() {
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     TODO("Not yet implemented")
                 }
-
             }
         )
-
     }
 
-    fun observeAuthenticationState() {
-
-        val loggedInUser = localStorage?.getLoggedInUser
+    private fun observeAuthenticationState() {
+        val loggedInUser = localStorage.getLoggedInUser
         if (loggedInUser != null) {
           //  val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.profileImage
-
 
         } else {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden

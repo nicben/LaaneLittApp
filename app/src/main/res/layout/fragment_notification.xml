@@ -92,8 +92,8 @@
 
                     <ImageButton
                         android:id="@+id/accept"
-                        android:layout_width="@dimen/buttonHeight"
-                        android:layout_height="@dimen/buttonHeight"
+                        android:layout_width="@dimen/button_img_height"
+                        android:layout_height="@dimen/button_img_height"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:contentDescription="@string/accept"
@@ -104,8 +104,8 @@
 
                     <ImageButton
                         android:id="@+id/deny"
-                        android:layout_width="@dimen/buttonHeight"
-                        android:layout_height="@dimen/buttonHeight"
+                        android:layout_width="@dimen/button_img_height"
+                        android:layout_height="@dimen/button_img_height"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:contentDescription="@string/deny"

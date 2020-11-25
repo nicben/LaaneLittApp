@@ -1,25 +1,14 @@
 package com.laanelitt.laanelittapp
 
-import android.content.Intent
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import androidx.core.os.postDelayed
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.android.material.snackbar.Snackbar
-import com.laanelitt.laanelittapp.login.LoginFragmentArgs
-import com.laanelitt.laanelittapp.login.LoginFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -60,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         //var appBarConfiguration = AppBarConfiguration(navHostFragment.navController.graph)
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.searchPageFragment, R.id.notificationsFragment, R.id.addAssetFragment, R.id.myAssetsListFragment))
+            R.id.homePageFragment, R.id.notificationsFragment, R.id.addAssetFragment, R.id.myAssetsListFragment))
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
 

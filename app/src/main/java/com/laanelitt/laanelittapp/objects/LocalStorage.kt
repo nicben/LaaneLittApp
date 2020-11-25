@@ -14,6 +14,8 @@ class LocalStorage(context: Context) {
         userLocalDatabaseEditor.putString("lastname", user.lastname)
         userLocalDatabaseEditor.putString("zipcode", user.zipcode)
         userLocalDatabaseEditor.putString("profileImage", user.profileImage)
+        userLocalDatabaseEditor.putString("email", user.email)
+        user.terms?.let { userLocalDatabaseEditor.putBoolean("terms", it) }
         userLocalDatabaseEditor.apply()
     }
 
@@ -23,6 +25,8 @@ class LocalStorage(context: Context) {
         userLocalDatabaseEditor.putString("firstname", user.firstname)
         userLocalDatabaseEditor.putString("middlename", user.middlename)
         userLocalDatabaseEditor.putString("lastname", user.lastname)
+        userLocalDatabaseEditor.putString("zipcode", user.zipcode)
+        userLocalDatabaseEditor.putString("profileImage", user.profileImage)
         userLocalDatabaseEditor.apply()
     }
 

@@ -21,13 +21,14 @@
             <ImageView
                 android:id="@+id/assetImage"
                 android:layout_width="@dimen/width_0dp"
-                android:layout_height="266dp"
+                android:layout_height="@dimen/full_img"
                 app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/backgrounds/scenic"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/image" />
 
             <TextView
                 android:id="@+id/assetName"
@@ -36,7 +37,6 @@
                 android:layout_marginTop="@dimen/margin_top_L"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
-                android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/title_size"
                 android:text="@{viewModel.selectedProperty.assetName}"
