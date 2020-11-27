@@ -19,29 +19,32 @@ import retrofit2.Response
 
 class NotificationListFragment : Fragment() {
 
+    private lateinit var localStorage: LocalStorage
+    private lateinit var binding: FragmentNotificationListBinding
     private val notificationViewModel: NotificationListViewModel by lazy {
         ViewModelProvider(this).get(NotificationListViewModel()::class.java)
     }
 
-    private lateinit var localStorage: LocalStorage
-    private lateinit var binding: FragmentNotificationListBinding
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-
-        localStorage = LocalStorage(requireContext())
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_notification_list, container, false)
 
-        binding.lifecycleOwner=this
-        binding.notificationViewModel=notificationViewModel
+        binding.notificationViewModel = notificationViewModel
 
+        localStorage = LocalStorage(requireContext())
         val userId = localStorage.getLoggedInUser?.id.toString()
 
         notificationViewModel.getNotifications(userId)
+        binding.lifecycleOwner = this
 
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeAuthenticationState()
 
         /*val helper=ItemTouchHelper(object :ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0){
             override fun onMove(
@@ -81,12 +84,7 @@ class NotificationListFragment : Fragment() {
 //                // Must find the NavController from the Fragment
 //            }
 //        })
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        observeAuthenticationState()
     }
     private fun reply(id:Int, userId: Int, reply: Int){
         LaneLittApi.retrofitService.replyRequest(userId.toString(), id.toString(), reply.toString()).enqueue(
@@ -105,13 +103,9 @@ class NotificationListFragment : Fragment() {
 
     private fun observeAuthenticationState() {
         val loggedInUser = localStorage.getLoggedInUser
-        if (loggedInUser != null) {
-          //  val userInfo = ""+ loggedInUser.id + " " + loggedInUser.firstname + " " + loggedInUser.lastname + " " + loggedInUser.profileImage
-
-        } else {
+        if (loggedInUser == null) {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
             findNavController().navigate(R.id.loginFragment)
         }
     }
-
 }

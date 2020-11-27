@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentEditPasswordBinding
 import com.laanelitt.laanelittapp.objects.LocalStorage
@@ -23,17 +24,15 @@ class EditPasswordFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentEditPasswordBinding
-    lateinit var passwordCurrent: Editable
-    lateinit var passwordNew: Editable
-    lateinit var passwordConfirm: Editable
-    private var localStorage: LocalStorage? = null
+    private lateinit var passwordCurrent: Editable
+    private lateinit var passwordNew: Editable
+    private lateinit var passwordConfirm: Editable
+    private lateinit var currentUser: FirebaseUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        auth = FirebaseAuth.getInstance()
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_edit_password, container, false
@@ -43,17 +42,21 @@ class EditPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Henter bruker-objektet fra firebase
+        auth = FirebaseAuth.getInstance()
+        currentUser = auth.currentUser!!
 
         binding.editPasswordBtn.setOnClickListener {
-            passwordCurrent = edit_password_current.getEditText()?.getText()!!
-            passwordNew = edit_password_new.getEditText()?.getText()!!
-            passwordConfirm = edit_password_confirm.getEditText()?.getText()!!
+            passwordCurrent = edit_password_current.editText?.text!!
+            passwordNew = edit_password_new.editText?.text!!
+            passwordConfirm = edit_password_confirm.editText?.text!!
+
             //Funsksjonen for å oppdatere passordet i firebase
-            updatePassword()
+            validatePassword()
         }
     }
 
-    private fun updatePassword() {
+    private fun validatePassword() {
         edit_password_current.error = null
         edit_password_new.error = null
         edit_password_confirm.error = null
@@ -84,54 +87,45 @@ class EditPasswordFragment : Fragment() {
             edit_password_new.requestFocus()
             return
         }
-//        if (passwordCurrent.toString().isNotEmpty() &&
-//            passwordNew.toString().isNotEmpty() &&
-//            passwordConfirm.toString().isNotEmpty()) {
-//
-//            if (passwordNew.toString().equals(passwordConfirm.toString())) {
-                val newPassword = passwordNew.toString()
-                //Henter bruker-objektet fra firebase
-                val currentUser = auth.currentUser
-
-                if (currentUser != null && currentUser.email != null) {
-                    // Get auth credentials from the user for re-authentication. The example below shows
-                    // email and password credentials but there are multiple possible providers,
-                    // such as GoogleAuthProvider or FacebookAuthProvider.
-                    val credential = EmailAuthProvider
-                        .getCredential(currentUser.email!!, passwordCurrent.toString())
-
-                    // Prompt the user to re-provide their sign-in credentials
-                    //Bruker firebase sin re-autentisering
-                    currentUser.reauthenticate(credential).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            Log.d(TAG, "User re-authenticated.")
-                            //Oppdaterer firebase objektet
-                            currentUser.updatePassword(newPassword)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        Log.d(TAG, "User password updated.")
-//                                        localStorage!!.clearUserData()
-//                                        auth.signOut()
-//                                        findNavController().navigate(R.id.loginFragment)
-                                    } else {
-                                        Log.d(TAG, "User password is not updated.")
-                                    }
-                                }
-
-                        } else {
-                            Log.d(TAG, "User not re-authenticated.")
-                            edit_password_current.error  = "Feil passord"
-                        }
-                    }
-                }
-
-//            } else {
-//                Toast.makeText(requireContext(), "Ulike passord", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    else {
-//            Toast.makeText(requireContext(), "Alle feltene må fylles", Toast.LENGTH_SHORT).show()
-//        }
+        //
+        updatePassword(passwordCurrent.toString(), passwordNew.toString(), currentUser)
     }
 
+    private fun updatePassword(oldPassword: String, newPassword: String, user: FirebaseUser){
+
+        if (user.email != null) {
+            //Bruker firebase sin re-autentisering
+            val credential = EmailAuthProvider
+                .getCredential(user.email!!, oldPassword)
+            user.reauthenticate(credential).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d(TAG, "Bruker ble re-autentisert")
+                    //Oppdaterer firebase objektet med firebase updatePassword()
+                    user.updatePassword(newPassword)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Log.d(TAG, "Passord er oppdatert")
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Oppdatert",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                //Sendes videre til innstillinger-siden
+                                findNavController().navigate(R.id.settingsFragment)
+                            } else {
+                                Log.d(TAG, "Passord ble ikke oppdatert")
+                                Toast.makeText(
+                                    requireContext(), "Noe gikk galt",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+
+                } else {
+                    Log.d(TAG, "Bruker ble ikke re-autentisert")
+                    edit_password_current.error  = "Feil passord"
+                }
+            }
+        }
+    }
 }

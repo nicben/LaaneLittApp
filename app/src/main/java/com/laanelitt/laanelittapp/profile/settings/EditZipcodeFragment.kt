@@ -23,10 +23,10 @@ import retrofit2.Response
 
 class EditZipcodeFragment : Fragment() {
 
+    private lateinit var localStorage: LocalStorage
+    private lateinit var loggedInUser: User
     private lateinit var binding: FragmentEditZipcodeBinding
-    lateinit var zipcodeInput: Editable
-    private var localStorage: LocalStorage? = null
-    private var loggedInUser: User? = null
+    private lateinit var zipcodeInput: Editable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,22 +42,21 @@ class EditZipcodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         //Henter bruker-objektet som er lagret
         localStorage = LocalStorage(requireContext())
-        loggedInUser = localStorage?.getLoggedInUser
+        loggedInUser = localStorage.getLoggedInUser!!
 
-        //Viser postnr til brukeren i tekstfeltene
-        //edit_zipcode.getEditText()?.setText(loggedInUser?.zipcode)
+        //Viser det lagdrede postnr til brukeren i tekstfeltet
         displayZipcode()
 
         binding.editZipcodeBtn?.setOnClickListener {
-            zipcodeInput = edit_zipcode.getEditText()?.getText()!!
-            editZipcode()
+            zipcodeInput = edit_zipcode.editText?.text!!
+            //Validerer inndataen og lagrer det nye postnr
+            validateZipcode()
         }
 
     }
-    private fun editZipcode() {
+    private fun validateZipcode() {
         edit_zipcode.error = null
         if (zipcodeInput.isEmpty()) {
             edit_zipcode.error = "Fyll inn postnummer"
@@ -65,6 +64,7 @@ class EditZipcodeFragment : Fragment() {
             return
         }
         if (zipcodeInput.toString().length != 4) {
+            //BØr sjekke om det er tall
             edit_zipcode.error = "Ugyldig postnummer"
             edit_zipcode.requestFocus()
             return
@@ -72,36 +72,28 @@ class EditZipcodeFragment : Fragment() {
         //
         updateZipcode(
             zipcodeInput.toString(),
-            loggedInUser!!
+            loggedInUser
         )
     }
 
     private fun updateZipcode(zipcode: String, user: User) {
-        //Legger til oppdatert postnr til bruker-objektet som skal sendes med API'et
+        //Legger til oppdatert postnr til bruker-objektet
         user.zipcode = zipcode
-
-        println(user.firstname + " " + user.lastname + " " + user.zipcode)
-
-        println("**" + "editZipcode" + "**")
-        //API-kallet
+        //ApiService
         user.id?.let {
             LaneLittApi.retrofitService.editUser(it, user).enqueue(
                 object : Callback<Code> {
                     override fun onResponse(call: Call<Code>, response: Response<Code>) {
                         println("Endre? "+response.body()?.code.toString())
-                        if(response.body()?.code.toString()=="200"){ //Godkjent
+                        if(response.body()?.city.toString()!=""){
                             //Legger til oppdatert postnr og oppdaterer bruker-objektet som er lagret
                             user.zipcode = zipcode
-                            localStorage?.updateUser(user)
+                            localStorage.updateUser(user)
                             //Sendes videre til innstillinger-siden
                             findNavController().navigate(R.id.settingsFragment)
                             Toast.makeText(requireContext(), "Endring lagret " + user.zipcode, Toast.LENGTH_LONG).show()
                         } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Posrnr ble ikke oppdatert",
-                                Toast.LENGTH_LONG
-                            ).show()
+                            edit_zipcode.error = "Ugyldig postnummer"
                         }
                     }
 
@@ -117,6 +109,6 @@ class EditZipcodeFragment : Fragment() {
 
 
     private fun displayZipcode() {
-        edit_zipcode.getEditText()?.setText(loggedInUser?.zipcode)
+        edit_zipcode.editText?.setText(loggedInUser.zipcode)
     }
 }

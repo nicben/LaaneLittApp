@@ -1,7 +1,9 @@
 package com.laanelitt.laanelittapp.profile.settings
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,18 +18,17 @@ import com.laanelitt.laanelittapp.objects.Code
 import com.laanelitt.laanelittapp.objects.User
 import com.laanelitt.laanelittapp.objects.LocalStorage
 import kotlinx.android.synthetic.main.fragment_edit_name.*
-import kotlinx.android.synthetic.main.fragment_edit_zipcode.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class EditNameFragment : Fragment() {
 
+    private lateinit var localStorage: LocalStorage
+    private lateinit var loggedInUser: User
     private lateinit var binding: FragmentEditNameBinding
-    lateinit var firstnameInput: Editable
-    lateinit var lastnameInput: Editable
-    private var localStorage: LocalStorage? = null
-    private var loggedInUser: User? = null
+    private lateinit var firstnameInput: Editable
+    private lateinit var lastnameInput: Editable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,35 +41,27 @@ class EditNameFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onConfigurationChanged(newConfig: Configuration) {
-//        super.onConfigurationChanged(newConfig)
-//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            Toast.makeText(requireContext(), "Landscape Mode edit name", Toast.LENGTH_SHORT).show()
-//        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-//            Toast.makeText(requireContext(), "Portrait Mode edit name", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //Henter bruker-objektet som er lagret
         localStorage = LocalStorage(requireContext())
-        loggedInUser = localStorage?.getLoggedInUser
+        loggedInUser = localStorage.getLoggedInUser!!
 
-        //Viser fornavnet, mellomnavnet og etternavnet til brukeren i tekstfeltene
+        //Viser fornavnet og etternavnet til brukeren i tekstfeltene
         displayUsersName()
 
         binding.editNameBtn.setOnClickListener {
             //Henter tekstene far tekstfeltene
-            firstnameInput = edit_firstname.getEditText()?.getText()!!
-            lastnameInput = edit_lastname.getEditText()?.getText()!!
-            //Funsksjonen for å kalle på editUser-APIet
-            editName()
+            firstnameInput = edit_firstname.editText?.text!!
+            lastnameInput = edit_lastname.editText?.text!!
+
+            //Validerer inndataene og lagrer det nye navnet
+            validateName()
         }
     }
 
-    private fun editName() {
+    private fun validateName() {
         edit_firstname.error = null
         edit_lastname.error = null
         if (firstnameInput.isEmpty()) {
@@ -82,36 +75,38 @@ class EditNameFragment : Fragment() {
             return
         }
         //
-        updateUser(
-            loggedInUser!!.id!!,
+        updateName(
+            loggedInUser.id!!,
             firstnameInput.toString(),
             lastnameInput.toString(),
-            loggedInUser!!
+            loggedInUser,
+            localStorage
         )
     }
 
-    private fun updateUser(userId: Int, firstname: String, lastname: String, user: User) {
-        //Legger til de oppdaterte navnene til bruker-objektet som skal sendes med API'et
+    private fun updateName(userId: Int, firstname: String, lastname: String, user: User, localStorage: LocalStorage) {
+        //Legger til de oppdaterte navnene til bruker-objektet som skal sendes med editUser
         user.firstname = firstname
         user.lastname = lastname
 
-        println(user.usertype + user.firstname + user.lastname)
-
-        println("**" + "editUser" + "**")
-        //API-kallet
+        //ApiService
         LaneLittApi.retrofitService.editUser(userId, user).enqueue(
             object : Callback<Code> {
                 override fun onResponse(call: Call<Code>, response: Response<Code>) {
-                    println("Endre? "+response.body()?.code.toString())
-                    if(response.body()?.code.toString()=="200"){ //Godkjent
+                    if(response.body()?.code.toString()=="200"){
+                        Log.d(TAG, "editUser(name): Suksess " +response.body()?.code.toString())
                         //Legger til de oppdaterte navnene og oppdaterer bruker-objektet som er lagret
-                        user.firstname = firstname
-                        user.lastname = lastname
-                        localStorage?.updateUser(user)
+                        localStorage.updateUser(user)
+                        Toast.makeText(
+                            requireContext(),
+                            "Oppdatert",
+                            Toast.LENGTH_LONG
+                        ).show()
+
                         //Sendes videre til innstillinger-siden
                         findNavController().navigate(R.id.settingsFragment)
-                        //Toast.makeText(requireContext(), "Eiendelen er slettet", Toast.LENGTH_LONG).show()
                     } else {
+                        Log.d(TAG, "editUser(name): Feilet " +response.body()?.code.toString())
                         Toast.makeText(
                             requireContext(),
                             "Navnet ble ikke oppdatert",
@@ -121,8 +116,8 @@ class EditNameFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<Code>, t: Throwable) {
-                    println("Ikke endret?")
-                    Toast.makeText(requireContext(), "Noe har gått galt", Toast.LENGTH_LONG)
+                    Log.d(TAG, "editUser(name): onFailure$t")
+                    Toast.makeText(requireContext(), "Noe gikk galt", Toast.LENGTH_LONG)
                         .show()
                 }
             }
@@ -131,7 +126,7 @@ class EditNameFragment : Fragment() {
 
 
     private fun displayUsersName() {
-        edit_firstname.getEditText()?.setText(loggedInUser?.firstname)
-        edit_lastname.getEditText()?.setText(loggedInUser?.lastname)
+        edit_firstname.editText?.setText(loggedInUser.firstname)
+        edit_lastname.editText?.setText(loggedInUser.lastname)
     }
 }

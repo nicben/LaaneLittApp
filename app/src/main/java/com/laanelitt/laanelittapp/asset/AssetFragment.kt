@@ -25,11 +25,11 @@ import java.util.*
 
 
 class AssetFragment : Fragment(){
-    private var localStorage: LocalStorage? = null
+    private lateinit var localStorage: LocalStorage
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         localStorage = LocalStorage(requireContext())
-        val userId = localStorage?.getLoggedInUser?.id
+        val userId = localStorage.getLoggedInUser?.id
 
         val application = requireNotNull(activity).application
         val binding = FragmentAssetBinding.inflate(inflater)
@@ -38,15 +38,13 @@ class AssetFragment : Fragment(){
         val asset = AssetFragmentArgs.fromBundle(requireArguments()).selectedProperty
         val viewModelFactory = AssetViewModelFactory(asset, application)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(AssetViewModel::class.java)
+
         val assetId = asset.id
-        if(asset.users?.zipCode?.id==null){
-            println("??")
-            binding.ownerLocation?.visibility=View.INVISIBLE
+        if(asset.users?.zipCode?.id == null){
+            binding.ownerLocation.visibility = View.INVISIBLE
         }
 
-//        // Material Date Picker  -->
-//        // https://brandonlehr.com/android/learn-to-code/2018/08/19/callling-android-datepicker-fragment-from-a-fragment-and-getting-the-date
-
+        // Material Date Picker
         val fm = (activity as AppCompatActivity?)!!.supportFragmentManager
         val builder : MaterialDatePicker.Builder<Pair<Long, Long>> = MaterialDatePicker.Builder.dateRangePicker()
 
@@ -87,13 +85,13 @@ class AssetFragment : Fragment(){
     private fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String, dates: String) {
 
         val newLoan = Loan(startDate, endDate)
-        //API-kallet
+        //ApiService
         LaneLittApi.retrofitService.sendLoanRequest(userId, assetId, newLoan).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     println("Nytt lån? " + response.body())
                     if (response.body() == "Låneforhold er opprettet") {
-                        Toast.makeText(requireContext(), "Valgt dato: ${dates}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Valgt dato: $dates", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(requireContext(), "Låneforholdet ble ikke opprettet", Toast.LENGTH_LONG).show()
                     }

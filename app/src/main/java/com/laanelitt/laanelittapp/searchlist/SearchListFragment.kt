@@ -12,20 +12,20 @@ import com.laanelitt.laanelittapp.databinding.FragmentSearchListBinding
 import com.laanelitt.laanelittapp.objects.LocalStorage
 
 class SearchListFragment : Fragment() {
-    var localStorage: LocalStorage? = null
+    private lateinit var localStorage: LocalStorage
 
     private val viewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel()::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         val binding= FragmentSearchListBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         localStorage = LocalStorage(requireContext())
 
-        val loggedInUser = localStorage?.getLoggedInUser
+        val loggedInUser = localStorage.getLoggedInUser
         if (loggedInUser != null) {
             loggedInUser.id?.let { viewModel.getAssetSearch(it, SearchListFragmentArgs.fromBundle(requireArguments()).searchtext) }
             println("*********************   searchlist, userId: " + loggedInUser.id + " *******************")

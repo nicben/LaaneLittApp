@@ -25,21 +25,18 @@ import retrofit2.Response
 
 
 class NewUserFragment : Fragment() {
-
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentNewUserBinding
-    lateinit var firstnameInput: Editable
-    lateinit var lastnameInput: Editable
-    lateinit var usernameInput: Editable
-    lateinit var passwordInput1: Editable
-    lateinit var passwordInput2: Editable
+    private lateinit var firstnameInput: Editable
+    private lateinit var lastnameInput: Editable
+    private lateinit var usernameInput: Editable
+    private lateinit var passwordInput1: Editable
+    private lateinit var passwordInput2: Editable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        auth = FirebaseAuth.getInstance()
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_user, container, false
@@ -50,10 +47,13 @@ class NewUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //
+        auth = FirebaseAuth.getInstance()
+
         //Henter brukernavn og passord fra LoginFragment hvis tekstfeltene har blit fylt
         val args = NewUserFragmentArgs.fromBundle(requireArguments())
-        new_username.getEditText()?.setText(args.newUsername)
-        new_password_1.getEditText()?.setText(args.newPassword)
+        new_username.editText?.setText(args.newUsername)
+        new_password_1.editText?.setText(args.newPassword)
 
 
         binding.newUserBtn.setOnClickListener {
@@ -65,11 +65,11 @@ class NewUserFragment : Fragment() {
             passwordInput2 = new_password_2.editText?.text!!
 
             //Validerer inndataene og registrer ny bruker
-            registerUser()
+            validateUserInfo()
         }
     }
 
-    private fun registerUser() {
+    private fun validateUserInfo() {
         new_firstname.error = null
         new_lastname.error = null
         new_username.error = null
@@ -82,7 +82,6 @@ class NewUserFragment : Fragment() {
             new_firstname.requestFocus()
             return
         }
-
         if (lastnameInput.isEmpty()) {
             new_lastname.error = "Fyll inn etternavn"
             new_lastname.requestFocus()
@@ -93,13 +92,11 @@ class NewUserFragment : Fragment() {
             new_username.requestFocus()
             return
         }
-
         if (passwordInput1.isEmpty()) {
             new_password_1.error = "Fyll inn passord"
             new_password_1.requestFocus()
             return
         }
-
         if (!Patterns.EMAIL_ADDRESS.matcher(usernameInput)
                 .matches()
         ) {
@@ -134,12 +131,9 @@ class NewUserFragment : Fragment() {
         //Firebase
         auth.createUserWithEmailAndPassword(username, password)
             .addOnCompleteListener(requireActivity()) { task ->
-                println("auth")
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    println("funka")
-                    //Funsksjonen for å kallet på register-APIet
+                    Log.d(TAG, "firebaseSignIn: suksess")
+                    //Funsksjon fra ApiService for å registrere brukeren i databasen
                     register(
                         firstname,
                         lastname,
@@ -147,8 +141,7 @@ class NewUserFragment : Fragment() {
                         password,
                     )
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Log.w(TAG, "firebaseSignIn:feilet", task.exception)
                     Toast.makeText(
                         requireContext(), "Brukeren eksisterer allerede",
                         Toast.LENGTH_SHORT
@@ -160,13 +153,12 @@ class NewUserFragment : Fragment() {
     private fun register(firstname: String, lastname: String, username: String, password1: String) {
         //Oppretter et nytt bruker-objekt
         val newUser = User(null, firstname, "", lastname,"user", null,  username, password1, "", true)
-        println(" "+ newUser.firstname + " " +newUser.email + " " + password1)
-        //API-kallet
+        //registerUser fra ApiService
         LaneLittApi.retrofitService.registerUser(newUser).enqueue(
             object : Callback<Code> {
                 override fun onResponse(call: Call<Code>, response: Response<Code>) {
-                    println("lagd ny bruker? " + response.body()?.toString())
-                    if (response.body()?.code.toString() == "200") { //Godkjent
+                    if (response.body()?.code.toString() == "200") {
+                        Log.d(TAG, "register: suksess " + response.body()?.toString())
                         //Sender brukernavn og passord til LoginFragment
                         findNavController().navigate(
                             NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
@@ -175,7 +167,7 @@ class NewUserFragment : Fragment() {
                             )
                         )
                     } else {
-                        println("lagd ny bruker? " + response.body()?.toString())
+                        Log.d(TAG, "register: feilet " + response.body()?.toString())
                         Toast.makeText(
                             requireContext(),
                             "Epost ikke gyldig/eksisterer allerede",
@@ -185,10 +177,10 @@ class NewUserFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<Code>, t: Throwable) {
-                    println("lagde ikke ny bruker?")
+                    Log.d(TAG, "register: onFailure$t")
                     Toast.makeText(
                         requireContext(),
-                        "Du skulle ikke se denne, noe har gått galt",
+                        "Noe gikk galt",
                         Toast.LENGTH_LONG
                     ).show()
                 }
