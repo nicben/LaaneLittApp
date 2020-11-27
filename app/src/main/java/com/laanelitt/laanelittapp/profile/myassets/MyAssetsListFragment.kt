@@ -15,8 +15,7 @@ import com.laanelitt.laanelittapp.objects.LocalStorage
 
 
 class MyAssetsListFragment : Fragment() {
-
-    private var localStorage: LocalStorage? = null
+    private lateinit var localStorage: LocalStorage
 
     private val viewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel()::class.java)
@@ -26,11 +25,7 @@ class MyAssetsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        val binding= FragmentMyAssetsListBinding.inflate(inflater)
-
-        localStorage = LocalStorage(requireContext())
-
-        observeAuthenticationState()
+        val binding = FragmentMyAssetsListBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -54,8 +49,11 @@ class MyAssetsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        println("***************** myAsset viewCreated *************************")
         super.onViewCreated(view, savedInstanceState)
+        //Sjekke om brurkeren er pålogget
+        localStorage = LocalStorage(requireContext())
+        observeAuthenticationState()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
@@ -70,15 +68,12 @@ class MyAssetsListFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun observeAuthenticationState() {
-
-        val loggedInUser = localStorage?.getLoggedInUser
+    private fun observeAuthenticationState() {
+        val loggedInUser = localStorage.getLoggedInUser
         if (loggedInUser != null) {
             loggedInUser.id?.let {
                 viewModel.getMyAssets(it)
             }
-            println("*********************   my assts, userId: " + loggedInUser.id + " *******************")
-
         } else {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
             findNavController().navigate(R.id.loginFragment)
@@ -86,52 +81,5 @@ class MyAssetsListFragment : Fragment() {
     }
 }
 
-
-/* private lateinit var oldAssetList: ArrayList<OldAsset>
-private lateinit var linLayoutMgr: RecyclerView.LayoutManager
-private lateinit var assetAdapter: RecyclerView.Adapter<*>
-private lateinit var assetRecyclerView: RecyclerView
-
-override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-): View? {
-    if (LoginFragment.Pref.getUserId(requireContext(), "ID", "null") == "") {
-    findNavController().navigate(R.id.loginFragment)}
-
-    oldAssetList= OldAsset.makeAssetListe(resources)
-
-    val layout= inflater.inflate(R.layout.fragment_my_assets_list, container, false)
-
-    linLayoutMgr= LinearLayoutManager(context)
-    linLayoutMgr= GridLayoutManager(context, 2)
-    assetAdapter= AssetListAdapter(context, oldAssetList)
-    assetRecyclerView=layout.findViewById<RecyclerView>(R.id.recyclerMyItemList).apply{
-        setHasFixedSize(true)
-        layoutManager=linLayoutMgr
-        adapter=assetAdapter
-    }
-
-
-    return layout
-    // Inflate the layout for this fragment
-
-}
-
-override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    // If the user presses the back button, bring them back to the home screen.
-    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-        findNavController().popBackStack(R.id.searchPageFragment, false)
-    }
-
-    settings_btn.setOnClickListener {
-        findNavController().navigate(R.id.settingsFragment)
-    }
-
-}
-
-}*/
 
 

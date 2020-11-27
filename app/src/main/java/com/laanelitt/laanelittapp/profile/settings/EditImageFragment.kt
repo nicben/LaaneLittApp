@@ -83,16 +83,16 @@ class EditImageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var profilePicture= "https://lanelitt.no/profileImages/"+localStorage.getLoggedInUser!!.profileImage.toString()
-        var  imageUri=profilePicture.toUri().buildUpon().scheme("https").build()
+        var profilePicture = "https://lanelitt.no/profileImages/"+localStorage.getLoggedInUser!!.profileImage.toString()
+        var  imageUri = profilePicture.toUri().buildUpon().scheme("https").build()
         if(Pref.getNewPicture(requireContext(), "ID", "null").toString()!="null"){
-            profilePicture= Pref.getNewPicture(requireContext(), "ID", "null")!!
-            imageUri=profilePicture.toUri()
+            profilePicture = Pref.getNewPicture(requireContext(), "ID", "null")!!
+            imageUri = profilePicture.toUri()
             println("get from pref  :::  "+profilePicture)
         }
 
 
-        if(profilePicture!="https://lanelitt.no/profileImages/"){
+        if(profilePicture != "https://lanelitt.no/profileImages/"){
             println("if, if is a nice word")
             Glide.with(requireContext()).load(imageUri).into(binding.image)
         }
@@ -126,7 +126,7 @@ class EditImageFragment : Fragment() {
 
     }
 
-    fun save(userId:String){
+    private fun save(userId:String){
         if(ogFile!=null){
 
             val userIdPart= RequestBody.create(MultipartBody.FORM, userId)
@@ -153,7 +153,7 @@ class EditImageFragment : Fragment() {
         }
     }
 
-    fun takePicture(){
+    private fun takePicture(){
         println("take---------------------------------")
         val takePictureIntent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if(takePictureIntent.resolveActivity(requireActivity().packageManager)!=null){
@@ -176,7 +176,7 @@ class EditImageFragment : Fragment() {
             println("else---------------------------------")
         }
     }
-    fun pickImageFromGallery(){
+    private fun pickImageFromGallery(){
         val intent= Intent(Intent.ACTION_PICK)
         intent.type="image/*"
         startActivityForResult(intent, REQUEST_PICK_IMAGE)

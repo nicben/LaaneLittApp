@@ -24,20 +24,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-
 class LoginFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var localStorage: LocalStorage
     private lateinit var binding: FragmentLoginBinding
-    lateinit var usernameInput: Editable
-    lateinit var passwordInput: Editable
-    private var localStorage: LocalStorage? = null
+    private lateinit var usernameInput: Editable
+    private lateinit var passwordInput: Editable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        auth = FirebaseAuth.getInstance()
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false
@@ -48,24 +45,29 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //
+        auth = FirebaseAuth.getInstance()
         localStorage = LocalStorage(requireContext())
 
         //Henter brukernavn og passord fra NewUserFragment hvis det har blitt opprettet en ny bruker
         val args = LoginFragmentArgs.fromBundle(requireArguments())
-        username.getEditText()?.setText(args.username)
-        password.getEditText()?.setText(args.password)
+        username.editText?.setText(args.username)
+        password.editText?.setText(args.password)
 
         binding.loginBtn.setOnClickListener {
             //Brukernavn og passord fra tekstfeltene
-            usernameInput = username.getEditText()?.getText()!!
-            passwordInput = password.getEditText()?.getText()!!
+            usernameInput = username.editText?.text!!
+            passwordInput = password.editText?.text!!
+
+            //Validerer inndataene og logger inn bruker
             authUser()
         }
 
         binding.registerButton.setOnClickListener {
             //Brukernavn og passord fra tekstfeltene
-            usernameInput = username.getEditText()?.getText()!!
-            passwordInput = password.getEditText()?.getText()!!
+            usernameInput = username.editText?.text!!
+            passwordInput = password.editText?.text!!
+
             //Sender brukernavn og passord til NewUserFragment hvis man velger å opprettet en ny bruker
             findNavController().navigate(
                 LoginFragmentDirections.actionLoginFragmentToNewUserFragment(
@@ -104,18 +106,17 @@ class LoginFragment : Fragment() {
         auth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success")
-                    //Funsksjonen for å kalle på login-APIet
+                    Log.d(TAG, "firebaseAuth:suksess")
+                    //Funsksjon fra ApiService
                     login(
                         username,
                         password
                     )
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Log.w(TAG, "firebaseAuth:feilet", task.exception)
                     Toast.makeText(
-                        requireContext(), "Authentication failed.",
+                        requireContext(), "Innlogging feilet.",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -123,27 +124,25 @@ class LoginFragment : Fragment() {
     }
 
     private fun login(username: String, password: String) {
-        //API-kallet
+        //ApiService
         LaneLittApi.retrofitService.login(username, password).enqueue(
             object : Callback<LoggedInUser> {
                 override fun onResponse(
                     call: Call<LoggedInUser>,
                     response: Response<LoggedInUser>) {
-                    println("LOGIN YES")
-                    println(response.body()?.user?.id)
                     if (response.body()?.user?.id != null) { //Godkjent
+                        Log.d(TAG, "login: suksess " + response.body()?.user?.id.toString())
                         Toast.makeText(requireContext(), "Du er logget inn", Toast.LENGTH_LONG)
                             .show()
-                        println(response.body()?.user?.id.toString())
                         //Henter bruker-objektet
                         val user = response.body()?.user
                         //Lagrer bruker-objektet og setter userLoggedIn til true
-                        localStorage?.storeUserData(user!!)
-                        localStorage?.setUserLoggedIn(true)
+                        localStorage.storeUserData(user!!)
+                        localStorage.setUserLoggedIn(true)
                         //Sendes videre til hovedsiden
                         findNavController().navigate(R.id.homePageFragment)
-
                     } else {
+                        Log.d(TAG, "login: Feilet " + response.body()?.toString())
                         Toast.makeText(
                             requireContext(),
                             "Feil brukernavn/passord",
@@ -154,9 +153,8 @@ class LoginFragment : Fragment() {
 
                 //Man kommer rett hit ved feil brukernavn/passord
                 override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
-                    println("LOGIN NO")
-                    println("**" + t + "**")
-                    Toast.makeText(requireContext(), "Noe skjedde galt", Toast.LENGTH_LONG).show()
+                    Log.d(TAG, "login: onFailure$t")
+                    Toast.makeText(requireContext(), "Noe gikk galt", Toast.LENGTH_LONG).show()
                 }
             }
         )

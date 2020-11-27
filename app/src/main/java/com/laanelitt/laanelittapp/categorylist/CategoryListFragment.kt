@@ -20,7 +20,6 @@ class CategoryListFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
 
         val binding=FragmentCategoryListBinding.inflate(inflater)
-        println("****************************************AHHHH  ")
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         viewModel.getCatAssets(CategoryListFragmentArgs.fromBundle(requireArguments()).catId)
