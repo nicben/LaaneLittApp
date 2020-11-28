@@ -18,36 +18,22 @@ class NotificationListViewModel: ViewModel(){
     val notifications: LiveData<List<Notification>>
         get() = _notifications
 
-    private val _navigateToSelectedProperty=MutableLiveData<Notification>()
-
-    val navigateToSelectedProperty: LiveData<Notification>
-        get() = _navigateToSelectedProperty
-
     fun getNotifications(userId: String){
         viewModelScope.launch {
             try {
                 val listResult= LaneLittApi.retrofitService.getNotifications(userId)
                 _response.value = "Success: ${listResult.size}  requests retrieved ******"
                 _notifications.value = listResult
-                println(_response.value)
+
             }catch (e: Exception){
                 _response.value="Failiure: ${e.message}"
-                println(_response.value)
-                getNotifications(userId)
+                //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
+                if(e.message=="timeout") {
+                    getNotifications(userId)
+                }
             }
 
         }
-    }
-
-    fun displayPropertyDetails(notification: Notification) {
-        _navigateToSelectedProperty.value = notification
-    }
-
-    /**
-     * After the navigation has taken place, make sure navigateToSelectedProperty is set to null
-     */
-    fun displayPropertyDetailsComplete() {
-        _navigateToSelectedProperty.value = null
     }
 
 

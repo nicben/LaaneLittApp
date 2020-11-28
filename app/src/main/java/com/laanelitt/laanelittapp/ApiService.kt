@@ -83,23 +83,6 @@ interface ApiService {
 
     @POST("user/{iUserId}/loanRequest/{iLoanId}/{iStatus}")
     fun replyRequest(@Path("iUserId") userId: String,@Path("iLoanId") loanId: String,@Path("iStatus") status: String): Call<String>
-/*
-
-
-    @POST("assets/addAsset")
-    fun addAsset(@Body NewAsset: Asset): Call<Code>
-
-    getLoanRequest:
-        path: /user/{iUserId}/loanRequest
-        controller: App\Controller\LoanController::getLoanRequest
-        methods:    GET
-
-    replyLoanRequests:
-      path: /user/{iUserId}/loanRequest/{iLoanId}/{iStatus}
-      controller: App\Controller\LoanController::replyLoanRequest
-      methods:    POST
-  */
-
 }
 
 // Her kan du definere flere metoder for å kalle andre API-endepunkter

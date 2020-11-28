@@ -40,24 +40,11 @@ class NotificationListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         return binding.root
-    }
+    }//end onCreateView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeAuthenticationState()
-
-        /*val helper=ItemTouchHelper(object :ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0){
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            )=false
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                TODO("Not yet implemented")
-            }
-        })
-        helper.attachToRecyclerView(binding.notificationPhotosGrid)*/
-
 
         binding.notificationPhotosGrid.adapter=NotificationListAdapter(NotificationListAdapter.OnClickListener{
             //Alert Dialog
@@ -74,32 +61,22 @@ class NotificationListFragment : Fragment() {
                     reply(it.id!!, localStorage.getLoggedInUser!!.id!!, 1)
                 }
                 .show()
-            println(it.dateStart)
-//            notificationViewModel.displayPropertyDetails(it)
         })
-//        notificationViewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
-//            if (null != it) {
-//                this.findNavController().navigate(NotificationListFragmentDirections.actionNotificationsFragmentToNotificationFragment(it))
-//                notificationViewModel.displayPropertyDetailsComplete()
-//                // Must find the NavController from the Fragment
-//            }
-//        })
 
-    }
+    }//end onViewCreated
+
     private fun reply(id:Int, userId: Int, reply: Int){
         LaneLittApi.retrofitService.replyRequest(userId.toString(), id.toString(), reply.toString()).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    //Toast.makeText(requireContext(), response.body(), Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.notificationsFragment)
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    TODO("Not yet implemented")
                 }
             }
         )
-    }
+    }//end reply
 
     private fun observeAuthenticationState() {
         val loggedInUser = localStorage.getLoggedInUser
@@ -107,5 +84,5 @@ class NotificationListFragment : Fragment() {
             // Hvis brukeren ikke er logget inn blir man sendt til innloggingssiden
             findNavController().navigate(R.id.loginFragment)
         }
-    }
+    }//end observeAuthenticationState
 }

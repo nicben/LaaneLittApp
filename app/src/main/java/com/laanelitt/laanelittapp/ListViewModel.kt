@@ -1,7 +1,5 @@
 package com.laanelitt.laanelittapp
 
-import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,17 +29,19 @@ class ListViewModel: ViewModel(){
     fun getCatAssets(catNr: String) {
         viewModelScope.launch {
             try {
-                println("Test1******************************************************")
+
                 val listResult = LaneLittApi.retrofitService.getCatAssets(catNr)
-                println("Test2******************************************************")
+
                 _response.value = "Success: ${listResult.size}  assets retrieved"
                 _assets.value = listResult
-                println(_response.value)
+
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
-                println(e.message + " cat assets api-kall feilet *********************************")
+
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
-                getCatAssets(catNr)
+                if(e.message=="timeout"){
+                    getCatAssets(catNr)
+                }
             }
         }
     }
@@ -50,17 +50,19 @@ class ListViewModel: ViewModel(){
     fun getMyAssets(userId:Int) {
         viewModelScope.launch {
             try {
-                println("" + userId + "Test1***********************************************************")
+
                 val listResult = LaneLittApi.retrofitService.getMyAssets(userId)
-                println("Test2******************************************************")
+
                 _response.value = "Success: ${listResult.size}  assets retrieved"
                 _assets.value = listResult
-                println(_response.value)
+
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
-                println(e.message + " My assets api-kall feilet **********************************")
+
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
-                getMyAssets(userId)
+                if(e.message=="timeout") {
+                    getMyAssets(userId)
+                }
             }
         }
     }
@@ -68,31 +70,25 @@ class ListViewModel: ViewModel(){
     fun getAssetSearch(userId:Int, search:String) {
         viewModelScope.launch {
             try {
-                println("" +userId + "Test1******************************************************")
                 val listResult = LaneLittApi.retrofitService.getAssetSearch(userId, search)
-                println("Test2***********" + userId + " " + search + "****************************")
+
                 _response.value = "Success: ${listResult.size}  assets retrieved"
                 _assets.value = listResult
-                println(_response.value)
+
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
-                getAssetSearch(userId, search)
+                if(e.message=="timeout") {
+                    getAssetSearch(userId, search)
+                }
             }
         }
     }
 
-//    /**
-//     * When the property is clicked, set the [_navigateToSelectedProperty] [MutableLiveData]
-//     * @param Asset The [Asset] that was clicked on.
-//     */
     fun displayPropertyDetails(asset: Asset) {
         _navigateToSelectedProperty.value = asset
     }
 
-//    /**
-//     * After the navigation has taken place, make sure navigateToSelectedProperty is set to null
-//     */
     fun displayPropertyDetailsComplete() {
         _navigateToSelectedProperty.value = null
     }
