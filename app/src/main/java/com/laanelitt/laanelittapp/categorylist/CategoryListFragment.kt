@@ -46,6 +46,9 @@ class CategoryListFragment : Fragment() {
                 viewModel.displayPropertyDetailsComplete()
             }
         })
+
+
+
         return binding.root
     }
 }
