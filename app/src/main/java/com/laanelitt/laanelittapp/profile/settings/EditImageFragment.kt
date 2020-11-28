@@ -70,9 +70,6 @@ class EditImageFragment : Fragment() {
                 )
             }
         }
-        binding.addImage.setOnClickListener {
-            pickImageFromGallery()
-        }
         binding.saveButton.setOnClickListener{
             save(userId)
         }
@@ -176,23 +173,13 @@ class EditImageFragment : Fragment() {
             println("else---------------------------------")
         }
     }
-    private fun pickImageFromGallery(){
-        val intent= Intent(Intent.ACTION_PICK)
-        intent.type="image/*"
-        startActivityForResult(intent, REQUEST_PICK_IMAGE)
-    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?){
-        println("result---------------------------------")
+
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
 
                 Glide.with(this).load(pathTilBildeFil).into(binding.image)
-            }
-            if (requestCode == REQUEST_PICK_IMAGE) {
-                ogFile = File(returnIntent?.data?.path!!)
-
-                binding.image.setImageURI(returnIntent.data)
-
             }
         }
     }
@@ -252,9 +239,7 @@ class EditImageFragment : Fragment() {
     }
 
     companion object {
-        val STATE_IMAGE_PATH="curentPath"
         private const val REQUEST_TAKE_PHOTO = 1
-        private const val REQUEST_PICK_IMAGE = 2
         private const val MY_PHOTO_FOLDER = "LaaneLitt"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)

@@ -9,100 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            tools:context=".profile.AddAssetFragment">-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/name"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="62dp"-->
-<!--                android:autofillHints=""-->
-<!--                android:hint="@string/name"-->
-<!--                android:inputType="text"-->
-<!--                android:textAppearance="@style/TextAppearance.AppCompat.Large" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/image"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="250dp"-->
-<!--                android:layout_below="@id/name"-->
-<!--                android:background="@color/colorPrimary"-->
-<!--                android:contentDescription="@string/asset_img"-->
-<!--                android:scaleType="fitCenter"-->
-<!--                android:src="@drawable/default_asset_image" />-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/buttons"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_below="@id/image">-->
-
-<!--                <Spinner-->
-<!--                    android:id="@+id/category"-->
-<!--                    android:layout_width="@dimen/buttonHeight"-->
-<!--                    android:layout_height="@dimen/buttonHeight"-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:backgroundTint="@color/colorPrimary"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:spinnerMode="dropdown" />-->
-
-<!--                <ImageButton-->
-<!--                    android:id="@+id/addImage"-->
-<!--                    android:layout_width="@dimen/buttonHeight"-->
-<!--                    android:layout_height="@dimen/buttonHeight"-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:contentDescription="@string/addimage"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:src="@drawable/ic_baseline_image_24"-->
-<!--                    android:tint="@color/colorPrimary" />-->
-
-<!--                <ImageButton-->
-<!--                    android:id="@+id/takePicture"-->
-<!--                    android:layout_width="@dimen/buttonHeight"-->
-<!--                    android:layout_height="@dimen/buttonHeight"-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:contentDescription="@string/takepicture"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:src="@drawable/ic_baseline_camera_alt_24"-->
-<!--                    android:tint="@color/colorPrimary" />-->
-
-<!--            </LinearLayout>-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/description"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:autofillHints=""-->
-<!--                android:gravity="top"-->
-<!--                android:layout_below="@id/buttons"-->
-<!--                android:hint="@string/description"-->
-<!--                android:inputType="textMultiLine"-->
-<!--                android:textAppearance="@style/TextAppearance.AppCompat.Large" />-->
-
-
-<!--            <Button-->
-<!--                android:id="@+id/saveButton"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/height_btn"-->
-<!--                android:layout_gravity="start"-->
-<!--                android:layout_marginStart="@dimen/start_end_margin"-->
-<!--                android:layout_marginTop="@dimen/margin_top_S"-->
-<!--                android:layout_marginEnd="@dimen/start_end_margin"-->
-<!--                android:text="@string/save"-->
-<!--                android:textSize="@dimen/button_text_size"-->
-<!--                android:layout_below="@id/description"-->
-<!--                />-->
-
-<!--        </RelativeLayout>-->
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -141,19 +47,6 @@
                     android:dropDownWidth="match_parent"
                     android:spinnerMode="dropdown"
                     />
-
-
-                <ImageButton
-                    android:id="@+id/addImage"
-                    android:layout_width="@dimen/width_0dp"
-                    android:layout_height="@dimen/button_img_height"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/addimage"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_image_24"
-                    android:tint="@color/colorPrimary"/>
 
                 <ImageButton
                     android:id="@+id/takePicture"

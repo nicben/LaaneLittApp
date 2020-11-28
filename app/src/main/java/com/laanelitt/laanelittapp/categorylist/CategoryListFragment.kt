@@ -39,12 +39,10 @@ class CategoryListFragment : Fragment() {
                 viewModel.displayPropertyDetailsComplete()
             }
         })
-        println("****************************************AHHHH2  ")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        println("****************************************viewCreated")
         super.onViewCreated(view, savedInstanceState)
     }
 }

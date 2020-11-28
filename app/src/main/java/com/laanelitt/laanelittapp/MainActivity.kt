@@ -47,20 +47,12 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(bottomNavView, navHostFragment.navController)
 
-        //var appBarConfiguration = AppBarConfiguration(navHostFragment.navController.graph)
+
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.homePageFragment, R.id.notificationsFragment, R.id.addAssetFragment, R.id.myAssetsListFragment))
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
 
-    companion object {
-        @JvmStatic
-        fun visSnackbar(view: View?, melding: String?) {
-            Snackbar.make(view!!, melding!!, Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
-        }
-    }
 }
 
 

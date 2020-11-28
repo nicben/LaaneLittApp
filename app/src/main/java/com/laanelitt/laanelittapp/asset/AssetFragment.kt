@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.databinding.FragmentAssetBinding
 import com.laanelitt.laanelittapp.objects.Loan
@@ -74,36 +72,28 @@ class AssetFragment : Fragment(){
             val endDateStr = sdf.format(end)
 
             if (userId != null && startDateStr != null && endDateStr != null) {
-                sendLoanRequest(userId, assetId, startDateStr, endDateStr, picker.headerText)
+                sendLoanRequest(userId, assetId, startDateStr, endDateStr)
             }
 
         }
 
         return binding.root
-    }
+    }//end onCreateView
 
-    private fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String, dates: String) {
+    private fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String) {
 
         val newLoan = Loan(startDate, endDate)
         //ApiService
         LaneLittApi.retrofitService.sendLoanRequest(userId, assetId, newLoan).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    println("Nytt lån? " + response.body())
-                    if (response.body() == "Låneforhold er opprettet") {
-                        Toast.makeText(requireContext(), "Valgt dato: $dates", Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(requireContext(), "Låneforholdet ble ikke opprettet", Toast.LENGTH_LONG).show()
-                    }
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    println("Ikke nytt lån?")
-                    Toast.makeText(requireContext(), "Noe har gått galt", Toast.LENGTH_LONG).show()
                 }
             }
         )
-    }
+    }//end sendLoanRequest
 }
 
 

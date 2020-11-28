@@ -22,7 +22,6 @@ import com.bumptech.glide.Glide
 import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentAddAssetBinding
-import com.laanelitt.laanelittapp.objects.Code
 import com.laanelitt.laanelittapp.objects.LocalStorage
 import kotlinx.android.synthetic.main.fragment_add_asset.*
 import okhttp3.MediaType
@@ -64,32 +63,26 @@ class AddAssetFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_asset,container,false)
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
+        //Følger kodemønsteret fra https://developer.android.com/guide/topics/ui/controls/spinner for å opprette en dropdown meny
         context?.let {
             ArrayAdapter.createFromResource(
                 it,
                 R.array.categories,
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
-                // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                // Apply the adapter to the spinner
                 binding.category.adapter = adapter
             }
         }
+
+
         binding.category.setSelection(0)
-        binding.addImage.setOnClickListener {
-            pickImageFromGallery()
-        }
         binding.takePicture.setOnClickListener {
             if (allPermissionsGranted())  {
-                println("if**************")
                 takePicture()
             }
             else{
-                println("else**************")
                 requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-                //ActivityCompat.requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
             }
         }
 
@@ -97,20 +90,18 @@ class AddAssetFragment : Fragment() {
             titleInput = title.editText?.text!!
             descriptionInput = description.editText?.text!!
             addAsset()
-            //save(userId!!)
-            //view.findNavController().navigate(R.id.action_addAssetFragment_to_myAssetsListFragment)
         }
 
         binding.cancelButton.setOnClickListener {
             findNavController().navigate(R.id.myAssetsListFragment)
         }
         return binding.root
-    }
+    }//end onCreateView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeAuthenticationState()
-    }
+    }//end onViewCreated
 
     private fun observeAuthenticationState() {
         val loggedInUser = localStorage.getLoggedInUser
@@ -120,7 +111,7 @@ class AddAssetFragment : Fragment() {
         }else{
             userId = localStorage.getLoggedInUser!!.id.toString()
         }
-    }
+    }//end observeAuthenticationState
 
     private fun addAsset() {
         title.error = null
@@ -145,80 +136,55 @@ class AddAssetFragment : Fragment() {
             return
         }
         save(userId!!, titleInput.toString(), descriptionInput.toString())
-    }
+    }//end addAsset
 
     private fun save(userId:String, title: String, description: String){
-//        if(ogFile != null && binding.name.toString() != "" && binding.description.toString() != ""){
 
-            var categoryId: Int
-            if(binding.category.selectedItemPosition<3){
-                categoryId = binding.category.selectedItemPosition+1
-            }else{
-                categoryId = binding.category.selectedItemPosition+3
-            }
-            println("CATEGORY ID "+categoryId)
+        val categoryId: Int
+        if(binding.category.selectedItemPosition<3){
+            categoryId = binding.category.selectedItemPosition+1
+        }else{
+            categoryId = binding.category.selectedItemPosition+3
+        }
 
-            //Verdier som skal sendest med API kallet
-            val userIdPart= RequestBody.create(MultipartBody.FORM, userId)
-            val typeIdPart= RequestBody.create(MultipartBody.FORM, ""+categoryId)
-            val conditionPart= RequestBody.create(MultipartBody.FORM, "0")
-            val namePart = RequestBody.create(MultipartBody.FORM, title)
-            val publicPart= RequestBody.create(MultipartBody.FORM, "true")
-            val descriptionPart = RequestBody.create(MultipartBody.FORM, description)
-            val mainImagePart= RequestBody.create(MultipartBody.FORM, "1")
+        //Verdier som skal sendest med API kallet
+        val userIdPart= RequestBody.create(MultipartBody.FORM, userId)
+        val typeIdPart= RequestBody.create(MultipartBody.FORM, ""+categoryId)
+        val conditionPart= RequestBody.create(MultipartBody.FORM, "0")
+        val namePart = RequestBody.create(MultipartBody.FORM, title)
+        val publicPart= RequestBody.create(MultipartBody.FORM, "true")
+        val descriptionPart = RequestBody.create(MultipartBody.FORM, description)
+        val mainImagePart= RequestBody.create(MultipartBody.FORM, "1")
 
-            //Bilde som skal sendest med API kallet
-            val filePart=RequestBody.create(MediaType.parse("image/*"), ogFile!!)
-            val file=MultipartBody.Part.createFormData("file", ogFile!!.name, filePart)
+        //Bilde som skal sendest med API kallet
+        val filePart=RequestBody.create(MediaType.parse("*/*"), ogFile!!)
+        val file=MultipartBody.Part.createFormData("file", ogFile!!.name, filePart)
 
-            println(ogFile!!.absolutePath+" :: "+ogFile!!.toURI())
+        //Kall som oppretter får backenden til å opprette en eiendel i databasen
+        LaneLittApi.retrofitService.addAsset(userIdPart, typeIdPart, conditionPart, namePart, publicPart, descriptionPart, mainImagePart, file).enqueue(
+            object: Callback<Int>{
+                override fun onResponse(call: Call<Int>, response: Response<Int>) {
 
-
-            //Kall som oppretter får backenden til å opprette en eiendel i databasen
-            LaneLittApi.retrofitService.addAsset(userIdPart, typeIdPart, conditionPart, namePart, publicPart, descriptionPart, mainImagePart, file).enqueue(
-                object: Callback<Int>{
-                    override fun onResponse(call: Call<Int>, response: Response<Int>) {
-
-                        //Opprettinga av eiendelen publiserer den ikke så det gjøres i ett eget API kall
-                        LaneLittApi.retrofitService.publishAsset(userId.toInt(), response.body()!!).enqueue(
-                            object: Callback<String>{
-                                override fun onResponse(call: Call<String>, response: Response<String>
-                                ) {
-                                    Toast.makeText(requireContext(), response.body(), Toast.LENGTH_LONG).show()
-
-                                    //Tar oss til oversikten over mine eiendeler
-                                    findNavController().navigate(R.id.myAssetsListFragment)
-                                }
-
-                                override fun onFailure(call: Call<String>, t: Throwable) {
-                                    Toast.makeText(requireContext(), "Eiendelen ble opprettet men ikke publisert", Toast.LENGTH_LONG).show()
-                                    println(" " + t.message+ "::::::::::::::::::::::")
-                                }
+                    //Opprettinga av eiendelen publiserer den ikke så det gjøres i ett eget API kall
+                    LaneLittApi.retrofitService.publishAsset(userId.toInt(), response.body()!!).enqueue(
+                        object: Callback<String>{
+                            override fun onResponse(call: Call<String>, response: Response<String>
+                            ) {
+                                //Tar oss til oversikten over mine eiendeler
+                                findNavController().navigate(R.id.myAssetsListFragment)
                             }
-                        )
-                    }
-                    override fun onFailure(call: Call<Int>, t: Throwable) {
-                        Toast.makeText(requireContext(), "Noe gikk galt: "+t.message,Toast.LENGTH_LONG).show()
-                    }
+
+                            override fun onFailure(call: Call<String>, t: Throwable) {
+                            }
+                        }
+                    )
                 }
-            )
-
-            LaneLittApi.retrofitService.uploadProfileImage(userIdPart, file).enqueue(
-                object : Callback<Code>{
-                    override fun onResponse(call: Call<Code>, response: Response<Code>) {
-
-                        println(">>>>>>>>>>>>>>>>>>>"+response.body()?.code)
-                    }
-
-                    override fun onFailure(call: Call<Code>, t: Throwable) {
-                        println(t.message+":::::::::::::::::::::::::")
-                    }
+                override fun onFailure(call: Call<Int>, t: Throwable) {
+                    println(t.message)
                 }
-            )
-//        }else{
-//            Toast.makeText(requireContext(), "velg ett bilde og/eller fyll in teksten", Toast.LENGTH_LONG).show()
-//        }
-    }
+            }
+        )
+    }//end Save
 
     private fun takePicture(){
         val takePictureIntent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -235,40 +201,29 @@ class AddAssetFragment : Fragment() {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
             }
         }
-    }
+    }//end takePicture
 
-    private fun pickImageFromGallery(){
-        val intent=Intent(Intent.ACTION_PICK)
-        intent.type="image/*"
-        startActivityForResult(intent, REQUEST_PICK_IMAGE)
-    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?){
-
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
-
                 Glide.with(this).load(pathTilBildeFil).into(binding.image)
             }
-            if (requestCode == REQUEST_PICK_IMAGE) {
-                ogFile = File(returnIntent?.data?.path!!)
-
-                binding.image.setImageURI(returnIntent.data)
-
-            }
         }
-    }
+    }//end onActivityResult
+
     @Throws(IOException::class)
     private fun createImageFile():File?{
         var imageFile:File? = null
         val photoStorageDir = getPhotoDirectory()
         if (photoStorageDir != null){
+            //Genererer ett unikt filnavn med en fast sti
             val timeStamp = SimpleDateFormat("YMMdd-HHmss").format(Date())
             val imageFileName = photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
             imageFile = File(imageFileName)
             println(imageFileName)
         }
         return imageFile
-    }
+    }//end createImageFile
 
     private fun getPhotoDirectory() : File? {
         // Finner / lager undermappe for mine bilder under Pictures mappen som er felles for alle apper
@@ -277,22 +232,19 @@ class AddAssetFragment : Fragment() {
         if (!mediaStorageDirectory.exists()) {
             // Hvis ikke: Lag mappen
             if (!mediaStorageDirectory.mkdirs()) {
-                println("Laanelitt: " + "Klarte ikke å lage mappen: " +
-                        mediaStorageDirectory.getAbsolutePath())
                 Toast.makeText(requireContext(), "Klarte ikke å lage mappen: " +
                         mediaStorageDirectory.getAbsolutePath(), Toast.LENGTH_LONG).show()
                 return null
             }
         }
         return mediaStorageDirectory
-    }
+    }//end  getPhotoDirectory
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        println("allPermissionsGranted start**************")
 
         ContextCompat.checkSelfPermission(
             requireContext(), it) == PackageManager.PERMISSION_GRANTED
-    }
+    }//end allPermissionsGranted
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -301,23 +253,20 @@ class AddAssetFragment : Fragment() {
     ) {
         if(requestCode== REQUEST_CODE_PERMISSIONS){
             if(allPermissionsGranted()){
-                println("Permisjons granted")
                 Toast.makeText(context, "Permisjons granted", Toast.LENGTH_LONG).show()
                 takePicture()
             }else{
-                println("Permisjons not granted")
                 Toast.makeText(context, "Permisjons not granted", Toast.LENGTH_LONG).show()
 
             }
         }
-    }
+    }//end onRequestPermissionsResult
+
     companion object {
-        val STATE_IMAGE_PATH="curentPath"
         private const val REQUEST_TAKE_PHOTO = 1
-        private const val REQUEST_PICK_IMAGE = 2
         private const val MY_PHOTO_FOLDER = "LaaneLitt"
         const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    }
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+    }//end companion
 
 }

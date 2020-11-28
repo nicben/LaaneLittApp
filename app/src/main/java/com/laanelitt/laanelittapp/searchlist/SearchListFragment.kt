@@ -28,7 +28,6 @@ class SearchListFragment : Fragment() {
         val loggedInUser = localStorage.getLoggedInUser
         if (loggedInUser != null) {
             loggedInUser.id?.let { viewModel.getAssetSearch(it, SearchListFragmentArgs.fromBundle(requireArguments()).searchtext) }
-            println("*********************   searchlist, userId: " + loggedInUser.id + " *******************")
         }
 
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
@@ -38,7 +37,7 @@ class SearchListFragment : Fragment() {
         // Observe the navigateToSelectedProperty LiveData and Navigate when it isn't null
         // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready
         // for another navigation event.
-        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, {
             if ( null != it ) {
                 // Must find the NavController from the Fragment
                 this.findNavController().navigate(SearchListFragmentDirections.actionShowDetail(it))
@@ -46,13 +45,6 @@ class SearchListFragment : Fragment() {
                 viewModel.displayPropertyDetailsComplete()
             }
         })
-
-
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        println("************************ SearchList viewCreated *************************")
-        super.onViewCreated(view, savedInstanceState)
-    }
+    }//end onCreateView
 }

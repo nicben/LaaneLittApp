@@ -196,14 +196,5 @@
         android:label="Låneforespørsler"
         tools:layout="@layout/fragment_notification_list"
         />
-    <fragment
-        android:id="@+id/notificationFragment"
-        android:name="com.laanelitt.laanelittapp.notification.NotificationFragment"
-        android:label="@string/notifications"
-        tools:layout="@layout/fragment_notification" >
-        <argument
-            android:name="notification"
-            app:argType="com.laanelitt.laanelittapp.objects.Notification" />
-    </fragment>
 
 </navigation>
