@@ -2,8 +2,10 @@ package com.laanelitt.laanelittapp.categorylist
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.ListViewModel
@@ -44,6 +46,14 @@ class CategoryListFragment : Fragment() {
                 this.findNavController().navigate(CategoryListFragmentDirections.actionShowDetail(it))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayPropertyDetailsComplete()
+            }
+        })
+        viewModel.response.observe(viewLifecycleOwner, {
+            if(it==viewModel.success[1]){
+                Toast.makeText(context, "Feilet, prøver på nytt",Toast.LENGTH_LONG).show()
+            }else if(it==viewModel.success[2]){
+                Toast.makeText(context, "Noe gikk galt",Toast.LENGTH_LONG).show()
+                this.findNavController().navigate(R.id.homePageFragment)
             }
         })
 

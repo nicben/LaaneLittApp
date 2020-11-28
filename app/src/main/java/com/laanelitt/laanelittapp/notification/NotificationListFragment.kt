@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -39,6 +40,14 @@ class NotificationListFragment : Fragment() {
         notificationViewModel.getNotifications(userId)
         binding.lifecycleOwner = this
 
+        notificationViewModel.response.observe(viewLifecycleOwner, {
+            if(it==notificationViewModel.success[1]){
+                Toast.makeText(context, "Feilet, prøver på nytt", Toast.LENGTH_LONG).show()
+            }else if(it==notificationViewModel.success[2]){
+                Toast.makeText(context, "Noe gikk galt", Toast.LENGTH_LONG).show()
+                this.findNavController().navigate(R.id.homePageFragment)
+            }
+        })
         return binding.root
     }//end onCreateView
 
