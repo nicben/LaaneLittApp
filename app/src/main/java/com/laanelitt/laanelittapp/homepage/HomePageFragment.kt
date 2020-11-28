@@ -23,7 +23,6 @@ class HomePageFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         localStorage = LocalStorage(requireContext())
 
         binding = DataBindingUtil.inflate(

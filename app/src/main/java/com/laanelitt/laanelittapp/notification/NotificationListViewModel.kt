@@ -10,6 +10,8 @@ import com.laanelitt.laanelittapp.objects.Notification
 
 class NotificationListViewModel: ViewModel(){
 
+    val success= arrayOf("Success", "Failure", "Critical failure")
+
     private val _response=MutableLiveData<String>()
     private var _notifications=MutableLiveData<List<Notification>>()
 
@@ -29,7 +31,10 @@ class NotificationListViewModel: ViewModel(){
                 _response.value="Failiure: ${e.message}"
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
                 if(e.message=="timeout") {
+                    _response.value=success[1]
                     getNotifications(userId)
+                }else{
+                    _response.value=success[2]
                 }
             }
 

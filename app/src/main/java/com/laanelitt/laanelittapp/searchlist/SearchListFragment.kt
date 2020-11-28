@@ -2,12 +2,14 @@ package com.laanelitt.laanelittapp.searchlist
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.Observer
 import com.laanelitt.laanelittapp.ListViewModel
 import com.laanelitt.laanelittapp.PhotoGridAdapter
+import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentSearchListBinding
 import com.laanelitt.laanelittapp.objects.LocalStorage
 
@@ -43,6 +45,15 @@ class SearchListFragment : Fragment() {
                 this.findNavController().navigate(SearchListFragmentDirections.actionShowDetail(it))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayPropertyDetailsComplete()
+            }
+        })
+
+        viewModel.response.observe(viewLifecycleOwner, {
+            if(it==viewModel.success[1]){
+                Toast.makeText(context, "Feilet, prøver på nytt", Toast.LENGTH_LONG).show()
+            }else if(it==viewModel.success[2]){
+                Toast.makeText(context, "Noe gikk galt", Toast.LENGTH_LONG).show()
+                this.findNavController().navigate(R.id.homePageFragment)
             }
         })
         return binding.root

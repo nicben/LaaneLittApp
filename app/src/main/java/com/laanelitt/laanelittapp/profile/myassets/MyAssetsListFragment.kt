@@ -3,6 +3,7 @@ package com.laanelitt.laanelittapp.profile.myassets
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -41,6 +42,14 @@ class MyAssetsListFragment : Fragment() {
                 this.findNavController().navigate(MyAssetsListFragmentDirections.actionShowDetail(it))
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayPropertyDetailsComplete()
+            }
+        })
+        viewModel.response.observe(viewLifecycleOwner, {
+            if(it==viewModel.success[1]){
+                Toast.makeText(context, "Feilet, prøver på nytt", Toast.LENGTH_LONG).show()
+            }else if(it==viewModel.success[2]){
+                Toast.makeText(context, "Noe gikk galt", Toast.LENGTH_LONG).show()
+                this.findNavController().navigate(R.id.homePageFragment)
             }
         })
 

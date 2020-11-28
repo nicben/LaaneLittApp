@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import com.laanelitt.laanelittapp.Resource
 
 class ListViewModel: ViewModel(){
-
+    val success= arrayOf("Success", "Failure", "Critical failure")
     // Interne MutableLiveData som lagrer responsen fra APIet
     private val _response = MutableLiveData<String>()
 
@@ -24,7 +24,6 @@ class ListViewModel: ViewModel(){
 
     // LiveData to handle navigation to the selected property
     private val _navigateToSelectedProperty = MutableLiveData<Asset>()
-
     val navigateToSelectedProperty: LiveData<Asset>
         get() = _navigateToSelectedProperty
 
@@ -32,15 +31,16 @@ class ListViewModel: ViewModel(){
         viewModelScope.launch {
             try {
                 val listResult = LaneLittApi.retrofitService.getCatAssets(catNr)
-                _response.value = "Success: ${listResult.size}  assets retrieved"
+                _response.value = "Success"
                 _assets.value = listResult
 
             } catch (e: Exception) {
-                _response.value = "Failure: ${e.message}"
-
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
                 if(e.message=="timeout"){
+                    _response.value = success[1]
                     getCatAssets(catNr)
+                }else{
+                    _response.value = success[2]
                 }
             }
         }
@@ -53,15 +53,17 @@ class ListViewModel: ViewModel(){
 
                 val listResult = LaneLittApi.retrofitService.getMyAssets(userId)
 
-                _response.value = "Success: ${listResult.size}  assets retrieved"
+                _response.value = "Success"
                 _assets.value = listResult
 
             } catch (e: Exception) {
-                _response.value = "Failure: ${e.message}"
 
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
                 if(e.message=="timeout") {
+                    _response.value = success[1]
                     getMyAssets(userId)
+                }else{
+                    _response.value = success[2]
                 }
             }
         }
@@ -72,14 +74,16 @@ class ListViewModel: ViewModel(){
             try {
                 val listResult = LaneLittApi.retrofitService.getAssetSearch(userId, search)
 
-                _response.value = "Success: ${listResult.size}  assets retrieved"
+                _response.value = "Success"
                 _assets.value = listResult
 
             } catch (e: Exception) {
-                _response.value = "Failure: ${e.message}"
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
                 if(e.message=="timeout") {
+                    _response.value = success[1]
                     getAssetSearch(userId, search)
+                }else{
+                    _response.value = success[2]
                 }
             }
         }
