@@ -9,7 +9,6 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
-import java.io.File
 
 private const val BASE_URL="https://lanelitt.no/public/"
 

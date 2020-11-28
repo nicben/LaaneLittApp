@@ -6,9 +6,16 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.textfield.TextInputLayout
 import com.laanelitt.laanelittapp.notification.NotificationListAdapter
 import com.laanelitt.laanelittapp.objects.Asset
 import com.laanelitt.laanelittapp.objects.Notification
+
+
+//@BindingAdapter("username")
+//fun setUsername(view: TextInputLayout, username: String?) {
+//    view.editText = username
+//}
 
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asset>?) {
@@ -29,12 +36,14 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
         val image = "https://lanelitt.no/AssetImages/" + imgUrl
         val imgUri = image.toUri().buildUpon().scheme("https").build()
+
         Glide.with(imgView.context)
             .load(imgUri)
             .apply(
                 RequestOptions()
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image))
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+            )
             .into(imgView)
     }
 }
@@ -43,12 +52,14 @@ fun bindOwnerImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
         val image = "https://lanelitt.no/profileImages/" + imgUrl
         val imgUri = image.toUri().buildUpon().scheme("https").build()
+
         Glide.with(imgView.context)
             .load(imgUri)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.ic_broken_image))
+                    .error(R.drawable.ic_broken_image)
+            )
             .into(imgView)
     }
 }

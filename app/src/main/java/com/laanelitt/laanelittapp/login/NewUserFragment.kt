@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.laanelitt.laanelittapp.LaneLittApi
@@ -26,6 +27,7 @@ import retrofit2.Response
 
 class NewUserFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: FirebaseViewModel
     private lateinit var binding: FragmentNewUserBinding
     private lateinit var firstnameInput: Editable
     private lateinit var lastnameInput: Editable
@@ -49,6 +51,11 @@ class NewUserFragment : Fragment() {
 
         //
         auth = FirebaseAuth.getInstance()
+
+        val application = requireNotNull(activity).application
+        val viewModelFactory = FirebaseViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(FirebaseViewModel::class.java)
+
 
         //Henter brukernavn og passord fra LoginFragment hvis tekstfeltene har blit fylt
         val args = NewUserFragmentArgs.fromBundle(requireArguments())
@@ -124,67 +131,74 @@ class NewUserFragment : Fragment() {
             return
         }
         //Oppretter ny bruker i firebase
-        firebaseSignIn(firstnameInput.toString(), lastnameInput.toString(), usernameInput.toString(), passwordInput1.toString())
-    }
-
-    private fun firebaseSignIn(firstname: String, lastname: String, username: String, password: String) {
-        //Firebase
-        auth.createUserWithEmailAndPassword(username, password)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "firebaseSignIn: suksess")
-                    //Funsksjon fra ApiService for å registrere brukeren i databasen
-                    register(
-                        firstname,
-                        lastname,
-                        username,
-                        password,
-                    )
-                } else {
-                    Log.w(TAG, "firebaseSignIn:feilet", task.exception)
-                    Toast.makeText(
-                        requireContext(), "Brukeren eksisterer allerede",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-    }
-
-    private fun register(firstname: String, lastname: String, username: String, password1: String) {
-        //Oppretter et nytt bruker-objekt
-        val newUser = User(null, firstname, "", lastname,"user", null,  username, password1, "", true)
-        //registerUser fra ApiService
-        LaneLittApi.retrofitService.registerUser(newUser).enqueue(
-            object : Callback<Code> {
-                override fun onResponse(call: Call<Code>, response: Response<Code>) {
-                    if (response.body()?.code.toString() == "200") {
-                        Log.d(TAG, "register: suksess " + response.body()?.toString())
-                        //Sender brukernavn og passord til LoginFragment
-                        findNavController().navigate(
-                            NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
-                                username,
-                                password1
-                            )
-                        )
-                    } else {
-                        Log.d(TAG, "register: feilet " + response.body()?.toString())
-                        Toast.makeText(
-                            requireContext(),
-                            "Epost ikke gyldig/eksisterer allerede",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<Code>, t: Throwable) {
-                    Log.d(TAG, "register: onFailure$t")
-                    Toast.makeText(
-                        requireContext(),
-                        "Noe gikk galt",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
+        viewModel.firebaseSignIn(firstnameInput.toString(), lastnameInput.toString(), usernameInput.toString(), passwordInput1.toString(), auth)
+        //Sender brukernavn og passord til LoginFragment
+        findNavController().navigate(
+            NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
+            usernameInput.toString(),
+            passwordInput1.toString()
+            )
         )
     }
+
+//    private fun firebaseSignIn(firstname: String, lastname: String, username: String, password: String) {
+//        //Firebase
+//        auth.createUserWithEmailAndPassword(username, password)
+//            .addOnCompleteListener(requireActivity()) { task ->
+//                if (task.isSuccessful) {
+//                    Log.d(TAG, "firebaseSignIn: suksess")
+//                    //Funsksjon fra ApiService for å registrere brukeren i databasen
+//                    register(
+//                        firstname,
+//                        lastname,
+//                        username,
+//                        password,
+//                    )
+//                } else {
+//                    Log.w(TAG, "firebaseSignIn:feilet", task.exception)
+//                    Toast.makeText(
+//                        requireContext(), "Brukeren eksisterer allerede",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//    }
+//
+//    private fun register(firstname: String, lastname: String, username: String, password1: String) {
+//        //Oppretter et nytt bruker-objekt
+//        val newUser = User(null, firstname, "", lastname,"user", null,  username, password1, "", true)
+//        //registerUser fra ApiService
+//        LaneLittApi.retrofitService.registerUser(newUser).enqueue(
+//            object : Callback<Code> {
+//                override fun onResponse(call: Call<Code>, response: Response<Code>) {
+//                    if (response.body()?.code.toString() == "200") {
+//                        Log.d(TAG, "register: suksess " + response.body()?.toString())
+//                        //Sender brukernavn og passord til LoginFragment
+//                        findNavController().navigate(
+//                            NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
+//                                username,
+//                                password1
+//                            )
+//                        )
+//                    } else {
+//                        Log.d(TAG, "register: feilet " + response.body()?.toString())
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "Epost ikke gyldig/eksisterer allerede",
+//                            Toast.LENGTH_LONG
+//                        ).show()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<Code>, t: Throwable) {
+//                    Log.d(TAG, "register: onFailure$t")
+//                    Toast.makeText(
+//                        requireContext(),
+//                        "Noe gikk galt",
+//                        Toast.LENGTH_LONG
+//                    ).show()
+//                }
+//            }
+//        )
+//    }
 }

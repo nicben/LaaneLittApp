@@ -4,28 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.databinding.FragmentAssetBinding
-import com.laanelitt.laanelittapp.objects.Loan
 import com.laanelitt.laanelittapp.objects.LocalStorage
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-
-class AssetFragment : Fragment(){
+class AssetFragment : Fragment() {
     private lateinit var localStorage: LocalStorage
+    private lateinit var viewModel: AssetViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         localStorage = LocalStorage(requireContext())
         val userId = localStorage.getLoggedInUser?.id
 
@@ -35,16 +35,21 @@ class AssetFragment : Fragment(){
 
         val asset = AssetFragmentArgs.fromBundle(requireArguments()).selectedProperty
         val viewModelFactory = AssetViewModelFactory(asset, application)
-        binding.viewModel = ViewModelProvider(this, viewModelFactory).get(AssetViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(AssetViewModel::class.java)
+        binding.viewModel = viewModel
 
         val assetId = asset.id
-        if(asset.users?.zipCode?.id == null){
+        if (asset.users?.zipCode?.id == null) {
             binding.ownerLocation.visibility = View.INVISIBLE
+        }
+        if (userId == asset.users?.id) {
+            binding.pickDateButton.isEnabled = false
         }
 
         // Material Date Picker
         val fm = (activity as AppCompatActivity?)!!.supportFragmentManager
-        val builder : MaterialDatePicker.Builder<Pair<Long, Long>> = MaterialDatePicker.Builder.dateRangePicker()
+        val builder: MaterialDatePicker.Builder<Pair<Long, Long>> =
+            MaterialDatePicker.Builder.dateRangePicker()
 
         val constraintsBuilder = CalendarConstraints.Builder()
         val calendar = Calendar.getInstance()
@@ -55,7 +60,7 @@ class AssetFragment : Fragment(){
         builder.setCalendarConstraints(constraintsBuilder.build())
 
         builder.setTitleText("Velg dato")
-        val picker: MaterialDatePicker<Pair<Long, Long>>  = builder.build()
+        val picker: MaterialDatePicker<Pair<Long, Long>> = builder.build()
 
         binding.pickDateButton.setOnClickListener {
             picker.show(fm, picker.toString())
@@ -64,36 +69,24 @@ class AssetFragment : Fragment(){
         picker.addOnPositiveButtonClickListener { selection ->
             val start = selection.first
             val end = selection.second
-
+            //Format
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
-            //format yyyy-MM-dd
+            //Dato
             val startDateStr = sdf.format(start)
             val endDateStr = sdf.format(end)
 
             if (userId != null && startDateStr != null && endDateStr != null) {
-                sendLoanRequest(userId, assetId, startDateStr, endDateStr)
+                viewModel.sendLoanRequest(userId, assetId, startDateStr, endDateStr)
+                Toast.makeText(
+                    requireContext(),
+                    "Valgt dato: " + picker.headerText,
+                    Toast.LENGTH_LONG
+                ).show()
             }
-
         }
-
         return binding.root
     }//end onCreateView
-
-    private fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String) {
-
-        val newLoan = Loan(startDate, endDate)
-        //ApiService
-        LaneLittApi.retrofitService.sendLoanRequest(userId, assetId, newLoan).enqueue(
-            object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                }
-            }
-        )
-    }//end sendLoanRequest
 }
+
 
 

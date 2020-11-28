@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/start_end_landscap"
             android:layout_marginEnd="@dimen/start_end_landscap"
-            tools:context=".profile.settings.EditNameFragment">
+            tools:context=".profile.settings.editname.EditNameFragment">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_firstname"

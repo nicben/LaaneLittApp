@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.profile.settings
+package com.laanelitt.laanelittapp.profile.settings.editimage
 
 import android.Manifest
 import android.content.Context
@@ -15,10 +15,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.laanelitt.laanelittapp.LaneLittApi
@@ -26,6 +28,9 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentEditImageBinding
 import com.laanelitt.laanelittapp.objects.Code
 import com.laanelitt.laanelittapp.objects.LocalStorage
+import com.laanelitt.laanelittapp.objects.User
+import com.laanelitt.laanelittapp.profile.settings.editname.EditNameViewModel
+import com.laanelitt.laanelittapp.profile.settings.editname.EditNameViewModelFactory
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -39,10 +44,12 @@ import java.util.*
 import kotlin.jvm.Throws
 
 class EditImageFragment : Fragment() {
+    private lateinit var viewModel: EditImageViewModel
     private lateinit var binding: FragmentEditImageBinding
     private lateinit var localStorage: LocalStorage
-    private var pathTilBildeFil=""
-    private var ogFile:File?=null
+    private lateinit var loggedInUser: User
+    private var pathToPictureFile = ""
+    private var originalFile: File? = null
 
 
     override fun onCreateView(
@@ -50,13 +57,26 @@ class EditImageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+//      Henter bruker-objektet som er lagret
         localStorage = LocalStorage(requireContext())
-
+        loggedInUser = localStorage.getLoggedInUser!!
         val userId= localStorage.getLoggedInUser!!.id.toString()
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_edit_image, container, false
+            inflater,
+            R.layout.fragment_edit_image,
+            container,
+            false
         )
+
+        val application = requireNotNull(activity).application
+        val viewModelFactory = EditImageViewModelFactory(loggedInUser, application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(EditImageViewModel::class.java)
+
+        binding.editViewModel = viewModel
+
+        binding.lifecycleOwner = viewLifecycleOwner
+
         binding.takePicture.setOnClickListener {
             if (allPermissionsGranted())  {
                 println("if**************")
@@ -88,9 +108,7 @@ class EditImageFragment : Fragment() {
             println("get from pref  :::  "+profilePicture)
         }
 
-
         if(profilePicture != "https://lanelitt.no/profileImages/"){
-            println("if, if is a nice word")
             Glide.with(requireContext()).load(imageUri).into(binding.image)
         }
     }
@@ -124,19 +142,19 @@ class EditImageFragment : Fragment() {
     }
 
     private fun save(userId:String){
-        if(ogFile!=null){
+        if(originalFile != null){
 
-            val userIdPart= RequestBody.create(MultipartBody.FORM, userId)
+            val userIdPart = RequestBody.create(MultipartBody.FORM, userId)
 
             //Bilde som skal sendest med API kallet
-            val filePart= RequestBody.create(MediaType.parse("image/*"), ogFile!!)
-            val file= MultipartBody.Part.createFormData("file", ogFile!!.name, filePart)
+            val filePart = RequestBody.create(MediaType.parse("image/*"), originalFile !!)
+            val file = MultipartBody.Part.createFormData("file", originalFile !!.name, filePart)
 
             LaneLittApi.retrofitService.uploadProfileImage(userIdPart, file).enqueue(
                 object : Callback<Code> {
                     override fun onResponse(call: Call<Code>, response: Response<Code>) {
                         Toast.makeText(context, "Bilde opplastning gikk bra", Toast.LENGTH_LONG).show()
-                        Pref.setNewPicture(requireContext(),"ID", ogFile!!.toUri().toString())
+                        Pref.setNewPicture(requireContext(), "ID", originalFile !!.toUri().toString())
                         findNavController().navigate(R.id.myAssetsListFragment)
                     }
 
@@ -156,16 +174,16 @@ class EditImageFragment : Fragment() {
         if(takePictureIntent.resolveActivity(requireActivity().packageManager)!=null){
             try {
                 println("try---------------------------------")
-                ogFile=createImageFile()
-            }catch (e:IOException){
+                originalFile = createImageFile()
+            }catch (e: IOException){
                 println("catch---------------------------------")
             }
-            if(ogFile!=null){
+            if(originalFile !=null){
                 println("if---------------------------------")
                 val fileUri= FileProvider.getUriForFile(requireContext(),
-                    "com.laanelitt.laanelittapp.fileprovider", ogFile!!)
+                    "com.laanelitt.laanelittapp.fileprovider", originalFile !!)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
-                pathTilBildeFil=ogFile!!.absolutePath
+                pathToPictureFile = originalFile !!.absolutePath
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
             }
         }
@@ -179,18 +197,18 @@ class EditImageFragment : Fragment() {
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
 
-                Glide.with(this).load(pathTilBildeFil).into(binding.image)
+                Glide.with(this).load(pathToPictureFile).into(binding.image)
             }
         }
     }
     @Throws(IOException::class)
     private fun createImageFile():File?{
-        var imageFile:File?=null
-        val photoStorageDir=getPhotoDirectory()
-        if (photoStorageDir!=null){
+        var imageFile:File? = null
+        val photoStorageDir = getPhotoDirectory()
+        if (photoStorageDir != null){
             val timeStamp= SimpleDateFormat("YMMdd-HHmss").format(Date())
-            val imageFileName=photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
-            imageFile= File(imageFileName)
+            val imageFileName = photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
+            imageFile = File(imageFileName)
             println(imageFileName)
         }
         return imageFile
@@ -227,12 +245,12 @@ class EditImageFragment : Fragment() {
     ) {
         if(requestCode== REQUEST_CODE_PERMISSIONS){
             if(allPermissionsGranted()){
-                println("Permisjons granted")
-                Toast.makeText(context, "Permisjons granted", Toast.LENGTH_LONG).show()
+                println("Permission granted")
+                Toast.makeText(context, "Permission granted", Toast.LENGTH_LONG).show()
                 takePicture()
             }else{
-                println("Permisjons not granted")
-                Toast.makeText(context, "Permisjons not granted", Toast.LENGTH_LONG).show()
+                println("Permission not granted")
+                Toast.makeText(context, "Permission not granted", Toast.LENGTH_LONG).show()
 
             }
         }

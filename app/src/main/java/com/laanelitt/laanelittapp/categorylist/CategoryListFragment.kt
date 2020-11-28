@@ -2,24 +2,31 @@ package com.laanelitt.laanelittapp.categorylist
 
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.lifecycle.Observer
 import com.laanelitt.laanelittapp.ListViewModel
 import com.laanelitt.laanelittapp.PhotoGridAdapter
+import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
+import com.laanelitt.laanelittapp.databinding.FragmentMyAssetBinding
 
-//liste etter kategori
+
 class CategoryListFragment : Fragment() {
-
+    private lateinit var binding: FragmentCategoryListBinding
     private val viewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel()::class.java)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        val binding=FragmentCategoryListBinding.inflate(inflater)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_category_list,
+            container,
+            false
+        )
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         viewModel.getCatAssets(CategoryListFragmentArgs.fromBundle(requireArguments()).catId)
@@ -40,9 +47,5 @@ class CategoryListFragment : Fragment() {
             }
         })
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 }
