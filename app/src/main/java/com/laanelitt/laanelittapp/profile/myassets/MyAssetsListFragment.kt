@@ -45,9 +45,9 @@ class MyAssetsListFragment : Fragment() {
             }
         })
         viewModel.response.observe(viewLifecycleOwner, {
-            if(it==viewModel.success[1]){
+            if(it==viewModel.status[1]){
                 Toast.makeText(context, "Feilet, prøver på nytt", Toast.LENGTH_LONG).show()
-            }else if(it==viewModel.success[2]){
+            }else if(it==viewModel.status[2]){
                 Toast.makeText(context, "Noe gikk galt", Toast.LENGTH_LONG).show()
                 this.findNavController().navigate(R.id.homePageFragment)
             }

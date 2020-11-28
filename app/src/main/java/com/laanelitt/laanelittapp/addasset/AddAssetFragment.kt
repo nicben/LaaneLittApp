@@ -139,7 +139,6 @@ class AddAssetFragment : Fragment() {
     }//end addAsset
 
     private fun save(userId:String, title: String, description: String){
-
         val categoryId: Int
         if(binding.category.selectedItemPosition<3){
             categoryId = binding.category.selectedItemPosition+1

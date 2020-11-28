@@ -21,30 +21,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class EditPasswordViewModel(
-                            app: Application) : AndroidViewModel(app) {
-//    private val _loggedInUser = MutableLiveData<FirebaseUser>()
-//    private val _password = MutableLiveData<String>("")
-//    val password: LiveData<String>
-//        get() = _password
-//
-//    // The external LiveData for the SelectedProperty
-//    val loggedInUser: LiveData<FirebaseUser>
-//        get() = _loggedInUser
-//
-//    // Initialize the _selectedProperty MutableLiveData
-//    init {
-//        _loggedInUser.value = user
-//    }
-
-//    fun onClick(view: View?) {
-//        Log.d(ContentValues.TAG, "Hallloooooooooooooooooooooooooo EditUser")
-//        updateName(user)
-//        var text = user.value + " " + _lastname.value
-//        Log.d(ContentValues.TAG, text)
-//        val loginUser = LoginUser(email.getValue(), password.getValue())
-//        userMutableLiveData!!.setValue(loginUser)
-//    }
+class EditPasswordViewModel(app: Application) : AndroidViewModel(app) {
+    val status = arrayOf("Success", "Failure", "AuthFailure")
+    private val _response = MutableLiveData<String>()
+    val response: LiveData<String>
+        get() = _response
 
     fun updatePassword(oldPassword: String, newPassword: String, user: FirebaseUser){
         if (user.email != null) {
@@ -59,25 +40,15 @@ class EditPasswordViewModel(
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 Log.d(ContentValues.TAG, "Passord er oppdatert")
-//                                Toast.makeText(
-//                                    requireContext(),
-//                                    "Oppdatert",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                                //Sendes videre til innstillinger-siden
-//                                findNavController().navigate(R.id.settingsFragment)
+                                _response.value = status[0]
                             } else {
                                 Log.d(ContentValues.TAG, "Passord ble ikke oppdatert")
-//                                Toast.makeText(
-//                                    requireContext(), "Noe gikk galt",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
+                                _response.value = status[1]
                             }
                         }
-
                 } else {
                     Log.d(ContentValues.TAG, "Bruker ble ikke re-autentisert")
-//                    edit_password_current.error  = "Feil passord"
+                    _response.value = status[2]
                 }
             }
         }

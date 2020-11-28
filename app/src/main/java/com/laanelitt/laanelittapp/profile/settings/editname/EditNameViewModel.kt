@@ -15,8 +15,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class EditNameViewModel(user: User,
-                        app: Application) : AndroidViewModel(app) {
+class EditNameViewModel(user: User, app: Application) : AndroidViewModel(app) {
+    val status = arrayOf("Success", "Failure")
+    private val _response = MutableLiveData<String>()
+    val response: LiveData<String>
+        get() = _response
+
     private val _loggedInUser = MutableLiveData<User>()
 
     // The external LiveData for the SelectedProperty
@@ -27,16 +31,6 @@ class EditNameViewModel(user: User,
     init {
         _loggedInUser.value = user
     }
-
-//    fun onClick(view: View?) {
-//        Log.d(ContentValues.TAG, "Hallloooooooooooooooooooooooooo EditUser")
-//        updateName(user)
-//        var text = user.value + " " + _lastname.value
-//        Log.d(ContentValues.TAG, text)
-//        val loginUser = LoginUser(email.getValue(), password.getValue())
-//        userMutableLiveData!!.setValue(loginUser)
-//    }
-
 
     fun updateName(userId: Int, firstname: String, lastname: String, user: User, localStorage: LocalStorage) {
         //Legger til de oppdaterte navnene til bruker-objektet som skal sendes med editUser
@@ -49,18 +43,19 @@ class EditNameViewModel(user: User,
                 override fun onResponse(call: Call<Code>, response: Response<Code>) {
                     if(response.body()?.code.toString()=="200"){
                         println( "editUser(name): Suksess " +response.body()?.code.toString())
+                        _response.value = status[0]
                         //Legger til de oppdaterte navnene og oppdaterer bruker-objektet som er lagret
                         localStorage.updateUser(user)
 
                     } else {
                         println( "editUser(name): Feilet " +response.body()?.code.toString())
-
+                        _response.value = status[1]
                     }
                 }
 
                 override fun onFailure(call: Call<Code>, t: Throwable) {
                     println("editUser(name): onFailure$t")
-
+                    _response.value = status[1]
                 }
             }
         )

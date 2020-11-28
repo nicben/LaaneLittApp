@@ -19,6 +19,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class EditZipcodeViewModel (user: User, app: Application) : AndroidViewModel(app) {
+    val status = arrayOf("Success", "Failure")
+    private val _response = MutableLiveData<String>()
+    val response: LiveData<String>
+        get() = _response
+
     private val _loggedInUser = MutableLiveData<User>()
 
     // The external LiveData for the SelectedProperty
@@ -41,17 +46,18 @@ class EditZipcodeViewModel (user: User, app: Application) : AndroidViewModel(app
                         if (response.body()?.city.toString() != "") {
                             println( "editUser(zipcode): Suksess " +response.body()?.code.toString())
                             //Legger til oppdatert postnr og oppdaterer bruker-objektet som er lagret
+                            _response.value = status[0]
                             user.zipcode = zipcode
                             localStorage.updateUser(user)
                         } else {
                             println("editUser(zipcode): Feilet " +response.body()?.code.toString())
-
-//                            edit_zipcode.error = "Ugyldig postnummer"
+                            _response.value = status[1]
                         }
                     }
 
                     override fun onFailure(call: Call<Code>, t: Throwable) {
                         println("editUser(zipcode): onFailure$t")
+                        _response.value = status[1]
                     }
                 }
             )
