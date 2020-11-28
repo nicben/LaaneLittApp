@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.EmailAuthProvider
@@ -20,9 +21,9 @@ import com.laanelitt.laanelittapp.databinding.FragmentEditPasswordBinding
 import com.laanelitt.laanelittapp.profile.settings.editname.EditNameViewModel
 import com.laanelitt.laanelittapp.profile.settings.editname.EditNameViewModelFactory
 import kotlinx.android.synthetic.main.fragment_edit_password.*
+import kotlinx.android.synthetic.main.fragment_login.*
 
 class EditPasswordFragment : Fragment() {
-
     private lateinit var auth: FirebaseAuth
     private lateinit var viewModel: EditPasswordViewModel
     private lateinit var binding: FragmentEditPasswordBinding
@@ -44,12 +45,10 @@ class EditPasswordFragment : Fragment() {
             inflater, R.layout.fragment_edit_password, container, false
         )
 
-
         val application = requireNotNull(activity).application
         val viewModelFactory = EditPasswordViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(EditPasswordViewModel::class.java)
-
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.lifecycleOwner = this
 
 
         binding.editPasswordBtn.setOnClickListener {
@@ -60,6 +59,27 @@ class EditPasswordFragment : Fragment() {
             //Funsksjonen for å oppdatere passordet i firebase
             validatePassword()
         }
+
+        viewModel.response.observe(viewLifecycleOwner, Observer{
+            if (it == viewModel.status[0]) {
+                //Sendes videre til innstillinger-siden
+                this.findNavController().navigate(R.id.settingsFragment)
+                Toast.makeText(
+                    requireContext(),
+                    "Oppdatert",
+                    Toast.LENGTH_LONG
+                ).show()
+
+            }else if (it == viewModel.status[1]){
+                Toast.makeText(
+                    requireContext(), "Noe gikk galt",
+                    Toast.LENGTH_LONG
+                ).show()
+            }else if (it == viewModel.status[2]) {
+                edit_password_current.error = "Feil passord"
+            }
+        })
+
         return binding.root
     }
 
@@ -100,13 +120,6 @@ class EditPasswordFragment : Fragment() {
                 passwordNew.toString(),
                 currentUser
             )
-            //Sendes videre til innstillinger-siden
-            findNavController().navigate(R.id.settingsFragment)
-            Toast.makeText(
-                requireContext(),
-                "Oppdatert",
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
 }

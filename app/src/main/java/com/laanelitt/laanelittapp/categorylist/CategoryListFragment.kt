@@ -5,14 +5,12 @@ import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.ListViewModel
 import com.laanelitt.laanelittapp.PhotoGridAdapter
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
-import com.laanelitt.laanelittapp.databinding.FragmentMyAssetBinding
 
 
 class CategoryListFragment : Fragment() {
@@ -49,9 +47,9 @@ class CategoryListFragment : Fragment() {
             }
         })
         viewModel.response.observe(viewLifecycleOwner, {
-            if(it==viewModel.success[1]){
+            if(it==viewModel.status[1]){
                 Toast.makeText(context, "Feilet, prøver på nytt",Toast.LENGTH_LONG).show()
-            }else if(it==viewModel.success[2]){
+            }else if(it==viewModel.status[2]){
                 Toast.makeText(context, "Noe gikk galt",Toast.LENGTH_LONG).show()
                 this.findNavController().navigate(R.id.homePageFragment)
             }

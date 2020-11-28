@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.lifecycle.Observer
 import com.laanelitt.laanelittapp.ListViewModel
 import com.laanelitt.laanelittapp.PhotoGridAdapter
 import com.laanelitt.laanelittapp.R
@@ -49,9 +48,9 @@ class SearchListFragment : Fragment() {
         })
 
         viewModel.response.observe(viewLifecycleOwner, {
-            if(it==viewModel.success[1]){
+            if(it==viewModel.status[1]){
                 Toast.makeText(context, "Feilet, prøver på nytt", Toast.LENGTH_LONG).show()
-            }else if(it==viewModel.success[2]){
+            }else if(it==viewModel.status[2]){
                 Toast.makeText(context, "Noe gikk galt", Toast.LENGTH_LONG).show()
                 this.findNavController().navigate(R.id.homePageFragment)
             }

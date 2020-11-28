@@ -41,11 +41,13 @@ class NotificationListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         notificationViewModel.response.observe(viewLifecycleOwner, {
-            if(it==notificationViewModel.success[1]){
+            if(it == notificationViewModel.status[1]){
                 Toast.makeText(context, "Feilet, prøver på nytt", Toast.LENGTH_LONG).show()
-            }else if(it==notificationViewModel.success[2]){
+            }else if(it == notificationViewModel.status[2]){
                 Toast.makeText(context, "Noe gikk galt", Toast.LENGTH_LONG).show()
                 this.findNavController().navigate(R.id.homePageFragment)
+            }else if(it == notificationViewModel.status[3]) {
+               this. findNavController().navigate(R.id.notificationsFragment)
             }
         })
         return binding.root
@@ -64,28 +66,15 @@ class NotificationListFragment : Fragment() {
                     // Respond to neutral button press
                 }
                 .setNegativeButton(resources.getString(R.string.decline)) { _, _ ->
-                    reply(it.id!!, localStorage.getLoggedInUser!!.id!!, 2)// Respond to negative button press
+                    notificationViewModel.reply(it.id!!, localStorage.getLoggedInUser!!.id!!, 2)// Respond to negative button press
                 }
                 .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
-                    reply(it.id!!, localStorage.getLoggedInUser!!.id!!, 1)
+                    notificationViewModel.reply(it.id!!, localStorage.getLoggedInUser!!.id!!, 1)
                 }
                 .show()
         })
 
     }//end onViewCreated
-
-    private fun reply(id:Int, userId: Int, reply: Int){
-        LaneLittApi.retrofitService.replyRequest(userId.toString(), id.toString(), reply.toString()).enqueue(
-            object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    findNavController().navigate(R.id.notificationsFragment)
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                }
-            }
-        )
-    }//end reply
 
     private fun observeAuthenticationState() {
         val loggedInUser = localStorage.getLoggedInUser

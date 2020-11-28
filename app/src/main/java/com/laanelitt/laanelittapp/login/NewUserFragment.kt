@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +20,7 @@ import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentNewUserBinding
 import com.laanelitt.laanelittapp.objects.Code
 import com.laanelitt.laanelittapp.objects.User
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_new_user.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,6 +45,31 @@ class NewUserFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_user, container, false
         )
+
+        val application = requireNotNull(activity).application
+        val viewModelFactory = FirebaseViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(FirebaseViewModel::class.java)
+        binding.lifecycleOwner = this
+
+        viewModel.response.observe(viewLifecycleOwner, Observer{
+            if ( it == viewModel.status[0]) {
+                //Sender brukernavn og passord til LoginFragment
+                findNavController().navigate(
+                    NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
+                        usernameInput.toString(),
+                        passwordInput1.toString()
+                    )
+                )
+            }
+            else if(it == viewModel.status[1]){
+                Toast.makeText(
+                    requireContext(),
+                    "Noe gikk galt. Prøv igjen!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
+
         return binding.root
     }
 
@@ -51,11 +78,6 @@ class NewUserFragment : Fragment() {
 
         //
         auth = FirebaseAuth.getInstance()
-
-        val application = requireNotNull(activity).application
-        val viewModelFactory = FirebaseViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(FirebaseViewModel::class.java)
-
 
         //Henter brukernavn og passord fra LoginFragment hvis tekstfeltene har blit fylt
         val args = NewUserFragmentArgs.fromBundle(requireArguments())
@@ -131,74 +153,12 @@ class NewUserFragment : Fragment() {
             return
         }
         //Oppretter ny bruker i firebase
-        viewModel.firebaseSignIn(firstnameInput.toString(), lastnameInput.toString(), usernameInput.toString(), passwordInput1.toString(), auth)
-        //Sender brukernavn og passord til LoginFragment
-        findNavController().navigate(
-            NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
+        viewModel.firebaseSignIn(
+            firstnameInput.toString(),
+            lastnameInput.toString(),
             usernameInput.toString(),
-            passwordInput1.toString()
-            )
-        )
+            passwordInput1.toString(),
+            auth)
     }
 
-//    private fun firebaseSignIn(firstname: String, lastname: String, username: String, password: String) {
-//        //Firebase
-//        auth.createUserWithEmailAndPassword(username, password)
-//            .addOnCompleteListener(requireActivity()) { task ->
-//                if (task.isSuccessful) {
-//                    Log.d(TAG, "firebaseSignIn: suksess")
-//                    //Funsksjon fra ApiService for å registrere brukeren i databasen
-//                    register(
-//                        firstname,
-//                        lastname,
-//                        username,
-//                        password,
-//                    )
-//                } else {
-//                    Log.w(TAG, "firebaseSignIn:feilet", task.exception)
-//                    Toast.makeText(
-//                        requireContext(), "Brukeren eksisterer allerede",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//    }
-//
-//    private fun register(firstname: String, lastname: String, username: String, password1: String) {
-//        //Oppretter et nytt bruker-objekt
-//        val newUser = User(null, firstname, "", lastname,"user", null,  username, password1, "", true)
-//        //registerUser fra ApiService
-//        LaneLittApi.retrofitService.registerUser(newUser).enqueue(
-//            object : Callback<Code> {
-//                override fun onResponse(call: Call<Code>, response: Response<Code>) {
-//                    if (response.body()?.code.toString() == "200") {
-//                        Log.d(TAG, "register: suksess " + response.body()?.toString())
-//                        //Sender brukernavn og passord til LoginFragment
-//                        findNavController().navigate(
-//                            NewUserFragmentDirections.actionNewUserFragmentToLoginFragment(
-//                                username,
-//                                password1
-//                            )
-//                        )
-//                    } else {
-//                        Log.d(TAG, "register: feilet " + response.body()?.toString())
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "Epost ikke gyldig/eksisterer allerede",
-//                            Toast.LENGTH_LONG
-//                        ).show()
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<Code>, t: Throwable) {
-//                    Log.d(TAG, "register: onFailure$t")
-//                    Toast.makeText(
-//                        requireContext(),
-//                        "Noe gikk galt",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
-//            }
-//        )
-//    }
 }

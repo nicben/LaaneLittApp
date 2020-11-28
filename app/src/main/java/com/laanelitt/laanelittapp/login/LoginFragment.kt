@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +36,26 @@ class LoginFragment : Fragment(){
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false
         )
+
+        val application = requireNotNull(activity).application
+        val viewModelFactory = FirebaseViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(FirebaseViewModel::class.java)
+        binding.lifecycleOwner = this
+
+        viewModel.response.observe(viewLifecycleOwner, Observer{
+            if ( it == viewModel.status[0]) {
+                // Must find the NavController from the Fragment
+                this.findNavController().navigate(R.id.homePageFragment)
+            }
+            else if(it == viewModel.status[1]){
+                username.error = null
+                password.error = null
+                username.error = "Feil brukernavn/passord"
+                password.error = "Feil brukernavn/passord"
+                username.requestFocus()
+            }
+        })
+
        return binding.root
     }
 
@@ -43,11 +64,6 @@ class LoginFragment : Fragment(){
 
         auth = FirebaseAuth.getInstance()
         localStorage = LocalStorage(requireContext())
-
-        val application = requireNotNull(activity).application
-        val viewModelFactory = FirebaseViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(FirebaseViewModel::class.java)
-
 
         //Brukernavn og passord fra tekstfeltene
         usernameInput = username.editText?.text!!
@@ -80,7 +96,6 @@ class LoginFragment : Fragment(){
                 )
             )
         }
-
     }
 
 
@@ -111,69 +126,8 @@ class LoginFragment : Fragment(){
                 auth,
                 localStorage
             )
-            findNavController().navigate(R.id.homePageFragment)
         }
     }
-//
-//    private fun firebaseAuth(username: String, password: String) {
-//        //Firebase
-//        auth.signInWithEmailAndPassword(username, password)
-//            .addOnCompleteListener(requireActivity()) { task ->
-//                if (task.isSuccessful) {
-//                    Log.d(TAG, "firebaseAuth:suksess")
-//                    //Funsksjon fra ApiService
-//                    login(
-//                        username,
-//                        password
-//                    )
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.w(TAG, "firebaseAuth:feilet", task.exception)
-//                    Toast.makeText(
-//                        requireContext(), "Innlogging feilet.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//    }
-//
-//    private fun login(username: String, password: String) {
-//        //ApiService
-//        LaneLittApi.retrofitService.login(username, password).enqueue(
-//            object : Callback<LoggedInUser> {
-//                override fun onResponse(
-//                    call: Call<LoggedInUser>,
-//                    response: Response<LoggedInUser>
-//                ) {
-//                    if (response.body()?.user?.id != null) { //Godkjent
-//                        Log.d(TAG, "login: suksess " + response.body()?.user?.id.toString())
-//                        Toast.makeText(requireContext(), "Du er logget inn", Toast.LENGTH_LONG)
-//                            .show()
-//                        //Henter bruker-objektet
-//                        val user = response.body()?.user
-//                        //Lagrer bruker-objektet og setter userLoggedIn til true
-//                        localStorage.storeUserData(user!!)
-//                        localStorage.setUserLoggedIn(true)
-//                        //Sendes videre til hovedsiden
-//                        findNavController().navigate(R.id.homePageFragment)
-//                    } else {
-//                        Log.d(TAG, "login: Feilet " + response.body()?.toString())
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "Feil brukernavn/passord",
-//                            Toast.LENGTH_LONG
-//                        ).show()
-//                    }
-//                }
-//
-//                //Man kommer rett hit ved feil brukernavn/passord
-//                override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
-//                    Log.d(TAG, "login: onFailure$t")
-//                    Toast.makeText(requireContext(), "Noe gikk galt", Toast.LENGTH_LONG).show()
-//                }
-//            }
-//        )
-//    }
 }
 
 

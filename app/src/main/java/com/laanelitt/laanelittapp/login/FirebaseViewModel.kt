@@ -3,6 +3,7 @@ package com.laanelitt.laanelittapp.login
 import android.app.Application
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.laanelitt.laanelittapp.LaneLittApi
@@ -13,16 +14,19 @@ import retrofit2.Response
 
 
 class FirebaseViewModel(app: Application) : AndroidViewModel(app) {
+    val status = arrayOf("Success", "Failure")
+    private val _response = MutableLiveData<String>()
+    val response: LiveData<String>
+        get() = _response
 
-
-fun firebaseAuth(
-    username: String,
-    password: String,
-    firebaseAuth: FirebaseAuth,
-    localStorage: LocalStorage
-) {
+    fun firebaseAuth(
+        username: String,
+        password: String,
+        firebaseAuth: FirebaseAuth,
+        localStorage: LocalStorage
+    ) {
         //Firebase
-    firebaseAuth.signInWithEmailAndPassword(username, password)
+        firebaseAuth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     println("firebaseAuth: suksess")
@@ -33,19 +37,21 @@ fun firebaseAuth(
                     )
                 } else {
                     println("firebaseAuth:feilet" + task.exception)
+                    _response.value = status[1]
                 }
             }
     }
 
     private fun login(username: String, password: String, localStorage: LocalStorage) {
+
         //ApiService
         LaneLittApi.retrofitService.login(username, password).enqueue(
             object : Callback<LoggedInUser> {
                 override fun onResponse(
                     call: Call<LoggedInUser>,
-                    response: Response<LoggedInUser>
-                ) {
+                    response: Response<LoggedInUser>) {
                     println("login: onResponse " + response.body()?.user?.id.toString())
+                    _response.value = status[0]
                     //Henter bruker-objektet
                     val user = response.body()?.user
                     //Lagrer bruker-objektet og setter userLoggedIn til true
@@ -56,6 +62,7 @@ fun firebaseAuth(
                 //Man kommer rett hit ved feil brukernavn/passord
                 override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
                     println("login: onFailure$t")
+                    _response.value = status[1]
                 }
             }
         )
@@ -82,6 +89,7 @@ fun firebaseAuth(
                     )
                 } else {
                     println("firebaseSignIn:feilet" + task.exception)
+                    _response.value = status[1]
                 }
             }
     }
@@ -105,11 +113,12 @@ fun firebaseAuth(
             object : Callback<Code> {
                 override fun onResponse(call: Call<Code>, response: Response<Code>) {
                     println("register: onResponse " + response.body()?.toString())
-
+                    _response.value = status[0]
                 }
 
                 override fun onFailure(call: Call<Code>, t: Throwable) {
                     println("register: onFailure$t")
+                    _response.value = status[1]
                 }
             }
         )

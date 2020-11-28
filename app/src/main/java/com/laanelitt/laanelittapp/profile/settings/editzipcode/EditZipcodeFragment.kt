@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.LaneLittApi
@@ -47,9 +48,8 @@ class EditZipcodeFragment : Fragment() {
         val application = requireNotNull(activity).application
         val viewModelFactory = EditZipcodeViewModelFactory(loggedInUser, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(EditZipcodeViewModel::class.java)
-
         binding.editViewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.lifecycleOwner = this
 
 
         binding.editZipcodeBtn?.setOnClickListener {
@@ -57,6 +57,21 @@ class EditZipcodeFragment : Fragment() {
             //Validerer inndataen og lagrer det nye postnr
             validateZipcode()
         }
+
+        viewModel.response.observe(viewLifecycleOwner, Observer{
+            if ( it == viewModel.status[0]) {
+                //Sendes videre til innstillinger-siden
+                this.findNavController().navigate(R.id.settingsFragment)
+                Toast.makeText(
+                    requireContext(),
+                    "Oppdatert",
+                    Toast.LENGTH_LONG
+                ).show()
+            }else if (it == viewModel.status[1]){
+                edit_zipcode.error = "Ugyldig postnummer"
+            }
+        })
+
         return binding.root
     }
 
@@ -79,13 +94,7 @@ class EditZipcodeFragment : Fragment() {
                 loggedInUser,
                 localStorage
             )
-            //Sendes videre til innstillinger-siden
-            findNavController().navigate(R.id.settingsFragment)
-            Toast.makeText(
-                requireContext(),
-                "Oppdatert",
-                Toast.LENGTH_LONG
-            ).show()
+
         }
     }
 }

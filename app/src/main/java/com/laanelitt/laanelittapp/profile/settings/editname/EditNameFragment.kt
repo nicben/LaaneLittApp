@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.laanelitt.laanelittapp.R
@@ -15,30 +16,15 @@ import com.laanelitt.laanelittapp.databinding.FragmentEditNameBinding
 import com.laanelitt.laanelittapp.objects.LocalStorage
 import com.laanelitt.laanelittapp.objects.User
 import kotlinx.android.synthetic.main.fragment_edit_name.*
+import kotlinx.android.synthetic.main.fragment_login.*
 
 class EditNameFragment : Fragment() {
-
     private lateinit var localStorage: LocalStorage
     private lateinit var loggedInUser: User
     private lateinit var viewModel: EditNameViewModel
     private lateinit var binding: FragmentEditNameBinding
     private lateinit var firstnameInput: Editable
     private lateinit var lastnameInput: Editable
-
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        adapter = BookSearchResultsAdapter()
-//        viewModel = ViewModelProviders.of(this)[BookSearchViewModel::class.java]
-//        viewModel.init()
-//        viewModel.getVolumesResponseLiveData().observe(this,
-//            Observer<Any?> { volumesResponse ->
-//                if (volumesResponse != null) {
-//                    adapter.setResults(volumesResponse.getItems())
-//                }
-//            })
-//    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +34,6 @@ class EditNameFragment : Fragment() {
         //Henter bruker-objektet som er lagret
         localStorage = LocalStorage(requireContext())
         loggedInUser = localStorage.getLoggedInUser!!
-
 
         binding = DataBindingUtil.inflate(
             inflater,
@@ -63,7 +48,19 @@ class EditNameFragment : Fragment() {
 
         binding.editViewModel = viewModel
 
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.lifecycleOwner = this
+
+        viewModel.response.observe(viewLifecycleOwner, Observer{
+            if ( it == viewModel.status[0]) {
+                //Sendes videre til innstillinger-siden
+                this. findNavController().navigate(R.id.settingsFragment)
+                Toast.makeText(
+                    requireContext(),
+                    "Oppdatert",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
 
         binding.editNameBtn.setOnClickListener {
             //Henter tekstene far tekstfeltene
@@ -73,14 +70,6 @@ class EditNameFragment : Fragment() {
             //Validerer inndataene og lagrer det nye navnet
             validateName()
         }
-
-        // Observer for the Game finished event
-//        viewModel.editUser()?.observe(viewLifecycleOwner, {
-//            Log.d(TAG, "Hallloooooooooooooooooooooooooo")
-//
-//        })
-//
-
         return binding.root
     }
 
@@ -105,59 +94,6 @@ class EditNameFragment : Fragment() {
                 loggedInUser,
                 localStorage
             )
-            //Sendes videre til innstillinger-siden
-            findNavController().navigate(R.id.settingsFragment)
-            Toast.makeText(
-                requireContext(),
-                "Oppdatert",
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
-//
-//    private fun updateName(userId: Int, firstname: String, lastname: String, user: User, localStorage: LocalStorage) {
-//        //Legger til de oppdaterte navnene til bruker-objektet som skal sendes med editUser
-//        user.firstname = firstname
-//        user.lastname = lastname
-//
-//        //ApiService
-//        LaneLittApi.retrofitService.editUser(userId, user).enqueue(
-//            object : Callback<Code> {
-//                override fun onResponse(call: Call<Code>, response: Response<Code>) {
-//                    if(response.body()?.code.toString()=="200"){
-//                        Log.d(TAG, "editUser(name): Suksess " +response.body()?.code.toString())
-//                        //Legger til de oppdaterte navnene og oppdaterer bruker-objektet som er lagret
-//                        localStorage.updateUser(user)
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "Oppdatert",
-//                            Toast.LENGTH_LONG
-//                        ).show()
-//
-//                        //Sendes videre til innstillinger-siden
-//                        findNavController().navigate(R.id.settingsFragment)
-//                    } else {
-//                        Log.d(TAG, "editUser(name): Feilet " +response.body()?.code.toString())
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "Navnet ble ikke oppdatert",
-//                            Toast.LENGTH_LONG
-//                        ).show()
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<Code>, t: Throwable) {
-//                    Log.d(TAG, "editUser(name): onFailure$t")
-//                    Toast.makeText(requireContext(), "Noe gikk galt", Toast.LENGTH_LONG)
-//                        .show()
-//                }
-//            }
-//        )
-//    }
-
-
-//    private fun displayUsersName() {
-//        edit_firstname.editText?.setText(loggedInUser.firstname)
-//        edit_lastname.editText?.setText(loggedInUser.lastname)
-//    }
 }
