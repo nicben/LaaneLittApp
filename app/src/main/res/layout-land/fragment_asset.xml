@@ -41,6 +41,7 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_L"
+                android:layout_marginStart="@dimen/margin_top_L"
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/title_size"
@@ -53,8 +54,8 @@
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/assetDescription"
                 android:layout_width="@dimen/width_0dp"
-                android:layout_height="150dp"
-                android:layout_gravity="start"
+                android:layout_height="300dp"
+                android:layout_marginStart="@dimen/margin_top_L"
                 app:layout_constraintBottom_toTopOf="@+id/pickDateButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/assetImage"
@@ -63,71 +64,85 @@
                 <TextView
                     android:id="@+id/assetDescriptionText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_top_S"
                     android:layout_gravity="start"
-                    android:text="@{viewModel.selectedProperty.description}"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/description_size"
+                    android:text="@{viewModel.selectedProperty.description}"
                     tools:text="Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse " />
 
             </androidx.core.widget.NestedScrollView>
+
 
             <Button
                 android:id="@+id/pickDateButton"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="@dimen/height_btn"
-                android:layout_gravity="start"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_top_XL"
                 android:text="@string/send_loan_request_pop"
                 android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/assetImage"
-                app:layout_constraintBottom_toBottomOf="@+id/assetImage" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/assetImage" />
 
             <ImageView
                 android:id="@+id/ownerImage"
-                android:layout_width="@dimen/width_0dp"
-                android:layout_height="100dp"
-                android:scaleType="fitCenter"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 app:ownerImageUrl="@{viewModel.selectedProperty.users.profileImage}"
-                android:layout_marginTop="@dimen/margin_top_XL"
+                android:layout_marginTop="50dp"
                 android:layout_marginStart="@dimen/start_end_margin"
                 app:layout_constraintEnd_toStartOf="@id/ownerName"
-                app:layout_constraintStart_toStartOf="@id/assetImage"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pickDateButton"
                 tools:src="@tools:sample/backgrounds/scenic"
-                android:contentDescription="TODO"
+                android:scaleType="centerCrop"
+                android:radius="10dp"
+                android:contentDescription="@string/image_of_the_asset_owner"
                 android:layout_marginBottom="@dimen/margin_top_XL"/>
+
             <TextView
                 android:id="@+id/ownerName"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_XL"
-                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginTop="65dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/description_size"
-                android:text="@{`Navn:\n`+viewModel.selectedProperty.users.firstName+' '+viewModel.selectedProperty.users.lastName}"
+                android:textSize="15sp"
+                android:text="@{viewModel.selectedProperty.users.firstName+' '+viewModel.selectedProperty.users.lastName}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ownerImage"
                 app:layout_constraintTop_toBottomOf="@+id/pickDateButton"
-                tools:text="Navn" />
+                tools:text="Lokasjon" />
+
             <TextView
                 android:id="@+id/ownerLocation"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_S"
-                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginStart="15dp"
                 android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginBottom="@dimen/start_end_margin"
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/description_size"
-                android:text="@{`Lokasjon:\n`+viewModel.selectedProperty.users.zipCode.id+' '+viewModel.selectedProperty.users.zipCode.city}"
+                android:textSize="15sp"
+                android:text="@{viewModel.selectedProperty.users.zipCode.id+' '+viewModel.selectedProperty.users.zipCode.city}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ownerImage"
                 app:layout_constraintTop_toBottomOf="@+id/ownerName"
                 tools:text="Lokasjon" />
+
+            <TextView
+                android:id="@+id/space"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ownerImage"
+                app:layout_constraintTop_toBottomOf="@+id/ownerLocation"/>
 
             <TextView
                 android:id="@+id/datePickerView"

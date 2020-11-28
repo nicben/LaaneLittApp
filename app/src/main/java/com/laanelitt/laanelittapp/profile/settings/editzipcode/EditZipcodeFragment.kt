@@ -72,20 +72,21 @@ class EditZipcodeFragment : Fragment() {
             edit_zipcode.error = "Ugyldig postnummer"
             edit_zipcode.requestFocus()
             return
+        }else {
+            //
+            viewModel.updateZipcode(
+                zipcodeInput.toString(),
+                loggedInUser,
+                localStorage
+            )
+            //Sendes videre til innstillinger-siden
+            findNavController().navigate(R.id.settingsFragment)
+            Toast.makeText(
+                requireContext(),
+                "Oppdatert",
+                Toast.LENGTH_LONG
+            ).show()
         }
-        //
-        viewModel.updateZipcode(
-            zipcodeInput.toString(),
-            loggedInUser,
-            localStorage
-        )
-        //Sendes videre til innstillinger-siden
-        findNavController().navigate(R.id.settingsFragment)
-        Toast.makeText(
-            requireContext(),
-            "Oppdatert",
-            Toast.LENGTH_LONG
-        ).show()
     }
 }
 

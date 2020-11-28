@@ -80,27 +80,7 @@ class EditNameFragment : Fragment() {
 //
 //        })
 //
-//        return binding.root
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
 
-        //Henter bruker-objektet som er lagret
-//        localStorage = LocalStorage(requireContext())
-//        loggedInUser = localStorage.getLoggedInUser!!
-
-        //Viser fornavnet og etternavnet til brukeren i tekstfeltene
-        //displayUsersName()
-
-//        binding.editNameBtn.setOnClickListener {
-//            //Henter tekstene far tekstfeltene
-//            firstnameInput = edit_firstname.editText?.text!!
-//            lastnameInput = edit_lastname.editText?.text!!
-//
-//            //Validerer inndataene og lagrer det nye navnet
-//            validateName()
-//        }
         return binding.root
     }
 
@@ -116,22 +96,23 @@ class EditNameFragment : Fragment() {
             edit_lastname.error = "Fyll inn etternavn"
             edit_lastname.requestFocus()
             return
-        }
-        //
-        viewModel.updateName(
-            loggedInUser.id!!,
-            firstnameInput.toString(),
-            lastnameInput.toString(),
-            loggedInUser,
-            localStorage
-        )
-        //Sendes videre til innstillinger-siden
-    findNavController().navigate(R.id.settingsFragment)
+        }else {
+            //
+            viewModel.updateName(
+                loggedInUser.id!!,
+                firstnameInput.toString(),
+                lastnameInput.toString(),
+                loggedInUser,
+                localStorage
+            )
+            //Sendes videre til innstillinger-siden
+            findNavController().navigate(R.id.settingsFragment)
             Toast.makeText(
-        requireContext(),
-        "Oppdatert",
-        Toast.LENGTH_LONG
-    ).show()
+                requireContext(),
+                "Oppdatert",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 //
 //    private fun updateName(userId: Int, firstname: String, lastname: String, user: User, localStorage: LocalStorage) {

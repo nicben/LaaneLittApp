@@ -36,6 +36,7 @@
                 android:id="@+id/assetName"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_top_L"
                 android:layout_marginTop="@dimen/margin_top_L"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/title_size"
@@ -49,6 +50,7 @@
                 android:id="@+id/assetDescriptionScroll"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="300dp"
+                android:layout_marginStart="@dimen/margin_top_L"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mainImage"
                 app:layout_constraintTop_toBottomOf="@+id/assetName"
@@ -88,9 +90,6 @@
                     android:inputType="text"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-
-
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editAssetDescription"

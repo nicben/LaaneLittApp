@@ -1,22 +1,11 @@
 package com.laanelitt.laanelittapp.login
 
 import android.app.Application
-import android.content.ContentValues
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.laanelitt.laanelittapp.LaneLittApi
-import com.laanelitt.laanelittapp.R
-import com.laanelitt.laanelittapp.firebase.AuthListener
-import com.laanelitt.laanelittapp.firebase.FirebaseSource
-import com.laanelitt.laanelittapp.firebase.UserRepository
 import com.laanelitt.laanelittapp.objects.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +15,12 @@ import retrofit2.Response
 class FirebaseViewModel(app: Application) : AndroidViewModel(app) {
 
 
-fun firebaseAuth(username: String, password: String, firebaseAuth: FirebaseAuth, localStorage: LocalStorage) {
+fun firebaseAuth(
+    username: String,
+    password: String,
+    firebaseAuth: FirebaseAuth,
+    localStorage: LocalStorage
+) {
         //Firebase
     firebaseAuth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener() { task ->
@@ -38,25 +32,27 @@ fun firebaseAuth(username: String, password: String, firebaseAuth: FirebaseAuth,
                         localStorage
                     )
                 } else {
-                    println("firebaseAuth:feilet"+ task.exception)
+                    println("firebaseAuth:feilet" + task.exception)
                 }
             }
     }
 
-    private fun login(username: String, password: String,  localStorage: LocalStorage) {
+    private fun login(username: String, password: String, localStorage: LocalStorage) {
         //ApiService
         LaneLittApi.retrofitService.login(username, password).enqueue(
             object : Callback<LoggedInUser> {
                 override fun onResponse(
                     call: Call<LoggedInUser>,
-                    response: Response<LoggedInUser>) {
-                        println("login: onResponse " + response.body()?.user?.id.toString())
-                        //Henter bruker-objektet
-                        val user = response.body()?.user
-                        //Lagrer bruker-objektet og setter userLoggedIn til true
-                        localStorage.storeUserData(user!!)
-                        localStorage.setUserLoggedIn(true)
+                    response: Response<LoggedInUser>
+                ) {
+                    println("login: onResponse " + response.body()?.user?.id.toString())
+                    //Henter bruker-objektet
+                    val user = response.body()?.user
+                    //Lagrer bruker-objektet og setter userLoggedIn til true
+                    localStorage.storeUserData(user!!)
+                    localStorage.setUserLoggedIn(true)
                 }
+
                 //Man kommer rett hit ved feil brukernavn/passord
                 override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
                     println("login: onFailure$t")
@@ -65,7 +61,13 @@ fun firebaseAuth(username: String, password: String, firebaseAuth: FirebaseAuth,
         )
     }
 
-    fun firebaseSignIn(firstname: String, lastname: String, username: String, password: String, firebaseAuth: FirebaseAuth) {
+    fun firebaseSignIn(
+        firstname: String,
+        lastname: String,
+        username: String,
+        password: String,
+        firebaseAuth: FirebaseAuth
+    ) {
         //Firebase
         firebaseAuth.createUserWithEmailAndPassword(username, password)
             .addOnCompleteListener { task ->
@@ -79,28 +81,38 @@ fun firebaseAuth(username: String, password: String, firebaseAuth: FirebaseAuth,
                         password
                     )
                 } else {
-                    println("firebaseSignIn:feilet"+ task.exception)
+                    println("firebaseSignIn:feilet" + task.exception)
                 }
             }
     }
 
     private fun register(firstname: String, lastname: String, username: String, password1: String) {
         //Oppretter et nytt bruker-objekt
-        val newUser = User(null, firstname, "", lastname,"user", null,  username, password1, "", true)
+        val newUser = User(
+            null,
+            firstname,
+            "",
+            lastname,
+            "user",
+            null,
+            username,
+            password1,
+            "",
+            true
+        )
         //registerUser fra ApiService
         LaneLittApi.retrofitService.registerUser(newUser).enqueue(
             object : Callback<Code> {
                 override fun onResponse(call: Call<Code>, response: Response<Code>) {
-                        println("register: onResponse " + response.body()?.toString())
+                    println("register: onResponse " + response.body()?.toString())
 
                 }
+
                 override fun onFailure(call: Call<Code>, t: Throwable) {
-                    println( "register: onFailure$t")
+                    println("register: onFailure$t")
                 }
             }
         )
     }
-
-    fun logout(firebaseAuth: FirebaseAuth) = firebaseAuth.signOut()
 }
 

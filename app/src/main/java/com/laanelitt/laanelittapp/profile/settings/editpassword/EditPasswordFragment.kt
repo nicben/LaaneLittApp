@@ -49,15 +49,7 @@ class EditPasswordFragment : Fragment() {
         val viewModelFactory = EditPasswordViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(EditPasswordViewModel::class.java)
 
-//        binding.editViewModel = viewModel
-
         binding.lifecycleOwner = viewLifecycleOwner
-
-//        return binding.root
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
 
 
         binding.editPasswordBtn.setOnClickListener {
@@ -101,15 +93,20 @@ class EditPasswordFragment : Fragment() {
             edit_password_new.error = "Ulike passord"
             edit_password_new.requestFocus()
             return
+        } else {
+            //
+            viewModel.updatePassword(
+                passwordCurrent.toString(),
+                passwordNew.toString(),
+                currentUser
+            )
+            //Sendes videre til innstillinger-siden
+            findNavController().navigate(R.id.settingsFragment)
+            Toast.makeText(
+                requireContext(),
+                "Oppdatert",
+                Toast.LENGTH_LONG
+            ).show()
         }
-        //
-        viewModel.updatePassword(passwordCurrent.toString(), passwordNew.toString(), currentUser)
-        //Sendes videre til innstillinger-siden
-        findNavController().navigate(R.id.settingsFragment)
-        Toast.makeText(
-            requireContext(),
-            "Oppdatert",
-            Toast.LENGTH_LONG
-        ).show()
     }
 }

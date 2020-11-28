@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.laanelitt.laanelittapp.R
+import com.laanelitt.laanelittapp.categorylist.CategoryListFragmentDirections
 import com.laanelitt.laanelittapp.databinding.FragmentLoginBinding
 import com.laanelitt.laanelittapp.objects.*
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -102,10 +103,16 @@ class LoginFragment : Fragment(){
             password.error = "Fyll inn passord"
             password.requestFocus()
             return
+        }else {
+            //Firebase autentisering
+            viewModel.firebaseAuth(
+                usernameInput.toString(),
+                passwordInput.toString(),
+                auth,
+                localStorage
+            )
+            findNavController().navigate(R.id.homePageFragment)
         }
-        //Firebase autentisering
-        viewModel.firebaseAuth(usernameInput.toString(), passwordInput.toString(), auth, localStorage)
-        findNavController().navigate(R.id.homePageFragment)
     }
 //
 //    private fun firebaseAuth(username: String, password: String) {
