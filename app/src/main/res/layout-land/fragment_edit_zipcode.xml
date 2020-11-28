@@ -4,13 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="editViewModel"
+            type="com.laanelitt.laanelittapp.profile.settings.editzipcode.EditZipcodeViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/start_end_landscap"
         android:layout_marginEnd="@dimen/start_end_landscap"
-        tools:context=".profile.settings.EditNameFragment">
+        tools:context=".profile.settings.editname.EditNameFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_zipcode"
@@ -27,7 +33,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@{editViewModel.loggedInUser.zipcode}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

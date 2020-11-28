@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import com.laanelitt.laanelittapp.objects.Asset
+import kotlinx.coroutines.launch
+import com.laanelitt.laanelittapp.Resource
 
 class ListViewModel: ViewModel(){
 
@@ -17,6 +18,7 @@ class ListViewModel: ViewModel(){
     // Public immutable LiveData som kan brukes av UI
     val response: LiveData<String>
         get() = _response
+
     val assets: LiveData<List<Asset>>
         get() = _assets
 
@@ -29,9 +31,7 @@ class ListViewModel: ViewModel(){
     fun getCatAssets(catNr: String) {
         viewModelScope.launch {
             try {
-
                 val listResult = LaneLittApi.retrofitService.getCatAssets(catNr)
-
                 _response.value = "Success: ${listResult.size}  assets retrieved"
                 _assets.value = listResult
 

@@ -38,28 +38,28 @@ import kotlin.jvm.Throws
 
 
 class AddAssetFragment : Fragment() {
-
-    //private val vievModel: AddAssetViewModel()
     private lateinit var binding:FragmentAddAssetBinding
     private lateinit var localStorage: LocalStorage
     lateinit var titleInput: Editable
     lateinit var descriptionInput: Editable
-    private var pathTilBildeFil=""
-    private var ogFile:File?=null
-    private var userId:String?=null
+    private var PathToPictureFile=""
+    private var originalFile:File? = null
+    private var userId:String? = null
 
 
     override fun onCreateView(
-
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
+        localStorage = LocalStorage(requireContext())
+
         if (userId == "") {
             findNavController().navigate(R.id.loginFragment)
         }
-
-        localStorage = LocalStorage(requireContext())
+//        if (localStorage.getLoggedInUser != null) {
+//            findNavController().navigate(R.id.loginFragment)
+//        }
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_asset,container,false)
 
@@ -116,7 +116,7 @@ class AddAssetFragment : Fragment() {
     private fun addAsset() {
         title.error = null
         description.error = null
-        if (ogFile == null) {
+        if (originalFile == null) {
             Toast.makeText(
                 requireContext(),
                 "Velg et bilde",
@@ -157,8 +157,8 @@ class AddAssetFragment : Fragment() {
         val mainImagePart= RequestBody.create(MultipartBody.FORM, "1")
 
         //Bilde som skal sendest med API kallet
-        val filePart=RequestBody.create(MediaType.parse("*/*"), ogFile!!)
-        val file=MultipartBody.Part.createFormData("file", ogFile!!.name, filePart)
+        val filePart = RequestBody.create(MediaType.parse("*/*"), originalFile!!)
+        val file = MultipartBody.Part.createFormData("file", originalFile!!.name, filePart)
 
         //Kall som oppretter får backenden til å opprette en eiendel i databasen
         LaneLittApi.retrofitService.addAsset(userIdPart, typeIdPart, conditionPart, namePart, publicPart, descriptionPart, mainImagePart, file).enqueue(
@@ -190,14 +190,14 @@ class AddAssetFragment : Fragment() {
         val takePictureIntent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if(takePictureIntent.resolveActivity(requireActivity().packageManager)!=null){
             try {
-                ogFile=createImageFile()
+                originalFile=createImageFile()
             }catch (e:IOException){
             }
-            if(ogFile!=null){
+            if(originalFile!=null){
                 val fileUri= FileProvider.getUriForFile(requireContext(),
-                    "com.laanelitt.laanelittapp.fileprovider", ogFile!!)
+                    "com.laanelitt.laanelittapp.fileprovider", originalFile!!)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
-                pathTilBildeFil=ogFile!!.absolutePath
+                PathToPictureFile=originalFile!!.absolutePath
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
             }
         }
@@ -206,7 +206,7 @@ class AddAssetFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?){
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
-                Glide.with(this).load(pathTilBildeFil).into(binding.image)
+                Glide.with(this).load(PathToPictureFile).into(binding.image)
             }
         }
     }//end onActivityResult
@@ -253,10 +253,10 @@ class AddAssetFragment : Fragment() {
     ) {
         if(requestCode== REQUEST_CODE_PERMISSIONS){
             if(allPermissionsGranted()){
-                Toast.makeText(context, "Permisjons granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Permission granted", Toast.LENGTH_LONG).show()
                 takePicture()
             }else{
-                Toast.makeText(context, "Permisjons not granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Permission not granted", Toast.LENGTH_LONG).show()
 
             }
         }

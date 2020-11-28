@@ -155,7 +155,7 @@
     </fragment>
     <fragment
         android:id="@+id/editNameFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.EditNameFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.editname.EditNameFragment"
         android:label="@string/change_name"
         tools:layout="@layout/fragment_edit_name">
 
@@ -165,7 +165,7 @@
     </fragment>
     <fragment
         android:id="@+id/editZipcodeFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.EditZipcodeFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.editzipcode.EditZipcodeFragment"
         android:label="@string/change_zipcode"
         tools:layout="@layout/fragment_edit_zipcode">
         <action
@@ -174,7 +174,7 @@
     </fragment>
     <fragment
         android:id="@+id/editImageFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.EditImageFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.editimage.EditImageFragment"
         android:label="@string/change_profile_img"
         tools:layout="@layout/fragment_edit_image">
         <action
@@ -183,7 +183,7 @@
     </fragment>
     <fragment
         android:id="@+id/editPasswordFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.EditPasswordFragment"
+        android:name="com.laanelitt.laanelittapp.profile.settings.editpassword.EditPasswordFragment"
         android:label="@string/change_password"
         tools:layout="@layout/fragment_edit_password">
         <action

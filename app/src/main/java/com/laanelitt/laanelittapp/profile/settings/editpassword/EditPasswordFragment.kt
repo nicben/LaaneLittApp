@@ -1,4 +1,4 @@
-package com.laanelitt.laanelittapp.profile.settings
+package com.laanelitt.laanelittapp.profile.settings.editpassword
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -10,19 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentEditPasswordBinding
-import com.laanelitt.laanelittapp.objects.LocalStorage
+import com.laanelitt.laanelittapp.profile.settings.editname.EditNameViewModel
+import com.laanelitt.laanelittapp.profile.settings.editname.EditNameViewModelFactory
 import kotlinx.android.synthetic.main.fragment_edit_password.*
-import kotlinx.android.synthetic.main.fragment_new_user.*
 
 class EditPasswordFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: EditPasswordViewModel
     private lateinit var binding: FragmentEditPasswordBinding
     private lateinit var passwordCurrent: Editable
     private lateinit var passwordNew: Editable
@@ -34,17 +36,21 @@ class EditPasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_edit_password, container, false
-        )
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         //Henter bruker-objektet fra firebase
         auth = FirebaseAuth.getInstance()
         currentUser = auth.currentUser!!
+
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_edit_password, container, false
+        )
+
+
+        val application = requireNotNull(activity).application
+        val viewModelFactory = EditPasswordViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(EditPasswordViewModel::class.java)
+
+        binding.lifecycleOwner = viewLifecycleOwner
+
 
         binding.editPasswordBtn.setOnClickListener {
             passwordCurrent = edit_password_current.editText?.text!!
@@ -54,6 +60,7 @@ class EditPasswordFragment : Fragment() {
             //Funsksjonen for å oppdatere passordet i firebase
             validatePassword()
         }
+        return binding.root
     }
 
     private fun validatePassword() {
@@ -86,46 +93,20 @@ class EditPasswordFragment : Fragment() {
             edit_password_new.error = "Ulike passord"
             edit_password_new.requestFocus()
             return
-        }
-        //
-        updatePassword(passwordCurrent.toString(), passwordNew.toString(), currentUser)
-    }
-
-    private fun updatePassword(oldPassword: String, newPassword: String, user: FirebaseUser){
-
-        if (user.email != null) {
-            //Bruker firebase sin re-autentisering
-            val credential = EmailAuthProvider
-                .getCredential(user.email!!, oldPassword)
-            user.reauthenticate(credential).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.d(TAG, "Bruker ble re-autentisert")
-                    //Oppdaterer firebase objektet med firebase updatePassword()
-                    user.updatePassword(newPassword)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Log.d(TAG, "Passord er oppdatert")
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Oppdatert",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                //Sendes videre til innstillinger-siden
-                                findNavController().navigate(R.id.settingsFragment)
-                            } else {
-                                Log.d(TAG, "Passord ble ikke oppdatert")
-                                Toast.makeText(
-                                    requireContext(), "Noe gikk galt",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        }
-
-                } else {
-                    Log.d(TAG, "Bruker ble ikke re-autentisert")
-                    edit_password_current.error  = "Feil passord"
-                }
-            }
+        } else {
+            //
+            viewModel.updatePassword(
+                passwordCurrent.toString(),
+                passwordNew.toString(),
+                currentUser
+            )
+            //Sendes videre til innstillinger-siden
+            findNavController().navigate(R.id.settingsFragment)
+            Toast.makeText(
+                requireContext(),
+                "Oppdatert",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 
 class LocalStorage(context: Context) {
     private var userLocalDatabase: SharedPreferences = context.getSharedPreferences("userDetails", 0)
+    private var imageLocalDatabase: SharedPreferences = context.getSharedPreferences("image", 0)
 
     fun storeUserData(user: User) {
         val userLocalDatabaseEditor = userLocalDatabase.edit()
@@ -42,6 +43,17 @@ class LocalStorage(context: Context) {
         userLocalDatabaseEditor.apply()
     }
 
+    fun setNewPicture(picture: String?) {
+        val imageLocalDatabaseEditor = imageLocalDatabase.edit()
+        imageLocalDatabaseEditor.putString("newPicture", picture)
+        imageLocalDatabaseEditor.apply()
+    }
+
+    val getNewPicture: String?
+        get() {
+            return imageLocalDatabase.getString("newPicture", "")
+        }
+
     val getLoggedInUser: User?
         get() {
             if (!userLocalDatabase.getBoolean("loggedIn", false)) {
@@ -59,6 +71,5 @@ class LocalStorage(context: Context) {
             val terms = userLocalDatabase.getBoolean("terms", false)
             return User(id, firstname, middlename, lastname, usertype, profileImage, email, password, zipcode, terms)
         }
-
 
 }

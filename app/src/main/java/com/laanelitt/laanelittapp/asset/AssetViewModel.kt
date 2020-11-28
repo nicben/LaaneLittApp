@@ -18,11 +18,15 @@ package com.laanelitt.laanelittapp.asset
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.objects.Asset
+import com.laanelitt.laanelittapp.objects.Loan
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
-class AssetViewModel(asset: Asset,
-                     app: Application) : AndroidViewModel(app) {
+class AssetViewModel(asset: Asset, app: Application) : AndroidViewModel(app) {
 
     // The internal MutableLiveData for the selected property
     private val _selectedProperty = MutableLiveData<Asset>()
@@ -36,5 +40,50 @@ class AssetViewModel(asset: Asset,
         _selectedProperty.value = asset
     }
 
+    fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String) {
+        val newLoan = Loan(startDate, endDate)
+        //ApiService
+        LaneLittApi.retrofitService.sendLoanRequest(userId, assetId, newLoan).enqueue(
+            object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    println("LaneLittApi: onResponse " + response.body())
+                }
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    println("LaneLittApi: onFailure $t")
+                }
+            }
+        )
+    }//end sendLoanRequest
+
+
+    fun editAsset(userId: Int, assetName: String, assetDescription: String, editAsset: Asset) {
+        editAsset.assetName = assetName
+        editAsset.description = assetDescription
+        //ApiService
+        LaneLittApi.retrofitService.editAsset(userId, editAsset.id, editAsset).enqueue(
+            object : Callback<Asset> {
+                override fun onResponse(call: Call<Asset>, response: Response<Asset>) {
+                    println("editAsset: onResponse " + response.body()?.toString())
+                }
+                override fun onFailure(call: Call<Asset>, t: Throwable) {
+                    println("editAsset: onFailure $t")
+                }
+            }
+        )
+    }//end editAsset
+
+    fun deleteAsset(assetId: Int) {
+        //ApiService
+        LaneLittApi.retrofitService.deleteAsset(assetId).enqueue(
+            object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    println("deleteAsset: onResponse " + response.body().toString())
+                }
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    println("deleteAsset: onFailure $t")
+                }
+            }
+        )
+    }//end deleteAsset
 }
 

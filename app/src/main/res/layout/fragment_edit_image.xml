@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="editViewModel"
+            type="com.laanelitt.laanelittapp.profile.settings.editimage.EditImageViewModel" />
+    </data>
+
 
     <ScrollView
         android:layout_width="match_parent"

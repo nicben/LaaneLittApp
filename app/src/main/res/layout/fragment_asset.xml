@@ -76,28 +76,30 @@
 
             <ImageView
                 android:id="@+id/ownerImage"
-                android:layout_width="@dimen/width_0dp"
-                android:layout_height="100dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 app:ownerImageUrl="@{viewModel.selectedProperty.users.profileImage}"
-                android:layout_marginTop="@dimen/margin_top_XL"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="@dimen/start_end_margin"
                 app:layout_constraintEnd_toStartOf="@id/ownerName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pickDateButton"
                 tools:src="@tools:sample/backgrounds/scenic"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
+                android:radius="10dp"
                 android:contentDescription="@string/image_of_the_asset_owner"
                 android:layout_marginBottom="@dimen/margin_top_XL"/>
             <TextView
                 android:id="@+id/ownerName"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_XL"
-                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginTop="65dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/description_size"
-                android:text="@{`Navn:\n`+viewModel.selectedProperty.users.firstName+' '+viewModel.selectedProperty.users.lastName}"
+                android:textSize="15sp"
+                android:text="@{viewModel.selectedProperty.users.firstName+' '+viewModel.selectedProperty.users.lastName}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ownerImage"
                 app:layout_constraintTop_toBottomOf="@+id/pickDateButton"
@@ -107,16 +109,25 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_S"
-                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginStart="15dp"
                 android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginBottom="@dimen/start_end_margin"
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/description_size"
-                android:text="@{`Lokasjon:\n`+viewModel.selectedProperty.users.zipCode.id+' '+viewModel.selectedProperty.users.zipCode.city}"
+                android:textSize="15sp"
+                android:text="@{viewModel.selectedProperty.users.zipCode.id+' '+viewModel.selectedProperty.users.zipCode.city}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ownerImage"
                 app:layout_constraintTop_toBottomOf="@+id/ownerName"
                 tools:text="Lokasjon" />
+
+            <TextView
+                android:id="@+id/space"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ownerImage"
+                app:layout_constraintTop_toBottomOf="@+id/ownerLocation"/>
 
             <TextView
                 android:id="@+id/datePickerView"
@@ -127,7 +138,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
