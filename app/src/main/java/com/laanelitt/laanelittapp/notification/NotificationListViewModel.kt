@@ -9,13 +9,12 @@ import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import kotlinx.coroutines.launch
 import com.laanelitt.laanelittapp.objects.Notification
+import com.laanelitt.laanelittapp.progressStatus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class NotificationListViewModel: ViewModel(){
-
-    val status = arrayOf("timeout", "Failure", "Critical failure", "Success")
 
     private val _response = MutableLiveData<String>()
     private var _notifications = MutableLiveData<List<Notification>>()
@@ -27,33 +26,35 @@ class NotificationListViewModel: ViewModel(){
 
     fun getNotifications(userId: String){
         viewModelScope.launch {
+            _response.value = progressStatus[0]
             try {
-                val listResult= LaneLittApi.retrofitService.getNotifications(userId)
-                _response.value = "Success: ${listResult.size}  requests retrieved ******"
+                val listResult = LaneLittApi.retrofitService.getNotifications(userId)
+                println("Success: ${listResult.size}" )
                 _notifications.value = listResult
-
+                _response.value = progressStatus[1]
             }catch (e: Exception){
-                _response.value = "Failiure: ${e.message}"
+                println( "Failiure: ${e.message}")
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
-                if(e.message == status[0]) {
-                    _response.value = status[1]
+                if(e.message == progressStatus[4]){
+                    println( "Failiure: ${e.message}")
+                    _response.value = progressStatus[2]
                     getNotifications(userId)
                 }else{
-                    _response.value = status[2]
+                    _response.value = progressStatus[3]
                 }
             }
 
         }
     }
     fun reply(id:Int, userId: Int, reply: Int){
+        _response.value = progressStatus[0]
         LaneLittApi.retrofitService.replyRequest(userId.toString(), id.toString(), reply.toString()).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    _response.value = status[3]
+                    _response.value = progressStatus[1]
                 }
-
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    _response.value = status[1]
+                    _response.value = progressStatus[3]
                 }
             }
         )

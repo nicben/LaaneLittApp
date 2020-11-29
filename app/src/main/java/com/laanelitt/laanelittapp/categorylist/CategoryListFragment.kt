@@ -11,6 +11,8 @@ import com.laanelitt.laanelittapp.ListViewModel
 import com.laanelitt.laanelittapp.PhotoGridAdapter
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
+import com.laanelitt.laanelittapp.progressStatus
+import kotlinx.android.synthetic.main.fragment_category_list.*
 
 
 class CategoryListFragment : Fragment() {
@@ -47,9 +49,17 @@ class CategoryListFragment : Fragment() {
             }
         })
         viewModel.response.observe(viewLifecycleOwner, {
-            if(it==viewModel.status[1]){
-                Toast.makeText(context, "Feilet, prøver på nytt",Toast.LENGTH_LONG).show()
-            }else if(it==viewModel.status[2]){
+            if (it == progressStatus[0]){
+                progressbar.visibility = View.VISIBLE
+            }
+            else if (it == progressStatus[1]){
+                progressbar.visibility = View.GONE
+            }
+            else if (it == progressStatus[2]){
+                //Toast.makeText(context, "Feilet, prøver på nytt",Toast.LENGTH_LONG).show()
+            }
+            else if (it == progressStatus[3]){
+                progressbar.visibility = View.GONE
                 Toast.makeText(context, "Noe gikk galt",Toast.LENGTH_LONG).show()
                 this.findNavController().navigate(R.id.homePageFragment)
             }

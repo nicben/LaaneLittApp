@@ -8,7 +8,6 @@ import com.laanelitt.laanelittapp.objects.Asset
 import kotlinx.coroutines.launch
 
 class ListViewModel: ViewModel(){
-    val status = arrayOf("timeout", "Failure", "Critical failure")
     // Interne MutableLiveData som lagrer responsen fra APIet
     private val _response = MutableLiveData<String>()
 
@@ -28,17 +27,18 @@ class ListViewModel: ViewModel(){
 
     fun getCatAssets(catNr: String) {
         viewModelScope.launch {
+            _response.value = progressStatus[0]
             try {
                 val listResult = LaneLittApi.retrofitService.getCatAssets(catNr)
                 _assets.value = listResult
-
+                _response.value = progressStatus[1]
             } catch (e: Exception) {
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
-                if(e.message == status[0]){
-                    _response.value = status[1]
+                if(e.message == progressStatus[4]){
+                    _response.value = progressStatus[2]
                     getCatAssets(catNr)
                 }else{
-                    _response.value = status[2]
+                    _response.value = progressStatus[3]
                 }
             }
         }
@@ -47,19 +47,18 @@ class ListViewModel: ViewModel(){
 
     fun getMyAssets(userId:Int) {
         viewModelScope.launch {
+            _response.value = progressStatus[0]
             try {
-
                 val listResult = LaneLittApi.retrofitService.getMyAssets(userId)
                 _assets.value = listResult
-
+                _response.value = progressStatus[1]
             } catch (e: Exception) {
-
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
-                if(e.message==status[0]){
-                    _response.value = status[1]
+                if(e.message == progressStatus[4]){
+                    _response.value = progressStatus[2]
                     getMyAssets(userId)
                 }else{
-                    _response.value = status[2]
+                    _response.value = progressStatus[3]
                 }
             }
         }
@@ -67,17 +66,18 @@ class ListViewModel: ViewModel(){
 
     fun getAssetSearch(userId:Int, search:String) {
         viewModelScope.launch {
+            _response.value = progressStatus[0]
             try {
                 val listResult = LaneLittApi.retrofitService.getAssetSearch(userId, search)
                 _assets.value = listResult
-
+                _response.value = progressStatus[1]
             } catch (e: Exception) {
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
-                if(e.message==status[0]){
-                    _response.value = status[1]
+                if(e.message == progressStatus[4]){
+                    _response.value = progressStatus[2]
                     getAssetSearch(userId, search)
                 }else{
-                    _response.value = status[2]
+                    _response.value = progressStatus[3]
                 }
             }
         }

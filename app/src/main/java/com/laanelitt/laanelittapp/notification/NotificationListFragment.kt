@@ -14,6 +14,8 @@ import com.laanelitt.laanelittapp.LaneLittApi
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentNotificationListBinding
 import com.laanelitt.laanelittapp.objects.LocalStorage
+import com.laanelitt.laanelittapp.progressStatus
+import kotlinx.android.synthetic.main.fragment_category_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,14 +43,21 @@ class NotificationListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         notificationViewModel.response.observe(viewLifecycleOwner, {
-            if(it == notificationViewModel.status[1]){
-                Toast.makeText(context, "Feilet, prøver på nytt", Toast.LENGTH_LONG).show()
-            }else if(it == notificationViewModel.status[2]){
-                Toast.makeText(context, "Noe gikk galt", Toast.LENGTH_LONG).show()
-                this.findNavController().navigate(R.id.homePageFragment)
-            }else if(it == notificationViewModel.status[3]) {
-               this. findNavController().navigate(R.id.notificationsFragment)
+            if (it == progressStatus[0]){
+                progressbar.visibility = View.VISIBLE
             }
+            else if (it == progressStatus[1]){
+                progressbar.visibility = View.GONE
+            }
+            else if (it == progressStatus[2]){
+                //Toast.makeText(context, "Feilet, prøver på nytt",Toast.LENGTH_LONG).show()
+            }
+            else if (it == progressStatus[3]){
+                progressbar.visibility = View.GONE
+                Toast.makeText(context, "Noe gikk galt",Toast.LENGTH_LONG).show()
+                this.findNavController().navigate(R.id.homePageFragment)
+            }
+
         })
         return binding.root
     }//end onCreateView
@@ -57,7 +66,7 @@ class NotificationListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeAuthenticationState()
 
-        binding.notificationPhotosGrid.adapter=NotificationListAdapter(NotificationListAdapter.OnClickListener{
+        binding.notificationPhotosGrid.adapter = NotificationListAdapter(NotificationListAdapter.OnClickListener{
             //Alert Dialog
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.alert_title))
