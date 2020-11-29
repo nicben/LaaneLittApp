@@ -11,6 +11,7 @@ import com.laanelitt.laanelittapp.ListViewModel
 import com.laanelitt.laanelittapp.PhotoGridAdapter
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentCategoryListBinding
+import com.laanelitt.laanelittapp.objects.LocalStorage
 import com.laanelitt.laanelittapp.progressStatus
 import kotlinx.android.synthetic.main.fragment_category_list.*
 
@@ -23,6 +24,7 @@ class CategoryListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
+        val localStorage = LocalStorage(requireContext())
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_category_list,
@@ -31,7 +33,8 @@ class CategoryListFragment : Fragment() {
         )
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        viewModel.getCatAssets(CategoryListFragmentArgs.fromBundle(requireArguments()).catId)
+        println(localStorage.getLoggedInUser?.id!!)
+        viewModel.getCatAssets(localStorage.getLoggedInUser?.id!!,CategoryListFragmentArgs.fromBundle(requireArguments()).catId)
 
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
             viewModel.displayPropertyDetails(it)

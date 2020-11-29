@@ -25,19 +25,21 @@ class ListViewModel: ViewModel(){
     val navigateToSelectedProperty: LiveData<Asset>
         get() = _navigateToSelectedProperty
 
-    fun getCatAssets(catNr: String) {
+    fun getCatAssets(userId: Int, catNr: String) {
+        println(userId)
         viewModelScope.launch {
             _response.value = progressStatus[0]
             try {
-                val listResult = LaneLittApi.retrofitService.getCatAssets(catNr)
+                val listResult = LaneLittApi.retrofitService.getCatAssets(userId, catNr)
                 _assets.value = listResult
                 _response.value = progressStatus[1]
             } catch (e: Exception) {
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
                 if(e.message == progressStatus[4]){
                     _response.value = progressStatus[2]
-                    getCatAssets(catNr)
+                    getCatAssets(userId, catNr)
                 }else{
+                    println(e.message)
                     _response.value = progressStatus[3]
                 }
             }
