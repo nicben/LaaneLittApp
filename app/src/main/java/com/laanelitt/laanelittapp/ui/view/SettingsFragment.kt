@@ -1,5 +1,7 @@
 package com.laanelitt.laanelittapp.ui.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -56,6 +58,12 @@ class SettingsFragment : Fragment() {
         //Endre postnr-knapp
         binding.settingZipcodeButton?.setOnClickListener {
             findNavController().navigate(R.id.editZipcodeFragment)
+        }
+        binding.settingAboutButton.setOnClickListener{
+
+            val uri = Uri.parse("https://github.com/nicben/LaaneLittApp")
+            val webIntent = Intent(Intent.ACTION_VIEW, uri)
+            if (webIntent.resolveActivity(requireActivity().packageManager) != null) startActivity(webIntent)
         }
         //Logg ut-knapp
         binding.settingLogoutButton.setOnClickListener {
