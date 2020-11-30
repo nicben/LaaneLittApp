@@ -142,6 +142,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/terms_checkbox" />
 
+            <TextView
+                android:id="@+id/space"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_user_btn"/>
+
             <ProgressBar
                 android:id="@+id/progressbar"
                 android:layout_width="wrap_content"
