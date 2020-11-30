@@ -1,6 +1,8 @@
 package com.laanelitt.laanelittapp.ui.viewModel
 
 import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,11 +23,9 @@ class EditNameViewModel(user: User, app: Application) : AndroidViewModel(app) {
 
     private val _loggedInUser = MutableLiveData<User>()
 
-    // The external LiveData for the SelectedProperty
     val loggedInUser: LiveData<User>
         get() = _loggedInUser
 
-    // Initialize the _selectedProperty MutableLiveData
     init {
         _loggedInUser.value = user
     }
@@ -34,27 +34,23 @@ class EditNameViewModel(user: User, app: Application) : AndroidViewModel(app) {
         //Legger til de oppdaterte navnene til bruker-objektet som skal sendes med editUser
         user.firstname = firstname
         user.lastname = lastname
-
         _response.value = progressStatus[0]
-
         //ApiService
         LaneLittApi.retrofitService.editUser(userId, user).enqueue(
             object : Callback<Code> {
                 override fun onResponse(call: Call<Code>, response: Response<Code>) {
                     if(response.body()?.code.toString()=="200"){
-                        println( "editUser(name): Suksess " +response.body()?.code.toString())
+                        Log.d(TAG, "editUser(name): Suksess " +response.body()?.code.toString())
                         _response.value = progressStatus[1]
                         //Legger til de oppdaterte navnene og oppdaterer bruker-objektet som er lagret
                         localStorage.updateUser(user)
-
                     } else {
-                        println( "editUser(name): Feilet " +response.body()?.code.toString())
+                        Log.d(TAG, "editUser(name): Feilet " +response.body()?.code.toString())
                         _response.value = progressStatus[2]
                     }
                 }
-
                 override fun onFailure(call: Call<Code>, t: Throwable) {
-                    println("editUser(name): onFailure$t")
+                    Log.d(TAG,"editUser(name): onFailure$t")
                     _response.value = progressStatus[3]
                 }
             }

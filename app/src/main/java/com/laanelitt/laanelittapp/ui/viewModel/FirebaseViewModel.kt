@@ -25,38 +25,34 @@ class FirebaseViewModel(app: Application) : AndroidViewModel(app) {
     val response: LiveData<String>
         get() = _response
 
-    fun firebaseLogin(
-        username: String,
-        password: String,
-        firebaseAuth: FirebaseAuth,
-        localStorage: LocalStorage
-    ) {
+    fun firebaseLogin(username: String, password: String,
+                      firebaseAuth: FirebaseAuth, localStorage: LocalStorage) {
         //Firebase
         //https://firebase.google.com/docs/auth/android/password-auth
         firebaseAuth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
-                    println("firebaseAuth: suksess")
+                    Log.d(TAG, "firebaseLogin: suksess")
                     login(
                         username,
                         password,
                         localStorage
                     )
                 } else {
-                    Log.d(TAG, "firebaseAuth:feilet" + task.exception)
+                    Log.d(TAG, "firebaseLogin:feilet" + task.exception)
                     _response.value = progressStatus[5]
                 }
             }
     }
-
     private fun login(username: String, password: String, localStorage: LocalStorage) {
+        //Starter progressBar
         _response.value = progressStatus[0]
         //ApiService
         LaneLittApi.retrofitService.login(username, password).enqueue(
             object : Callback<LoggedInUser> {
                 override fun onResponse(
-                    call: Call<LoggedInUser>,
-                    response: Response<LoggedInUser>) {
+                    call: Call<LoggedInUser>, response: Response<LoggedInUser>) {
+                    Log.d(TAG, "login: onResponse")
                     _response.value = progressStatus[1]
                     //Henter bruker-objektet
                     val user = response.body()?.user
@@ -77,25 +73,14 @@ class FirebaseViewModel(app: Application) : AndroidViewModel(app) {
         )
     }
 
-    fun firebaseSignUp(
-        firstname: String,
-        lastname: String,
-        username: String,
-        password: String,
-        firebaseAuth: FirebaseAuth
-    ) {
+    fun firebaseSignUp(firstname: String, lastname: String, username: String, password: String, firebaseAuth: FirebaseAuth) {
         //Firebase
         //https://firebase.google.com/docs/auth/android/password-auth
         firebaseAuth.createUserWithEmailAndPassword(username, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     //Funsksjon fra ApiService for å registrere brukeren i databasen
-                    register(
-                        firstname,
-                        lastname,
-                        username,
-                        password
-                    )
+                    register(firstname, lastname, username, password)
                 } else {
                     Log.d(TAG, "firebaseSignIn:feilet " + task.exception)
                     _response.value = progressStatus[5]
@@ -123,13 +108,12 @@ class FirebaseViewModel(app: Application) : AndroidViewModel(app) {
         LaneLittApi.retrofitService.registerUser(newUser).enqueue(
             object : Callback<Code> {
                 override fun onResponse(call: Call<Code>, response: Response<Code>) {
-                    Log.d(TAG, "yessss "+ (response.body()?.code ))
+                    Log.d(TAG, "register: suksess"+ (response.body()?.code ))
                     _response.value = progressStatus[1]
                 }
                 override fun onFailure(call: Call<Code>, t: Throwable) {
-                    Log.d(TAG, "nooooooooo")
                     if(t.message == progressStatus[4]) {
-                        Log.d(TAG, "login: onFailure ${t.message}")
+                        Log.d(TAG, "register: onFailure ${t.message}")
                         register(firstname, lastname, username, password1)
                     }else{
                         _response.value = progressStatus[3]
@@ -137,6 +121,14 @@ class FirebaseViewModel(app: Application) : AndroidViewModel(app) {
                 }
             }
         )
+    }
+
+    fun signOut(auth: FirebaseAuth, localStorage: LocalStorage){
+        //Fjerner den lagrede dataen
+        localStorage.clearUserData()
+        //Firebase sin logg ut-funksjon
+        //https://firebase.google.com/docs/auth/android/password-auth
+         auth.signOut()
     }
 }
 

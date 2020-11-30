@@ -53,7 +53,7 @@ class EditZipcodeFragment : Fragment() {
         }
 
         viewModel.response.observe(viewLifecycleOwner, Observer{
-            if ( it == viewModel.status[1]) {
+            if ( it == progressStatus[1]) {
                 //Sendes videre til innstillinger-siden ved suksess
                 this.findNavController().navigate(R.id.settingsFragment)
                 Toast.makeText(
@@ -84,7 +84,6 @@ class EditZipcodeFragment : Fragment() {
             //
             viewModel.updateZipcode(
                 zipcodeInput.toString(),
-                loggedInUser,
                 localStorage
             )
         }

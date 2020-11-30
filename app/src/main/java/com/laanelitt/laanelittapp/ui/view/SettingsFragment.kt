@@ -6,17 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.laanelitt.laanelittapp.R
 import com.laanelitt.laanelittapp.databinding.FragmentSettingsBinding
 import com.laanelitt.laanelittapp.data.model.LocalStorage
+import com.laanelitt.laanelittapp.ui.factory.AssetViewModelFactory
+import com.laanelitt.laanelittapp.ui.viewModel.AssetViewModel
+import com.laanelitt.laanelittapp.ui.viewModel.FirebaseViewModel
 
 
 class SettingsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var localStorage: LocalStorage
+    private lateinit var viewModel: FirebaseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +39,7 @@ class SettingsFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         localStorage = LocalStorage(requireContext())
+        viewModel = ViewModelProvider(this).get(FirebaseViewModel::class.java)
 
         //Endre navn-knapp
         binding.settingNameButton.setOnClickListener {
@@ -53,11 +59,7 @@ class SettingsFragment : Fragment() {
         }
         //Logg ut-knapp
         binding.settingLogoutButton.setOnClickListener {
-            //Fjerner den lagrede dataen
-            localStorage.clearUserData()
-            //Firebase sin logg ut-funksjon
-            //https://firebase.google.com/docs/auth/android/password-auth
-            auth.signOut()
+            viewModel.signOut(auth, localStorage)
             findNavController().navigate(R.id.loginFragment)
         }
     }
