@@ -34,7 +34,7 @@
                 android:id="@+id/assetName"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_L"
+                android:layout_marginTop="@dimen/margin_top_XL"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:textColor="@color/colorBlack"
@@ -168,6 +168,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/saveAssetButton" />
+
+            <TextView
+                android:id="@+id/space"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="60dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deleteAssetButton"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

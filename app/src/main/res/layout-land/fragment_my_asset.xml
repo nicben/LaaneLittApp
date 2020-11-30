@@ -37,7 +37,7 @@
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_top_L"
-                android:layout_marginTop="@dimen/margin_top_L"
+                android:layout_marginTop="@dimen/margin_top_XL"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/title_size"
                 android:text="@{viewModel.selectedAsset.assetName}"
@@ -72,7 +72,7 @@
                 android:id="@+id/editAssetName"
                 android:layout_width="@dimen/width_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_L"
+                android:layout_marginTop="@dimen/margin_top_XL"
                 android:hint="@string/title"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -141,7 +141,7 @@
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editAssetDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/mainImage" />
 
             <Button
                 android:id="@+id/deleteAssetButton"
@@ -157,6 +157,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/saveAssetButton" />
+
+            <TextView
+                android:id="@+id/space"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="60dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deleteAssetButton"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
