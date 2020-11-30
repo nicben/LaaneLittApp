@@ -99,7 +99,7 @@ class AddAssetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         println("addAssetttttttttttttttttttttttttttttttt")
         observeAuthenticationState(localStorage, this)
-        //userId = localStorage.getLoggedInUser!!.id.toString()
+        userId = localStorage.getLoggedInUser!!.id.toString()
     }//end onViewCreated
 
 
@@ -125,6 +125,7 @@ class AddAssetFragment : Fragment() {
             description.requestFocus()
             return
         }
+        println(userId+" "+ titleInput.toString()+" "+ descriptionInput.toString())
         save(userId!!, titleInput.toString(), descriptionInput.toString())
     }//end addAsset
 

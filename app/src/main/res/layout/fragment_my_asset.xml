@@ -71,11 +71,18 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/assetDescriptionScroll"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/assetDescriptionStandingHeight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/assetName">
 
             <TextView
                 android:id="@+id/assetDescription"
-                android:layout_width="@dimen/width_0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_top_S"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
@@ -83,11 +90,9 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/description_size"
                 android:text="@{viewModel.selectedProperty.description}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetName"
                 tools:text="Beskrivelse" />
 
+            </androidx.core.widget.NestedScrollView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editAssetDescription"
@@ -125,12 +130,12 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
-                android:layout_marginTop="@dimen/margin_top_XL"
+                android:layout_marginTop="@dimen/margin_top_XS"
                 android:text="@string/edit"
                 android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/assetDescriptionScroll" />
 
             <Button
                 android:id="@+id/saveAssetButton"
