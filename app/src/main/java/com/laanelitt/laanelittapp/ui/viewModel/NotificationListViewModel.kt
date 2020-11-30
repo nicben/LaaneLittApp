@@ -27,14 +27,11 @@ class NotificationListViewModel: ViewModel(){
             _response.value = progressStatus[0]
             try {
                 val listResult = LaneLittApi.retrofitService.getNotifications(userId)
-                println("Success: ${listResult.size}" )
                 _notifications.value = listResult
                 _response.value = progressStatus[1]
             }catch (e: Exception){
-                println( "Failiure: ${e.message}")
                 //APIet er av og til tregt, og Retrofit er utolmodig, så vi må kjøre API kallet på nytt
                 if(e.message == progressStatus[4]){
-                    println( "Failiure: ${e.message}")
                     _response.value = progressStatus[2]
                     getNotifications(userId)
                 }else{

@@ -23,9 +23,9 @@ class ListViewModel: ViewModel(){
         get() = _assets
 
     // LiveData to handle navigation to the selected property
-    private val _navigateToSelectedProperty = MutableLiveData<Asset>()
-    val navigateToSelectedProperty: LiveData<Asset>
-        get() = _navigateToSelectedProperty
+    private val _navigateToSelectedAsset = MutableLiveData<Asset>()
+    val navigateToSelectedAsset: LiveData<Asset>
+        get() = _navigateToSelectedAsset
 
     fun getCatAssets(userId: Int, catNr: String) {
         viewModelScope.launch {
@@ -40,7 +40,6 @@ class ListViewModel: ViewModel(){
                     _response.value = progressStatus[2]
                     getCatAssets(userId, catNr)
                 }else{
-                    println(e.message)
                     _response.value = progressStatus[3]
                 }
             }
@@ -86,12 +85,12 @@ class ListViewModel: ViewModel(){
         }
     }
 
-    fun displayPropertyDetails(asset: Asset) {
-        _navigateToSelectedProperty.value = asset
+    fun displayAssetDetails(asset: Asset) {
+        _navigateToSelectedAsset.value = asset
     }
 
-    fun displayPropertyDetailsComplete() {
-        _navigateToSelectedProperty.value = null
+    fun displayAssetDetailsComplete() {
+        _navigateToSelectedAsset.value = null
     }
 
 }

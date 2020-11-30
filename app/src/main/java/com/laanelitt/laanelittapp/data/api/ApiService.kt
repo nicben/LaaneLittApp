@@ -25,7 +25,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 
-// Lag et interface som definerer hvordan Retrofit kaller APIet
+// Lag interfacer som definerer hvordan Retrofit kaller APIet
 interface ApiService {
     @GET("assets/getAssetType/{userId}/{catNr}/")
     suspend fun getCatAssets(@Path("userId") userId:Int,@Path("catNr") catNr:String): List<Asset>
@@ -57,6 +57,8 @@ interface ApiService {
     @GET("user/{iUserId}/loanRequest")
     suspend fun getNotifications(@Path("iUserId") userId: String): List<Notification>
 
+    //Multipart for å sende bilde med APIet
+    //https://futurestud.io/tutorials/retrofit-2-how-to-upload-files-to-server har delvis blit fulgt her
     @Multipart
     @POST("profileimageUpload")
     fun uploadProfileImage(
@@ -64,6 +66,8 @@ interface ApiService {
         @Part file: MultipartBody.Part
     ): Call<Code>
 
+    //Multipart for å sende bilde med APIet
+    //https://futurestud.io/tutorials/retrofit-2-how-to-upload-files-to-server har delvis blit fulgt her
     @Multipart
     @POST("assets/addAsset")
     fun addAsset(

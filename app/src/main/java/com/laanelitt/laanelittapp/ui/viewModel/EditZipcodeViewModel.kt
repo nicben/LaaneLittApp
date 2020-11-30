@@ -50,7 +50,6 @@ class EditZipcodeViewModel (user: User, app: Application) : AndroidViewModel(app
                         }
                     }
                     override fun onFailure(call: Call<Code>, t: Throwable) {
-                        println("editUser(zipcode): onFailure$t")
                         _response.value = progressStatus[3]
                     }
                 }

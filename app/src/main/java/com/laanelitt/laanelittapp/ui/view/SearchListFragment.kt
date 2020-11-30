@@ -36,21 +36,18 @@ class SearchListFragment : Fragment() {
             SearchListFragmentArgs.fromBundle(requireArguments()).searchtext)
         //Kobler til PhotoGridAdapter
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
-            viewModel.displayPropertyDetails(it)
+            viewModel.displayAssetDetails(it)
         })
 
-        // Observe the navigateToSelectedProperty LiveData and Navigate when it isn't null
-        // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready
-        // for another navigation event.
-        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, {
+        //Går til valgt eiendel
+        viewModel.navigateToSelectedAsset.observe(viewLifecycleOwner, {
             if ( null != it ) {
-                // Must find the NavController from the Fragment
                 this.findNavController().navigate(SearchListFragmentDirections.actionShowDetail(it))
-                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
-                viewModel.displayPropertyDetailsComplete()
+                viewModel.displayAssetDetailsComplete()
             }
         })
 
+        //Observerer om det er endringer i viewModelen, viser progressbar og tar seg av API feil
         viewModel.response.observe(viewLifecycleOwner, {
             if (it == progressStatus[0]){
                 progressbar.visibility = View.VISIBLE

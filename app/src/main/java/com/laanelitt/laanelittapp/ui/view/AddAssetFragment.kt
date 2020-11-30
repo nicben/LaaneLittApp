@@ -1,12 +1,14 @@
 package com.laanelitt.laanelittapp.ui.view
 
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -79,6 +81,7 @@ class AddAssetFragment : Fragment() {
                 takePicture()
             }
             else{
+                //Hvis applikasjonen ikke har tilgang til kameraet så må den spør om det
                 requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
             }
         }
@@ -97,7 +100,6 @@ class AddAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("addAssetttttttttttttttttttttttttttttttt")
         observeAuthenticationState(localStorage, this)
     }//end onViewCreated
 
@@ -106,6 +108,7 @@ class AddAssetFragment : Fragment() {
         userId = localStorage.getLoggedInUser!!.id.toString()
         title.error = null
         description.error = null
+        //Sørger for at all nødvendig informasjon er skrivd in før en prøver å opprette eiendelen
         if (originalFile == null) {
             Toast.makeText(
                 requireContext(),
@@ -125,11 +128,12 @@ class AddAssetFragment : Fragment() {
             description.requestFocus()
             return
         }
-        println(userId+" "+ titleInput.toString()+" "+ descriptionInput.toString())
         save(userId!!, titleInput.toString(), descriptionInput.toString())
     }//end addAsset
 
     private fun save(userId:String, title: String, description: String){
+        //Denne funksjonen bruker multipart på API kallet for å få sende bilde til backenden,
+        //https://futurestud.io/tutorials/retrofit-2-how-to-upload-files-to-server har delvis blit fulgt her
         val categoryId: Int
         if(binding.category.selectedItemPosition<3){
             categoryId = binding.category.selectedItemPosition+1
@@ -170,16 +174,18 @@ class AddAssetFragment : Fragment() {
                     )
                 }
                 override fun onFailure(call: Call<Int>, t: Throwable) {
-                    println(t.message)
+                    t.message?.let { Log.d(TAG, it) }
                 }
             }
         )
     }//end Save
 
+    //Funksjon som starter et Intent for å ta bilde
     private fun takePicture(){
         val takePictureIntent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if(takePictureIntent.resolveActivity(requireActivity().packageManager)!=null){
             try {
+                //Oppretter en fil slik at vi kan lagre bilde, med høy oppløsning
                 originalFile=createImageFile()
             }catch (e:IOException){
             }
@@ -193,6 +199,7 @@ class AddAssetFragment : Fragment() {
         }
     }//end takePicture
 
+    //Viser bilde etter at det er blitt tatt
     override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?){
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
@@ -201,16 +208,16 @@ class AddAssetFragment : Fragment() {
         }
     }//end onActivityResult
 
+    //funksjon for å opprette en fil som bilde kan lagres i
     @Throws(IOException::class)
     private fun createImageFile():File?{
         var imageFile:File? = null
         val photoStorageDir = getPhotoDirectory()
         if (photoStorageDir != null){
-            //Genererer ett unikt filnavn med en fast sti
+            //Genererer ett unikt filnavn for bilde
             val timeStamp = SimpleDateFormat("yyyyMMdd-HHmss").format(Date())
             val imageFileName = photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
             imageFile = File(imageFileName)
-            println(imageFileName)
         }
         return imageFile
     }//end createImageFile
@@ -230,12 +237,13 @@ class AddAssetFragment : Fragment() {
         return mediaStorageDirectory
     }//end  getPhotoDirectory
 
+    //Sjekk for å se om applikasjonen har tilgang til kameraet
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-
         ContextCompat.checkSelfPermission(
             requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }//end allPermissionsGranted
 
+    //Etter at brukeren har git eller nektet tilatelse så kjører denne funksjonen
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -244,10 +252,10 @@ class AddAssetFragment : Fragment() {
         if(requestCode== REQUEST_CODE_PERMISSIONS){
             if(allPermissionsGranted()){
                 Toast.makeText(context, "Permission granted", Toast.LENGTH_LONG).show()
+                //Går videre til å ta bilde
                 takePicture()
             }else{
                 Toast.makeText(context, "Permission not granted", Toast.LENGTH_LONG).show()
-
             }
         }
     }//end onRequestPermissionsResult

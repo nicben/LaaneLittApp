@@ -14,18 +14,16 @@ import com.laanelitt.laanelittapp.data.model.Notification
 
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asset>?) {
-    println("****************BindingAdapter************************")
     val adapter = recyclerView.adapter as PhotoGridAdapter
     adapter.submitList(data)
 }
 
 @BindingAdapter("notificationListData")
 fun bindNotificationRecyclerView(recyclerView: RecyclerView, data: List<Notification>?) {
-    println("****************BindingAdapter************************")
     val adapter = recyclerView.adapter as NotificationListAdapter
     adapter.submitList(data)
 }
-
+//Binding for eiendel bilde
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
@@ -42,6 +40,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .into(imgView)
     }
 }
+//Binding for profilbilde
 @BindingAdapter("ownerImageUrl")
 fun bindOwnerImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {

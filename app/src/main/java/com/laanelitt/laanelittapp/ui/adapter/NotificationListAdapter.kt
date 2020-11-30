@@ -17,8 +17,6 @@ class NotificationListAdapter(private val onClickListener: OnClickListener):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(notification: Notification) {
             binding.notification = notification
-            // This is important, because it forces the data binding to execute immediately,
-            // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()
         }
     }
@@ -31,9 +29,6 @@ class NotificationListAdapter(private val onClickListener: OnClickListener):
         }
     }
 
-    /**
-     * Create new [RecyclerView] item views (invoked by the layout manager)
-     */
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): NotificationViewHolder {
         return NotificationViewHolder(
@@ -44,9 +39,6 @@ class NotificationListAdapter(private val onClickListener: OnClickListener):
             )
         )
     }
-    /**
-     * Replaces the contents of a view (invoked by the layout manager)
-     */
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
         val notification = getItem(position)
         holder.itemView.setOnClickListener {

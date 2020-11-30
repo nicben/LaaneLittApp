@@ -22,7 +22,7 @@
                 android:id="@+id/mainImage"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/full_img"
-                app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
+                app:imageUrl="@{viewModel.selectedAsset.assetImages.get(0).imageUrl}"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/title_size"
-                android:text="@{viewModel.selectedProperty.assetName}"
+                android:text="@{viewModel.selectedAsset.assetName}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mainImage"
@@ -89,7 +89,7 @@
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/description_size"
-                android:text="@{viewModel.selectedProperty.description}"
+                android:text="@{viewModel.selectedAsset.description}"
                 tools:text="Beskrivelse" />
 
             </androidx.core.widget.NestedScrollView>

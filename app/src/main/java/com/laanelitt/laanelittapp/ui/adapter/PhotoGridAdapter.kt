@@ -28,10 +28,6 @@ class PhotoGridAdapter( private val onClickListener: OnClickListener) :
             return oldItem.id == newItem.id
         }
     }
-
-    /**
-     * Create new [RecyclerView] item views (invoked by the layout manager)
-     */
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): AssetViewHolder {
         return AssetViewHolder(
@@ -42,9 +38,6 @@ class PhotoGridAdapter( private val onClickListener: OnClickListener) :
             )
         )
     }
-    /**
-     * Replaces the contents of a view (invoked by the layout manager)
-     */
     override fun onBindViewHolder(holder: AssetViewHolder, position: Int) {
         val asset = getItem(position)
         holder.itemView.setOnClickListener {

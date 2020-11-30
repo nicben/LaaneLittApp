@@ -31,29 +31,24 @@ class MyAssetsListFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
-            viewModel.displayPropertyDetails(it)
+            viewModel.displayAssetDetails(it)
         })
 
-        // Observe the navigateToSelectedProperty LiveData and Navigate when it isn't null
-        // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready
-        // for another navigation event.
-        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, {
+        //Navigerer til valgt eiendel
+        viewModel.navigateToSelectedAsset.observe(viewLifecycleOwner, {
             if (null != it) {
-                // Must find the NavController from the Fragment
                 this.findNavController().navigate(MyAssetsListFragmentDirections.actionShowDetail(it))
-                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
-                viewModel.displayPropertyDetailsComplete()
+                viewModel.displayAssetDetailsComplete()
             }
         })
+
+        //Observerer om det er endringer i viewModelen, viser progressbar og tar seg av API feil
         viewModel.response.observe(viewLifecycleOwner, {
             if (it == progressStatus[0]){
                 progressbar.visibility = View.VISIBLE
             }
             else if (it == progressStatus[1]){
                 progressbar.visibility = View.GONE
-            }
-            else if (it == progressStatus[2]){
-                //Toast.makeText(context, "Feilet, prøver på nytt",Toast.LENGTH_LONG).show()
             }
             else if (it == progressStatus[3]){
                 progressbar.visibility = View.GONE

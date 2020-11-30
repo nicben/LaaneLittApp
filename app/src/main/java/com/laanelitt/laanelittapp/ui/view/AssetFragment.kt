@@ -49,7 +49,7 @@ class AssetFragment : Fragment() {
             binding.pickDateButton.isEnabled = false
         }
 
-        // Material Date Picker
+        //Material Date Picker
         //https://ahsensaeed.com/android-material-design-library-date-picker-dialog/
         val fm = (activity as AppCompatActivity?)!!.supportFragmentManager
         val builder: MaterialDatePicker.Builder<Pair<Long, Long>> =

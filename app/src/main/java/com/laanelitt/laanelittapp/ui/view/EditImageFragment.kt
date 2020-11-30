@@ -68,11 +68,10 @@ class EditImageFragment : Fragment() {
 
         binding.takePicture.setOnClickListener {
             if (allPermissionsGranted())  {
-                println("if**************")
                 takePicture()
             }
             else{
-                println("else**************")
+                //Hvis applikasjonen ikke har tilgang til kameraet så må den spør om det
                 requestPermissions(
                     REQUIRED_PERMISSIONS,
                     REQUEST_CODE_PERMISSIONS
@@ -84,7 +83,7 @@ class EditImageFragment : Fragment() {
         }
 
         return binding.root
-    }
+    }//end onCreateView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -94,14 +93,15 @@ class EditImageFragment : Fragment() {
         if(Pref.getNewPicture(requireContext(), "ID", "null").toString()!="null"){
             profilePicture = Pref.getNewPicture(requireContext(), "ID", "null")!!
             imageUri = profilePicture.toUri()
-            println("get from pref  :::  "+profilePicture)
         }
 
+        //Viser profilbilde til brukeren, hvis det har ett.
         if(profilePicture != "https://lanelitt.no/profileImages/"){
             Glide.with(requireContext()).load(imageUri).into(binding.image)
         }
-    }
+    }//End onViewCreated
 
+    //Tar vare på bilde til brukeren, hvis det har ett.
     object Pref {
         private val PREF_FILE: String =
             com.laanelitt.laanelittapp.BuildConfig.APPLICATION_ID.replace(
@@ -128,10 +128,12 @@ class EditImageFragment : Fragment() {
             sharedPreferences = null
         }
 
-    }
+    }//end Pref
 
     private fun save(userId:String){
         if(originalFile != null){
+            //Denne funksjonen bruker multipart på API kallet for å få sende bilde til backenden,
+            //https://futurestud.io/tutorials/retrofit-2-how-to-upload-files-to-server har delvis blit fulgt her
 
             val userIdPart = RequestBody.create(MultipartBody.FORM, userId)
 
@@ -152,27 +154,24 @@ class EditImageFragment : Fragment() {
                     }
 
                     override fun onFailure(call: Call<Code>, t: Throwable) {
-                        println(t.message+":::::::::::::::::::::::::")
                     }
                 }
             )
         }else{
             Toast.makeText(requireContext(), "velg ett bilde før du lagrer", Toast.LENGTH_LONG).show()
         }
-    }
+    }//end Save
 
+    //Funksjon som starter et Intent for å ta bilde
     private fun takePicture(){
-        println("take---------------------------------")
         val takePictureIntent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if(takePictureIntent.resolveActivity(requireActivity().packageManager)!=null){
             try {
-                println("try---------------------------------")
+                //Oppretter en fil slik at vi kan lagre bilde, med høy oppløsning
                 originalFile = createImageFile()
             }catch (e: IOException){
-                println("catch---------------------------------")
             }
             if(originalFile !=null){
-                println("if---------------------------------")
                 val fileUri= FileProvider.getUriForFile(requireContext(),
                     "com.laanelitt.laanelittapp.fileprovider", originalFile !!)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
@@ -180,10 +179,7 @@ class EditImageFragment : Fragment() {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
             }
         }
-        else{
-            println("else---------------------------------")
-        }
-    }
+    }//end takePicture
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?){
 
@@ -193,19 +189,21 @@ class EditImageFragment : Fragment() {
                 Glide.with(this).load(pathToPictureFile).into(binding.image)
             }
         }
-    }
+    }//end onActivityResult
+
+    //funksjon for å opprette en fil som bilde kan lagres i
     @Throws(IOException::class)
     private fun createImageFile():File?{
         var imageFile:File? = null
         val photoStorageDir = getPhotoDirectory()
         if (photoStorageDir != null){
-            val timeStamp= SimpleDateFormat("YMMdd-HHmss").format(Date())
+            //Oppretter et unikt navn for bilde filen
+            val timeStamp= SimpleDateFormat("yyyyMMdd-HHmss").format(Date())
             val imageFileName = photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
             imageFile = File(imageFileName)
-            println(imageFileName)
         }
         return imageFile
-    }
+    }//end createImageFile
 
     private fun getPhotoDirectory() : File? {
         // Finner / lager undermappe for mine bilder under Pictures mappen som er felles for alle apper
@@ -214,23 +212,21 @@ class EditImageFragment : Fragment() {
         if (!mediaStorageDirectory.exists()) {
             // Hvis ikke: Lag mappen
             if (!mediaStorageDirectory.mkdirs()) {
-                println("Laanelitt: " + "Klarte ikke å lage mappen: " +
-                        mediaStorageDirectory.getAbsolutePath())
                 Toast.makeText(requireContext(), "Klarte ikke å lage mappen: " +
                         mediaStorageDirectory.getAbsolutePath(), Toast.LENGTH_LONG).show()
                 return null
             }
         }
         return mediaStorageDirectory
-    }
+    }//end  getPhotoDirectory
 
+    //Sjekk for å se om applikasjonen har tilgang til kameraet
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        println("allPermissionsGranted start**************")
-
         ContextCompat.checkSelfPermission(
             requireContext(), it) == PackageManager.PERMISSION_GRANTED
-    }
+    }//end allPermissionsGranted
 
+    //Etter at brukeren har git eller nektet tilatelse så kjører denne funksjonen
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -238,22 +234,20 @@ class EditImageFragment : Fragment() {
     ) {
         if(requestCode== REQUEST_CODE_PERMISSIONS){
             if(allPermissionsGranted()){
-                println("Permission granted")
                 Toast.makeText(context, "Permission granted", Toast.LENGTH_LONG).show()
                 takePicture()
             }else{
-                println("Permission not granted")
                 Toast.makeText(context, "Permission not granted", Toast.LENGTH_LONG).show()
 
             }
         }
-    }
+    }//end onRequestPermissionsResult
 
     companion object {
         private const val REQUEST_TAKE_PHOTO = 1
         private const val MY_PHOTO_FOLDER = "LaaneLitt"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-    }
+    }//end companion
 
 }

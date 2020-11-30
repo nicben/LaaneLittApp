@@ -31,15 +31,15 @@ import retrofit2.Response
 class AssetViewModel(asset: Asset, app: Application) : AndroidViewModel(app) {
 
     //MutableLiveData for valgt eiendel
-    private val _selectedProperty = MutableLiveData<Asset>()
+    private val _selectedAsset = MutableLiveData<Asset>()
 
     //LiveData for valgt eiendel til bruk for UI
-    val selectedProperty: LiveData<Asset>
-        get() = _selectedProperty
+    val selectedAsset: LiveData<Asset>
+        get() = _selectedAsset
 
     // Initierer _selectedProperty MutableLiveData
     init {
-        _selectedProperty.value = asset
+        _selectedAsset.value = asset
     }
 
     fun sendLoanRequest(userId: Int, assetId: Int, startDate: String, endDate: String) {

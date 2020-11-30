@@ -29,7 +29,7 @@
                 android:layout_marginTop="@dimen/margin_top_XS"
                 android:contentDescription="@string/bilde"
                 android:scaleType="fitCenter"
-                app:imageUrl="@{viewModel.selectedProperty.assetImages.get(0).imageUrl}"
+                app:imageUrl="@{viewModel.selectedAsset.assetImages.get(0).imageUrl}"
                 app:layout_constraintEnd_toStartOf="@id/assetName"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/title_size"
-                android:text="@{viewModel.selectedProperty.assetName}"
+                android:text="@{viewModel.selectedAsset.assetName}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/assetImage"
                 app:layout_constraintTop_toTopOf="@+id/assetImage"
@@ -69,7 +69,7 @@
                     android:layout_gravity="start"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/description_size"
-                    android:text="@{viewModel.selectedProperty.description}"
+                    android:text="@{viewModel.selectedAsset.description}"
                     tools:text="Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse " />
 
             </androidx.core.widget.NestedScrollView>
@@ -91,7 +91,7 @@
                 android:id="@+id/ownerImage"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                app:ownerImageUrl="@{viewModel.selectedProperty.users.profileImage}"
+                app:ownerImageUrl="@{viewModel.selectedAsset.users.profileImage}"
                 android:layout_marginTop="50dp"
                 android:layout_marginStart="@dimen/start_end_margin"
                 app:layout_constraintEnd_toStartOf="@id/ownerName"
@@ -103,6 +103,8 @@
                 android:contentDescription="@string/image_of_the_asset_owner"
                 android:layout_marginBottom="@dimen/margin_top_XL"/>
 
+            <!--I ownerName og ownerLocation brukes kodemønster fra svaret i
+            https://stackoverflow.com/questions/40039942/i-want-to-concat-two-strings-for-a-textview-in-android-data-binding-api-->
             <TextView
                 android:id="@+id/ownerName"
                 android:layout_width="@dimen/width_0dp"
@@ -113,7 +115,7 @@
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp"
-                android:text="@{viewModel.selectedProperty.users.firstName+' '+viewModel.selectedProperty.users.lastName}"
+                android:text="@{viewModel.selectedAsset.users.firstName+' '+viewModel.selectedAsset.users.lastName}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ownerImage"
                 app:layout_constraintTop_toBottomOf="@+id/pickDateButton"
@@ -130,7 +132,7 @@
                 android:layout_gravity="start"
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp"
-                android:text="@{viewModel.selectedProperty.users.zipCode.id+' '+viewModel.selectedProperty.users.zipCode.city}"
+                android:text="@{viewModel.selectedAsset.users.zipCode.id+' '+viewModel.selectedAsset.users.zipCode.city}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ownerImage"
                 app:layout_constraintTop_toBottomOf="@+id/ownerName"

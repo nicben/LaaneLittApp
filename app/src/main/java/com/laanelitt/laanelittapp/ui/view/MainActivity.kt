@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //actionbar
         val actionbar = supportActionBar
-        //set actionbar title
+        //setter actionbar tittel
         actionbar!!.title = "LåneLitt"
-        //set back button
+        //setter back button
         actionbar.setDisplayHomeAsUpEnabled(true)
 
         setupViews()
