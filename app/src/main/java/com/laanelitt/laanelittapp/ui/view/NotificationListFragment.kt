@@ -70,10 +70,10 @@ class NotificationListFragment : Fragment() {
                 .setNeutralButton(resources.getString(R.string.close)) { _, _ ->
                 }
                 .setNegativeButton(resources.getString(R.string.decline)) { _, _ ->
-                    notificationViewModel.reply(it.id!!, localStorage.getLoggedInUser!!.id!!, 2)// Respond to negative button press
+                    notificationViewModel.reply(it.id!!, localStorage.getLoggedInUser!!.id!!.toString(), 2)// Respond to negative button press
                 }
                 .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
-                    notificationViewModel.reply(it.id!!, localStorage.getLoggedInUser!!.id!!, 1)
+                    notificationViewModel.reply(it.id!!, localStorage.getLoggedInUser!!.id!!.toString(), 1)
                 }
                 .show()
         })

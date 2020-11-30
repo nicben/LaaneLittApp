@@ -43,12 +43,13 @@ class NotificationListViewModel: ViewModel(){
             }
         }
     }
-    fun reply(id:Int, userId: Int, reply: Int){
+    fun reply(id:Int, userId: String, reply: Int){
         _response.value = progressStatus[0]
-        LaneLittApi.retrofitService.replyRequest(userId.toString(), id.toString(), reply.toString()).enqueue(
+        LaneLittApi.retrofitService.replyRequest(userId, id.toString(), reply.toString()).enqueue(
             object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     _response.value = progressStatus[1]
+                    getNotifications(userId)
                 }
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     _response.value = progressStatus[3]
