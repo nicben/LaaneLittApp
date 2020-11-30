@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/assetFragment"
-        android:name="com.laanelitt.laanelittapp.asset.AssetFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.AssetFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_asset" >
 
         <argument
             android:name="selectedProperty"
-            app:argType="com.laanelitt.laanelittapp.objects.Asset" />
+            app:argType="com.laanelitt.laanelittapp.data.model.Asset" />
     </fragment>
 
     <fragment
         android:id="@+id/homePageFragment"
-        android:name="com.laanelitt.laanelittapp.homepage.HomePageFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.HomePageFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_home_page" >
         <action
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/searchListFragment"
-        android:name="com.laanelitt.laanelittapp.searchlist.SearchListFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.SearchListFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_search_list" >
         <action
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/myAssetsListFragment"
-        android:name="com.laanelitt.laanelittapp.profile.myassets.MyAssetsListFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.MyAssetsListFragment"
         android:label="@string/my_assets"
         tools:layout="@layout/fragment_my_assets_list" >
 
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/addAssetFragment"
-        android:name="com.laanelitt.laanelittapp.addasset.AddAssetFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.AddAssetFragment"
         android:label="@string/new_asset"
         tools:layout="@layout/fragment_add_asset">
         <action
@@ -72,7 +72,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.SettingsFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -91,7 +91,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.laanelitt.laanelittapp.login.LoginFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.LoginFragment"
         android:label="@string/login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -111,7 +111,7 @@
 
     <fragment
         android:id="@+id/newUserFragment"
-        android:name="com.laanelitt.laanelittapp.login.NewUserFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.NewUserFragment"
         android:label="@string/new_user"
         tools:layout="@layout/fragment_new_user" >
         <action
@@ -127,7 +127,7 @@
 
     <fragment
         android:id="@+id/categoryListFragment"
-        android:name="com.laanelitt.laanelittapp.categorylist.CategoryListFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.CategoryListFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_category_list" >
 
@@ -144,18 +144,18 @@
 
     <fragment
         android:id="@+id/myAssetFragment"
-        android:name="com.laanelitt.laanelittapp.profile.myassets.MyAssetFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.MyAssetFragment"
         android:label="@string/LaaneLitt"
         tools:layout="@layout/fragment_my_asset" >
 
         <argument
             android:name="selectedProperty"
-            app:argType="com.laanelitt.laanelittapp.objects.Asset" />
+            app:argType="com.laanelitt.laanelittapp.data.model.Asset" />
 
     </fragment>
     <fragment
         android:id="@+id/editNameFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.editname.EditNameFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.EditNameFragment"
         android:label="@string/change_name"
         tools:layout="@layout/fragment_edit_name">
 
@@ -165,7 +165,7 @@
     </fragment>
     <fragment
         android:id="@+id/editZipcodeFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.editzipcode.EditZipcodeFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.EditZipcodeFragment"
         android:label="@string/change_zipcode"
         tools:layout="@layout/fragment_edit_zipcode">
         <action
@@ -174,7 +174,7 @@
     </fragment>
     <fragment
         android:id="@+id/editImageFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.editimage.EditImageFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.EditImageFragment"
         android:label="@string/change_profile_img"
         tools:layout="@layout/fragment_edit_image">
         <action
@@ -183,7 +183,7 @@
     </fragment>
     <fragment
         android:id="@+id/editPasswordFragment"
-        android:name="com.laanelitt.laanelittapp.profile.settings.editpassword.EditPasswordFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.EditPasswordFragment"
         android:label="@string/change_password"
         tools:layout="@layout/fragment_edit_password">
         <action
@@ -192,7 +192,7 @@
     </fragment>
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="com.laanelitt.laanelittapp.notification.NotificationListFragment"
+        android:name="com.laanelitt.laanelittapp.ui.view.NotificationListFragment"
         android:label="Låneforespørsler"
         tools:layout="@layout/fragment_notification_list"
         />

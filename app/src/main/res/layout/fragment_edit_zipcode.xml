@@ -7,14 +7,14 @@
     <data>
         <variable
             name="editViewModel"
-            type="com.laanelitt.laanelittapp.profile.settings.editzipcode.EditZipcodeViewModel" />
+            type="com.laanelitt.laanelittapp.ui.viewModel.EditZipcodeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".profile.settings.editzipcode.EditZipcodeFragment">
+        tools:context=".ui.view.EditZipcodeFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_zipcode"

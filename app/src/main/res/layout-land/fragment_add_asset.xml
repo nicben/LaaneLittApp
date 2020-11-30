@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".addasset.AddAssetFragment">
+    tools:context=".ui.view.AddAssetFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,6 +36,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image">
 
+                <!--https://developer.android.com/guide/topics/ui/controls/spinner -->
                 <Spinner
                     android:id="@+id/category"
                     android:layout_width="100dp"

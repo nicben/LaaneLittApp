@@ -5,10 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
-            type="com.laanelitt.laanelittapp.ListViewModel" />
+            type="com.laanelitt.laanelittapp.ui.viewModel.ListViewModel" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!--https://medium.com/@freedom.chuks7/how-to-use-jet-pack-components-bottomnavigationview-with-navigation-ui-19fb120e3fb9-->
     <item android:id="@+id/homePageFragment"
         android:title="@string/home"
         android:icon="@drawable/ic_baseline_home_24"/>
