@@ -99,11 +99,11 @@ class AddAssetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         println("addAssetttttttttttttttttttttttttttttttt")
         observeAuthenticationState(localStorage, this)
-        userId = localStorage.getLoggedInUser!!.id.toString()
     }//end onViewCreated
 
 
     private fun addAsset() {
+        userId = localStorage.getLoggedInUser!!.id.toString()
         title.error = null
         description.error = null
         if (originalFile == null) {
@@ -207,7 +207,7 @@ class AddAssetFragment : Fragment() {
         val photoStorageDir = getPhotoDirectory()
         if (photoStorageDir != null){
             //Genererer ett unikt filnavn med en fast sti
-            val timeStamp = SimpleDateFormat("YMMdd-HHmss").format(Date())
+            val timeStamp = SimpleDateFormat("yyyyMMdd-HHmss").format(Date())
             val imageFileName = photoStorageDir.path+File.separator.toString()+"LaaneLitt_"+timeStamp+".jpeg"
             imageFile = File(imageFileName)
             println(imageFileName)
