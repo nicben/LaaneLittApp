@@ -17,6 +17,7 @@ import com.laanelitt.laanelittapp.data.model.LocalStorage
 import com.laanelitt.laanelittapp.ui.factory.AssetViewModelFactory
 import com.laanelitt.laanelittapp.ui.viewModel.AssetViewModel
 import com.laanelitt.laanelittapp.ui.viewModel.FirebaseViewModel
+import com.laanelitt.laanelittapp.utils.observeAuthenticationState
 
 
 class SettingsFragment : Fragment() {
@@ -42,6 +43,7 @@ class SettingsFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         localStorage = LocalStorage(requireContext())
         viewModel = ViewModelProvider(this).get(FirebaseViewModel::class.java)
+        observeAuthenticationState(localStorage, this)
 
         //Endre navn-knapp
         binding.settingNameButton.setOnClickListener {
@@ -60,7 +62,6 @@ class SettingsFragment : Fragment() {
             findNavController().navigate(R.id.editZipcodeFragment)
         }
         binding.settingAboutButton.setOnClickListener{
-
             val uri = Uri.parse("https://github.com/nicben/LaaneLittApp")
             val webIntent = Intent(Intent.ACTION_VIEW, uri)
             if (webIntent.resolveActivity(requireActivity().packageManager) != null) startActivity(webIntent)

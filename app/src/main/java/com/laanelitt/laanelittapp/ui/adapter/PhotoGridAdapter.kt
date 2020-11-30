@@ -46,7 +46,6 @@ class PhotoGridAdapter( private val onClickListener: OnClickListener) :
         holder.bind(asset)
     }
 
-
     class OnClickListener(val clickListener: (asset: Asset) -> Unit) {
         fun onClick(asset: Asset) = clickListener(asset)
     }

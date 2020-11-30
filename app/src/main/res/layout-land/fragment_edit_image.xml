@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="@dimen/width_0dp"
-            android:layout_height="@dimen/full_img"
+            android:layout_height="350dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
 
                 <ImageButton
                     android:id="@+id/takePicture"
-                    android:layout_width="@dimen/width_0dp"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/button_img_height"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
@@ -64,6 +64,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/buttons" />
+
+            <TextView
+                android:id="@+id/space"
+                android:layout_width="@dimen/width_0dp"
+                android:layout_height="60dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/saveButton"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -175,6 +175,12 @@ class AddAssetFragment : Fragment() {
                 }
                 override fun onFailure(call: Call<Int>, t: Throwable) {
                     t.message?.let { Log.d(TAG, it) }
+                    Toast.makeText(
+                        requireContext(),
+                        "Velg et bilde",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    category.requestFocus()
                 }
             }
         )

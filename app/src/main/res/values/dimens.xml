@@ -5,8 +5,6 @@
     <dimen name="text_padding">10dp</dimen>
     <dimen name="fragment_horizontal_margin">16dp</dimen>
     <dimen name="fragment_vertical_margin">16dp</dimen>
-
-    <!-- disse er i bruk -->
     <dimen name="margin_top_S">8dp</dimen>
     <dimen name="margin_top_L">16dp</dimen>
     <dimen name="height_btn">60dp</dimen>
