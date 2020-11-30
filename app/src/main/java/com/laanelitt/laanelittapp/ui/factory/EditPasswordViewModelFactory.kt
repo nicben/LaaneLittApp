@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.laanelitt.laanelittapp.ui.viewModel.EditPasswordViewModel
 
+//ViewModelFactory til EditPasswordViewModel
 class EditPasswordViewModelFactory (
     private val application: Application) : ViewModelProvider.Factory {
         @Suppress("unchecked_cast")

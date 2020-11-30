@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.laanelitt.laanelittapp.databinding.GridViewItemBinding
 import com.laanelitt.laanelittapp.data.model.Asset
 
-
+//Liste adapter for RecycleViewet til AssetListene(SearchList, MyAssetsList, CategoryList)
 class PhotoGridAdapter( private val onClickListener: OnClickListener) :
         ListAdapter<Asset,
                 PhotoGridAdapter.AssetViewHolder>(DiffCallback) {

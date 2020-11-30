@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.laanelitt.laanelittapp.ui.viewModel.FirebaseViewModel
 
-
+//ViewModelFactory til FirebaseViewModel
 class FirebaseViewModelFactory(
     private val application: Application) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")

@@ -88,47 +88,15 @@ class EditImageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var profilePicture = "https://lanelitt.no/profileImages/"+localStorage.getLoggedInUser!!.profileImage.toString()
-        var  imageUri = profilePicture.toUri().buildUpon().scheme("https").build()
-        if(Pref.getNewPicture(requireContext(), "ID", "null").toString()!="null"){
-            profilePicture = Pref.getNewPicture(requireContext(), "ID", "null")!!
-            imageUri = profilePicture.toUri()
-        }
-
+        val profilePicture = "https://lanelitt.no/profileImages/"+loggedInUser.profileImage.toString()
+        val imageUri = profilePicture.toUri().buildUpon().scheme("https").build()
         //Viser profilbilde til brukeren, hvis det har ett.
         if(profilePicture != "https://lanelitt.no/profileImages/"){
             Glide.with(requireContext()).load(imageUri).into(binding.image)
         }
+
     }//End onViewCreated
 
-    //Tar vare på bilde til brukeren, hvis det har ett.
-    object Pref {
-        private val PREF_FILE: String =
-            com.laanelitt.laanelittapp.BuildConfig.APPLICATION_ID.replace(
-                ".",
-                "_"
-            )
-        private var sharedPreferences: SharedPreferences? = null
-        private fun openPref(context: Context) {
-            sharedPreferences = context.getSharedPreferences(PREF_FILE, MODE_PRIVATE)
-        }
-
-        fun getNewPicture(context: Context, key: String?, defaultValue: String?): String? {
-            openPref(context)
-            val result = sharedPreferences!!.getString(key, defaultValue)
-            sharedPreferences = null
-            return result
-        }
-
-        fun setNewPicture(context: Context, key: String?, value: String?) {
-            openPref(context)
-            val prefsPrivateEditor: SharedPreferences.Editor = sharedPreferences!!.edit()
-            prefsPrivateEditor.putString(key, value)
-            prefsPrivateEditor.apply()
-            sharedPreferences = null
-        }
-
-    }//end Pref
 
     private fun save(userId:String){
         if(originalFile != null){
@@ -145,11 +113,9 @@ class EditImageFragment : Fragment() {
                 object : Callback<Code> {
                     override fun onResponse(call: Call<Code>, response: Response<Code>) {
                         Toast.makeText(context, "Bilde opplastning gikk bra", Toast.LENGTH_LONG).show()
-                        Pref.setNewPicture(
-                            requireContext(),
-                            "ID",
-                            originalFile!!.toUri().toString()
-                        )
+                        loggedInUser.profileImage=response.body()!!.image
+
+                        localStorage.updateUser(loggedInUser)
                         findNavController().navigate(R.id.myAssetsListFragment)
                     }
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.laanelitt.laanelittapp.data.model.User
 import com.laanelitt.laanelittapp.ui.viewModel.EditNameViewModel
 
+//ViewModelFactory til EdditNameViewModel
 class EditNameViewModelFactory (
     private val user: User,
     private val application: Application) : ViewModelProvider.Factory {

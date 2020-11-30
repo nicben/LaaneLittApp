@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.laanelitt.laanelittapp.data.model.Asset
 import com.laanelitt.laanelittapp.ui.viewModel.AssetViewModel
 
+//ViewModelFactory til AssetViewModel
 class AssetViewModelFactory(
     private val asset: Asset,
     private val application: Application) : ViewModelProvider.Factory {

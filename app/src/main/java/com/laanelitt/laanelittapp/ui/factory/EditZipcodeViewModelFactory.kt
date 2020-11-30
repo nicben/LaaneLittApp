@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.laanelitt.laanelittapp.data.model.User
 import com.laanelitt.laanelittapp.ui.viewModel.EditZipcodeViewModel
 
+//ViewModelFactory til EditSipcodeViewModel
 class EditZipcodeViewModelFactory (
     private val user: User,
     private val application: Application) : ViewModelProvider.Factory {
