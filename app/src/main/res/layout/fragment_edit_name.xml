@@ -6,7 +6,7 @@
     <data>
         <variable
             name="editViewModel"
-            type="com.laanelitt.laanelittapp.profile.settings.editname.EditNameViewModel" />
+            type="com.laanelitt.laanelittapp.ui.viewModel.EditNameViewModel"/>
     </data>
 
     <ScrollView
@@ -17,7 +17,7 @@
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".profile.settings.editname.EditNameFragment">
+            tools:context=".ui.view.EditNameFragment">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_firstname"

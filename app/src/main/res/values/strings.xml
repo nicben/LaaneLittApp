@@ -1,15 +1,16 @@
 <resources>
     <string-array name="categories">
         <item>Verktøy</item>
-        <item>Elektronik</item>
+        <item>Elektronikk</item>
         <item>Instrument</item>
         <item>Klær</item>
         <item>Sko</item>
         <item>Bøker</item>
-        <item>Spot og Vilmark</item>
+        <item>Sport og Villmark</item>
         <item>Multimedia</item>
         <item>Diverse</item>
     </string-array>
+
     <string name="app_name">LåneLitt</string>
     <string name="my_assets">Mine Eiendeler</string>
 
@@ -18,14 +19,14 @@
     <string name="search_result">Søkeresultat</string>
 
     <string name="asset">Eiendel</string>
-    <string name="sko">Sko</string>
-    <string name="kler">Klær</string>
-    <string name="verktoy">Verktøy</string>
+    <string name="shoes">Sko</string>
+    <string name="clothes">Klær</string>
+    <string name="tools">Verktøy</string>
     <string name="el">Elektronikk</string>
     <string name="instrument">Instrument</string>
-    <string name="boker">Bøker</string>
-    <string name="sport">Sport</string>
-    <string name="multi">Multimedia</string>
+    <string name="books">Bøker</string>
+    <string name="sport">Sport Villmark</string>
+    <string name="media">Multimedia</string>
     <string name="div">Diverse</string>
 
     <string name="send_loan_request_pop">Send forespørsel</string>

@@ -12,13 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            tools:context=".homepage.HomePageFragment">
-
-            <TextView
-                android:id="@+id/id_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/not_signed_in" />
+            tools:context=".ui.view.HomePageFragment">
 
             <SearchView
                 android:id="@+id/search"
@@ -41,13 +35,13 @@
                         android:id="@+id/verktoyKnapp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="6dp"
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/verktoy"
+                        android:text="@string/tools"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp"/>
 
@@ -55,7 +49,7 @@
                         android:id="@+id/elKnapp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="6dp"
                         android:padding="@dimen/width_0dp"
@@ -69,7 +63,7 @@
                         android:id="@+id/instrumentKnapp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="6dp"
                         android:padding="@dimen/width_0dp"
@@ -86,13 +80,13 @@
                         android:id="@+id/klerKnapp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="6dp"
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/kler"
+                        android:text="@string/clothes"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp"/>
 
@@ -100,13 +94,13 @@
                         android:id="@+id/skoKnapp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="6dp"
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/sko"
+                        android:text="@string/shoes"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp"/>
 
@@ -114,13 +108,13 @@
                         android:id="@+id/bokerKnapp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="6dp"
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/boker"
+                        android:text="@string/books"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp"/>
                 </TableRow>
@@ -131,8 +125,8 @@
                         android:id="@+id/sportKnapp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="6dp"
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
@@ -145,13 +139,13 @@
                         android:id="@+id/multiKnapp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="6dp"
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/multi"
+                        android:text="@string/media"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp"/>
 
@@ -159,7 +153,7 @@
                         android:id="@+id/divKnapp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="@dimen/width_0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="110dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="6dp"
                         android:padding="@dimen/width_0dp"

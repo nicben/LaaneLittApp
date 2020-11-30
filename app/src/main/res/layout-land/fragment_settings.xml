@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".profile.settings.SettingsFragment">
+            tools:context=".ui.view.SettingsFragment">
 
             <TextView
                 android:id="@+id/textProfile"
@@ -25,7 +25,7 @@
                 android:textSize="16sp"
                 tools:layout_editor_absoluteX="4dp"
                 tools:layout_editor_absoluteY="16dp" />
-
+            <!--https://stackoverflow.com/questions/5049852/android-drawing-separator-divider-line-in-layout -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

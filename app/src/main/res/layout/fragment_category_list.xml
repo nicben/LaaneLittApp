@@ -3,13 +3,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.laanelitt.laanelittapp.MainActivity">
+    tools:context="com.laanelitt.laanelittapp.ui.view.MainActivity">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.laanelitt.laanelittapp.ListViewModel" />
+            type="com.laanelitt.laanelittapp.ui.viewModel.ListViewModel" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout

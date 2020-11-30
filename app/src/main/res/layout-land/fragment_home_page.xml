@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
@@ -15,7 +14,7 @@
             android:layout_marginStart="@dimen/start_end_landscap"
             android:layout_marginEnd="@dimen/start_end_landscap"
             android:orientation="vertical"
-            tools:context=".homepage.HomePageFragment">
+            tools:context=".ui.view.HomePageFragment">
 
 
             <SearchView
@@ -44,7 +43,7 @@
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/verktoy"
+                        android:text="@string/tools"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp" />
 
@@ -85,7 +84,7 @@
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/kler"
+                        android:text="@string/clothes"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp" />
 
@@ -98,7 +97,7 @@
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/sko"
+                        android:text="@string/shoes"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp"/>
 
@@ -110,7 +109,7 @@
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/boker"
+                        android:text="@string/books"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp"/>
                 </TableRow>
@@ -139,7 +138,7 @@
                         android:padding="@dimen/width_0dp"
                         android:layout_weight="3"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/multi"
+                        android:text="@string/media"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="12sp"/>
 

@@ -3,13 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="editViewModel"
-            type="com.laanelitt.laanelittapp.profile.settings.editimage.EditImageViewModel" />
-    </data>
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -34,8 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="65dp"
-                android:layout_marginEnd="65dp"
+                android:layout_marginStart="140dp"
+                android:layout_marginEnd="140dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image">
@@ -49,6 +42,7 @@
                     android:contentDescription="@string/takepicture"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
+                    android:elevation="4dp"
                     android:src="@drawable/ic_baseline_camera_alt_24"
                     android:tint="@color/colorPrimary" />
 
@@ -62,78 +56,15 @@
             android:layout_marginStart="@dimen/start_end_margin"
             android:layout_marginTop="@dimen/margin_top_XL"
             android:layout_marginEnd="@dimen/start_end_margin"
+            android:elevation="4dp"
             android:text="@string/save"
             android:textSize="@dimen/button_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttons" />
 
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:padding="16dp">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/image"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="266dp"-->
-<!--                android:background="@color/colorPrimary"-->
-<!--                android:contentDescription="@string/change_profile_img"-->
-<!--                android:scaleType="fitCenter"-->
-<!--                android:src="@drawable/default_asset_image" />-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/buttons"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_below="@id/image">-->
-
-<!--                <ImageButton-->
-<!--                    android:id="@+id/addImage"-->
-<!--                    android:layout_width="@dimen/buttonHeight"-->
-<!--                    android:layout_height="@dimen/buttonHeight"-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:contentDescription="@string/addimage"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:src="@drawable/ic_baseline_image_24"-->
-<!--                    android:tint="@color/colorPrimary" />-->
-
-<!--                <ImageButton-->
-<!--                    android:id="@+id/takePicture"-->
-<!--                    android:layout_width="@dimen/buttonHeight"-->
-<!--                    android:layout_height="@dimen/buttonHeight"-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:contentDescription="@string/takepicture"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:src="@drawable/ic_baseline_camera_alt_24"-->
-<!--                    android:tint="@color/colorPrimary" />-->
-
-<!--            </LinearLayout>-->
-
-<!--            <Button-->
-<!--            android:id="@+id/saveButton"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/height_btn"-->
-<!--            android:layout_gravity="start"-->
-<!--            android:layout_marginStart="@dimen/start_end_margin"-->
-<!--            android:layout_marginTop="@dimen/margin_top_S"-->
-<!--            android:layout_marginEnd="@dimen/start_end_margin"-->
-<!--            android:text="@string/save"-->
-<!--            android:textSize="@dimen/button_text_size"-->
-<!--            android:layout_below="@id/buttons"-->
-<!--            />-->
-
-<!--        </RelativeLayout>-->
 
     </ScrollView>
-
 
 </layout>

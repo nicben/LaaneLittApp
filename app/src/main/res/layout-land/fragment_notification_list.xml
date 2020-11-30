@@ -7,7 +7,7 @@
     <data>
         <variable
             name="notificationViewModel"
-            type="com.laanelitt.laanelittapp.notification.NotificationListViewModel" />
+            type="com.laanelitt.laanelittapp.ui.viewModel.NotificationListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,6 +44,5 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>
